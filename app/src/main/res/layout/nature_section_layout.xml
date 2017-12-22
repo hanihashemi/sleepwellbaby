@@ -27,16 +27,29 @@
         app:flRtl="true">
 
         <com.hanihashemi.babysleep.widget.MusicalButton
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            style="@style/MusicalButton"
+            android:layout_width="@dimen/musicalButtonSize"
+            android:layout_height="@dimen/musicalButtonSize" />
 
         <com.hanihashemi.babysleep.widget.MusicalButton
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            style="@style/MusicalButton"
+            android:layout_width="@dimen/musicalButtonSize"
+            android:layout_height="@dimen/musicalButtonSize" />
 
         <com.hanihashemi.babysleep.widget.MusicalButton
-            android:layout_width="70dp"
-            android:layout_height="70dp" />
+            style="@style/MusicalButton"
+            android:layout_width="@dimen/musicalButtonSize"
+            android:layout_height="@dimen/musicalButtonSize" />
+
+        <com.hanihashemi.babysleep.widget.MusicalButton
+            style="@style/MusicalButton"
+            android:layout_width="@dimen/musicalButtonSize"
+            android:layout_height="@dimen/musicalButtonSize" />
+
+        <com.hanihashemi.babysleep.widget.MusicalButton
+            style="@style/MusicalButton"
+            android:layout_width="@dimen/musicalButtonSize"
+            android:layout_height="@dimen/musicalButtonSize" />
+
     </com.nex3z.flowlayout.FlowLayout>
-
 </FrameLayout>
