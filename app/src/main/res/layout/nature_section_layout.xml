@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,39 +21,40 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <!--<com.nex3z.flowlayout.FlowLayout-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:paddingTop="30dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--app:flRtl="true">-->
+    <com.nex3z.flowlayout.FlowLayout
+        android:id="@+id/musicalButtonLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="30dp"
+        app:flRtl="true">
 
-    <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-    <!--style="@style/MusicalButton"-->
-    <!--android:layout_width="@dimen/musicalButtonSize"-->
-    <!--android:layout_height="@dimen/musicalButtonSize" />-->
+        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
+        <!--style="@style/MusicalButton"-->
+        <!--android:layout_width="@dimen/musicalButtonSize"-->
+        <!--android:layout_height="@dimen/musicalButtonSize" />-->
 
-    <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-    <!--style="@style/MusicalButton"-->
-    <!--android:layout_width="@dimen/musicalButtonSize"-->
-    <!--android:layout_height="@dimen/musicalButtonSize" />-->
+        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
+        <!--style="@style/MusicalButton"-->
+        <!--android:layout_width="@dimen/musicalButtonSize"-->
+        <!--android:layout_height="@dimen/musicalButtonSize" />-->
 
-    <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-    <!--style="@style/MusicalButton"-->
-    <!--android:layout_width="@dimen/musicalButtonSize"-->
-    <!--android:layout_height="@dimen/musicalButtonSize" />-->
+        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
+        <!--style="@style/MusicalButton"-->
+        <!--android:layout_width="@dimen/musicalButtonSize"-->
+        <!--android:layout_height="@dimen/musicalButtonSize" />-->
 
-    <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-    <!--style="@style/MusicalButton"-->
-    <!--android:layout_width="@dimen/musicalButtonSize"-->
-    <!--android:layout_height="@dimen/musicalButtonSize" />-->
+        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
+        <!--style="@style/MusicalButton"-->
+        <!--android:layout_width="@dimen/musicalButtonSize"-->
+        <!--android:layout_height="@dimen/musicalButtonSize" />-->
 
-    <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-    <!--style="@style/MusicalButton"-->
-    <!--android:layout_width="@dimen/musicalButtonSize"-->
-    <!--android:layout_height="@dimen/musicalButtonSize" />-->
+        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
+        <!--style="@style/MusicalButton"-->
+        <!--android:layout_width="@dimen/musicalButtonSize"-->
+        <!--android:layout_height="@dimen/musicalButtonSize" />-->
 
-    <!--</com.nex3z.flowlayout.FlowLayout>-->
+    </com.nex3z.flowlayout.FlowLayout>
 
     <GridLayout
         android:id="@+id/gridView"
@@ -60,6 +62,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:paddingTop="30dp">
-        
+
     </GridLayout>
 </FrameLayout>
