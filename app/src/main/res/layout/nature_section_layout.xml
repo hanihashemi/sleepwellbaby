@@ -21,47 +21,22 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <com.nex3z.flowlayout.FlowLayout
-        android:id="@+id/musicalButtonLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:paddingTop="30dp"
-        app:flRtl="true">
+    <!--<com.nex3z.flowlayout.FlowLayout-->
+        <!--android:id="@+id/musicalButtonLayout"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:paddingTop="30dp"-->
+        <!--app:flRtl="true"/>-->
 
-        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-        <!--style="@style/MusicalButton"-->
-        <!--android:layout_width="@dimen/musicalButtonSize"-->
-        <!--android:layout_height="@dimen/musicalButtonSize" />-->
-
-        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-        <!--style="@style/MusicalButton"-->
-        <!--android:layout_width="@dimen/musicalButtonSize"-->
-        <!--android:layout_height="@dimen/musicalButtonSize" />-->
-
-        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-        <!--style="@style/MusicalButton"-->
-        <!--android:layout_width="@dimen/musicalButtonSize"-->
-        <!--android:layout_height="@dimen/musicalButtonSize" />-->
-
-        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-        <!--style="@style/MusicalButton"-->
-        <!--android:layout_width="@dimen/musicalButtonSize"-->
-        <!--android:layout_height="@dimen/musicalButtonSize" />-->
-
-        <!--<com.hanihashemi.babysleep.widget.MusicalButton-->
-        <!--style="@style/MusicalButton"-->
-        <!--android:layout_width="@dimen/musicalButtonSize"-->
-        <!--android:layout_height="@dimen/musicalButtonSize" />-->
-
-    </com.nex3z.flowlayout.FlowLayout>
-
-    <GridLayout
+    <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="30dp">
-
-    </GridLayout>
+        android:numColumns="auto_fit"
+        android:columnWidth="90dp"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:paddingTop="30dp"/>
 </FrameLayout>
