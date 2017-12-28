@@ -6,11 +6,4 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/iransans</item>
     </style>
-
-    <style name="MusicalButton">
-        <item name="android:height">70dp</item>
-        <item name="android:width">70dp</item>
-        <item name="android:layout_margin">5dp</item>
-    </style>
-
 </resources>

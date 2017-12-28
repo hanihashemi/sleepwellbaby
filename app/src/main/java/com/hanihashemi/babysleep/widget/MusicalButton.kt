@@ -32,6 +32,7 @@ class MusicalButton : ImageView {
         setElevation()
         isClickable = true
         isFocusable = true
+        rotationY = 180F
     }
 
     private fun setElevation() {

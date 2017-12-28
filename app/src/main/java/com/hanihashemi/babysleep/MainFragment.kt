@@ -29,7 +29,6 @@ class MainFragment : BaseFragment() {
         val myLayout = inflate(context, R.layout.nature_section_layout, wrapperLayout)
         myLayout.findViewById<TextView>(R.id.title).text = "Hani"
 //        val musicalButtonLayout = myLayout.findViewById<FlowLayout>(R.id.musicalButtonLayout)
-//        val musicalButton = MusicalButton(context, null, R.style.MusicalButton)
 //        musicalButtonLayout.addView(musicalButton)
 
         val gridView = myLayout.findViewById<GridView>(R.id.gridView)

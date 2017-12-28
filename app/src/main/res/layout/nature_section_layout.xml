@@ -16,18 +16,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:text="طبیعت"
         android:textColor="#fff"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <!--<com.nex3z.flowlayout.FlowLayout-->
-        <!--android:id="@+id/musicalButtonLayout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:paddingTop="30dp"-->
-        <!--app:flRtl="true"/>-->
 
     <GridView
         android:id="@+id/gridView"
@@ -35,8 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:numColumns="auto_fit"
-        android:columnWidth="90dp"
+        android:columnWidth="70dp"
+        android:stretchMode="spacingWidth"
         android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp"
+        android:rotationY="180"
         android:paddingTop="30dp"/>
 </FrameLayout>
