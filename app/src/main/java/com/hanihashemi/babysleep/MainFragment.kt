@@ -1,5 +1,6 @@
 package com.hanihashemi.babysleep
 
+import android.os.Handler
 import android.view.View.inflate
 import android.widget.TextView
 import com.hanihashemi.babysleep.base.BaseFragment
@@ -75,6 +76,6 @@ class MainFragment : BaseFragment() {
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
         gridView.adapter = MusicalButtonAdapter(context, musics)
 
-
+        Handler().postDelayed({scrollView.scrollTo(0, 0)}, 100)
     }
 }
