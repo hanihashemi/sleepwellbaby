@@ -20,6 +20,7 @@ class MusicalButtonAdapter(private val context: Context, private val musics: Lis
             musicalButton = MusicalButton(context, null)
             musicalButton.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
             musicalButton.setOnClickListener{onItemClick(position)}
+            musicalButton.setImageResource(musics[position].icon)
         } else {
             musicalButton = convertView as MusicalButton
         }

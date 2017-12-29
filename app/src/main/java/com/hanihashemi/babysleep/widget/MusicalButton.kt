@@ -24,7 +24,6 @@ class MusicalButton : ImageView {
 
     fun init() {
         setBackgroundResource(R.drawable.music_button_background)
-        setImageResource(R.drawable.ic_cleaner)
         setPadding(context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F),
