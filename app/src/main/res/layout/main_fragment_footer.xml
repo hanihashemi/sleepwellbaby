@@ -19,7 +19,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/circle_ripple"
-        android:padding="8dp"
+        android:padding="2dp"
         app:srcCompat="@drawable/ic_timer"
         tools:ignore="ContentDescription" />
 
@@ -30,11 +30,27 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:background="@drawable/circle_ripple"
-        android:padding="8dp"
+        android:padding="2dp"
         app:srcCompat="@drawable/ic_play"
         tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/timer"
+        android:layout_toRightOf="@id/timer"
+        android:paddingLeft="5dp"
+        android:paddingStart="5dp"
+        android:paddingRight="0dp"
+        android:paddingEnd="0dp"
+        android:text="05:20"
+        android:paddingTop="5dp"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
