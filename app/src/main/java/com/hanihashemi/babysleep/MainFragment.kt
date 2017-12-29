@@ -4,9 +4,11 @@ import android.os.Handler
 import android.view.View.inflate
 import android.widget.TextView
 import com.hanihashemi.babysleep.base.BaseFragment
+import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
 import com.hanihashemi.babysleep.widget.ExpandableGridView
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment_header.*
 
 /**
  * Created by hani on 12/24/17.
@@ -77,5 +79,9 @@ class MainFragment : BaseFragment() {
         gridView.adapter = MusicalButtonAdapter(context, musics)
 
         Handler().postDelayed({scrollView.scrollTo(0, 0)}, 100)
+
+        airplane.setOnClickListener {
+            IntentHelper().openAirplaneModeSettings(activity)
+        }
     }
 }
