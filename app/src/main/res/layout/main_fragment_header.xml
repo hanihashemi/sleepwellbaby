@@ -30,28 +30,13 @@
         android:id="@+id/airplane"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/circle_ripple"
-        android:padding="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/silent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_airplanemode"
-        tools:ignore="ContentDescription" />
-
-    <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/silent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/circle_ripple"
         android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_silent"
+        app:srcCompat="@drawable/ic_airplanemode"
         tools:ignore="ContentDescription" />
 
     <TextView
