@@ -17,21 +17,49 @@ class MainFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.main_fragment
 
     override fun customizeUI() {
-        val musics = mutableListOf<Music>()
-        musics.add(Music(0, "First 0", R.drawable.ic_rain, false))
-        musics.add(Music(0, "First 0", R.drawable.ic_forest, false))
-        musics.add(Music(0, "First 0", R.drawable.ic_sea, false))
 
-        val myLayout = inflate(context, R.layout.section_layout, wrapperLayout)
-        myLayout.findViewById<TextView>(R.id.title).text = "طبیعت"
+        airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
+
+        // nature
+        val natureMusics = mutableListOf<Music>()
+        natureMusics.add(Music(0, "Forest", R.drawable.ic_forest))
+        natureMusics.add(Music(1, "Sea", R.drawable.ic_sea))
+        natureMusics.add(Music(2, "Rain", R.drawable.ic_rain))
+
+        //mother
+        val motherMusics = mutableListOf<Music>()
+        motherMusics.add(Music(3, "Heart", R.drawable.ic_heart))
+        motherMusics.add(Music(4, "Lung", R.drawable.ic_lung))
+        motherMusics.add(Music(5, "Womb", R.drawable.ic_womb))
+
+        //transport
+        val transportMusics = mutableListOf<Music>()
+        transportMusics.add(Music(6, "Car", R.drawable.ic_car))
+        transportMusics.add(Music(7, "Airplane", R.drawable.ic_airplane))
+        transportMusics.add(Music(8, "Train", R.drawable.ic_train))
+        transportMusics.add(Music(9, "Helicopter", R.drawable.ic_helicopter))
+
+        //appliance
+        val applianceMusics = mutableListOf<Music>()
+        applianceMusics.add(Music(10, "Blender", R.drawable.ic_blender))
+        applianceMusics.add(Music(11, "Cleaner", R.drawable.ic_cleaner))
+
+
+        addSectionLayout("طبیعت", natureMusics)
+        addSectionLayout("مادر", motherMusics)
+        addSectionLayout("حمل و نقل", transportMusics)
+        addSectionLayout("لوازم خانگی", applianceMusics)
+
+        Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    }
+
+    private fun addSectionLayout(name: String, natureMusics: MutableList<Music>) {
+        val myLayout = inflate(context, R.layout.section_layout, null)
+        myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        gridView.adapter = MusicalButtonAdapter(context, musics)
+        gridView.adapter = MusicalButtonAdapter(context, natureMusics)
 
-        Handler().postDelayed({scrollView.scrollTo(0, 0)}, 100)
-
-        airplane.setOnClickListener {
-            IntentHelper().openAirplaneModeSettings(activity)
-        }
+        wrapperLayout.addView(myLayout)
     }
 }
