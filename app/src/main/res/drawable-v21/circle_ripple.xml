@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#8cf5f5f5">
+
+    <!--the normal bg color will be light grey &ndash;&gt;-->
+    <item>
+        <color android:color="@android:color/transparent"/>
+    </item>
+
+    <item android:id="@android:id/mask">
+        <shape android:shape="oval">
+            <solid android:color="?android:colorAccent"/>
+            <corners android:radius="@dimen/corner_radius"/>
+        </shape>
+    </item>
+</ripple>
