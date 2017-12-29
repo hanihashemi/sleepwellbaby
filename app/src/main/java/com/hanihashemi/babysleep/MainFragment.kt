@@ -18,7 +18,9 @@ class MainFragment : BaseFragment() {
 
     override fun customizeUI() {
         val musics = mutableListOf<Music>()
-        musics.add(Music(0, "First 0", R.drawable.ic_cleaner, false))
+        musics.add(Music(0, "First 0", R.drawable.ic_rain, false))
+        musics.add(Music(0, "First 0", R.drawable.ic_forest, false))
+        musics.add(Music(0, "First 0", R.drawable.ic_sea, false))
 
         val myLayout = inflate(context, R.layout.section_layout, wrapperLayout)
         myLayout.findViewById<TextView>(R.id.title).text = "طبیعت"
