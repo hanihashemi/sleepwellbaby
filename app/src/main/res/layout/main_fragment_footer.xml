@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/controlLayout"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    android:layout_alignParentBottom="true"
+    android:background="#463f6d"
+    android:gravity="center_horizontal">
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/circle_ripple"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_timer"
+        tools:ignore="ContentDescription" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/playOrPause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/circle_ripple"
+        android:padding="8dp"
+        app:srcCompat="@drawable/ic_play"
+        tools:ignore="ContentDescription" />
+
+</RelativeLayout>

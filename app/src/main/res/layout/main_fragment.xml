@@ -30,12 +30,5 @@
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/controlLayout"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:background="#463f6d">
-
-    </RelativeLayout>
+    <include layout="@layout/main_fragment_footer" />
 </RelativeLayout>
