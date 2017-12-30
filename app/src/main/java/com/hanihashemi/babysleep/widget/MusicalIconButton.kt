@@ -12,7 +12,7 @@ import com.hanihashemi.babysleep.helper.dpToPx
  * Created by hani on 12/21/17.
  */
 
-class MusicalButton : ImageView {
+class MusicalIconButton : ImageView {
 
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs, 0) {
         init()

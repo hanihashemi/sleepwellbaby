@@ -6,26 +6,26 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.hanihashemi.babysleep.helper.dpToPx
 import com.hanihashemi.babysleep.model.Music
-import com.hanihashemi.babysleep.widget.MusicalButton
+import com.hanihashemi.babysleep.widget.MusicalIconButton
 import timber.log.Timber
 
 /**
  * Created by hani on 12/24/17.
  */
-class MusicalButtonAdapter(private val context: Context, private val musics: List<Music>) : BaseAdapter(){
+class MusicalIconButtonAdapter(private val context: Context, private val musics: List<Music>) : BaseAdapter(){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val musicalButton: MusicalButton
+        val button: MusicalIconButton
 
         if (convertView == null) {
-            musicalButton = MusicalButton(context, null)
-            musicalButton.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
-            musicalButton.setOnClickListener{onItemClick(position)}
-            musicalButton.setImageResource(musics[position].icon)
+            button = MusicalIconButton(context, null)
+            button.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
+            button.setOnClickListener{onItemClick(position)}
+            button.setImageResource(musics[position].icon)
         } else {
-            musicalButton = convertView as MusicalButton
+            button = convertView as MusicalIconButton
         }
 
-        return musicalButton
+        return button
     }
 
     private fun onItemClick(position: Int){

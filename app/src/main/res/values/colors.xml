@@ -5,4 +5,13 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="mainBackground">#7f6087</color>
+
+    <color name="itemHasani">#f19926</color>
+    <color name="itemChera">#79dc2d</color>
+    <color name="itemGonjeshkLala">#de2886</color>
+
+    <color name="itemDannyBoy">#941ed8</color>
+    <color name="itemGotoSleep">#1860cc</color>
+    <color name="itemLullaby">#ced811</color>
+    <color name="itemMusicBox">#d31b1b</color>
 </resources>

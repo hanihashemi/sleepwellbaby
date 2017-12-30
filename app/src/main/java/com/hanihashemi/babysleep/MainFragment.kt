@@ -22,43 +22,67 @@ class MainFragment : BaseFragment() {
 
         // nature
         val natureMusics = mutableListOf<Music>()
-        natureMusics.add(Music(0, "Forest", R.drawable.ic_forest))
-        natureMusics.add(Music(1, "Sea", R.drawable.ic_sea))
-        natureMusics.add(Music(2, "Rain", R.drawable.ic_rain))
+        natureMusics.add(Music(0, R.drawable.ic_forest))
+        natureMusics.add(Music(1, R.drawable.ic_sea))
+        natureMusics.add(Music(2, R.drawable.ic_rain))
 
         //mother
         val motherMusics = mutableListOf<Music>()
-        motherMusics.add(Music(3, "Heart", R.drawable.ic_heart))
-        motherMusics.add(Music(4, "Lung", R.drawable.ic_lung))
-        motherMusics.add(Music(5, "Womb", R.drawable.ic_womb))
+        motherMusics.add(Music(3, R.drawable.ic_heart))
+        motherMusics.add(Music(4, R.drawable.ic_lung))
+        motherMusics.add(Music(5, R.drawable.ic_womb))
 
         //transport
         val transportMusics = mutableListOf<Music>()
-        transportMusics.add(Music(6, "Car", R.drawable.ic_car))
-        transportMusics.add(Music(7, "Airplane", R.drawable.ic_airplane))
-        transportMusics.add(Music(8, "Train", R.drawable.ic_train))
-        transportMusics.add(Music(9, "Helicopter", R.drawable.ic_helicopter))
+        transportMusics.add(Music(6, R.drawable.ic_car))
+        transportMusics.add(Music(7, R.drawable.ic_airplane))
+        transportMusics.add(Music(8, R.drawable.ic_train))
+        transportMusics.add(Music(9, R.drawable.ic_helicopter))
 
         //appliance
         val applianceMusics = mutableListOf<Music>()
-        applianceMusics.add(Music(10, "Blender", R.drawable.ic_blender))
-        applianceMusics.add(Music(11, "Cleaner", R.drawable.ic_cleaner))
+        applianceMusics.add(Music(10, R.drawable.ic_blender))
+        applianceMusics.add(Music(11, R.drawable.ic_cleaner))
 
+        //persian songs
+        val persianMusics = mutableListOf<Music>()
+        persianMusics.add(Music(12, "حسنی", R.color.itemHasani))
+        persianMusics.add(Music(13, "گنجشک لالا", R.color.itemGonjeshkLala))
+        persianMusics.add(Music(14, "چرا", R.color.itemChera))
 
-        addSectionLayout("طبیعت", natureMusics)
-        addSectionLayout("مادر", motherMusics)
-        addSectionLayout("حمل و نقل", transportMusics)
-        addSectionLayout("لوازم خانگی", applianceMusics)
+        //english songs
+        val englishMusics = mutableListOf<Music>()
+        englishMusics.add(Music(15, "Music Box", R.color.itemMusicBox))
+        englishMusics.add(Music(17, "Danny Boy", R.color.itemDannyBoy))
+        englishMusics.add(Music(16, "Lullabay", R.color.itemLullaby))
+        englishMusics.add(Music(17, "Go to Sleep", R.color.itemGotoSleep))
+
+        addIconSectionLayout("طبیعت", natureMusics)
+        addIconSectionLayout("مادر", motherMusics)
+        addIconSectionLayout("حمل و نقل", transportMusics)
+        addIconSectionLayout("لوازم خانگی", applianceMusics)
+        addTextSectionLayout("لالایی فارسی", persianMusics)
+        addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
 
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
     }
 
-    private fun addSectionLayout(name: String, natureMusics: MutableList<Music>) {
+    private fun addIconSectionLayout(name: String, natureMusics: MutableList<Music>) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        gridView.adapter = MusicalButtonAdapter(context, natureMusics)
+        gridView.adapter = MusicalIconButtonAdapter(context, natureMusics)
+
+        wrapperLayout.addView(myLayout)
+    }
+
+    private fun addTextSectionLayout(name: String, natureMusics: MutableList<Music>) {
+        val myLayout = inflate(context, R.layout.section_layout, null)
+        myLayout.findViewById<TextView>(R.id.title).text = name
+
+        val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
+        gridView.adapter = MusicalTextButtonAdapter(context, natureMusics)
 
         wrapperLayout.addView(myLayout)
     }
