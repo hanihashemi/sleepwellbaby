@@ -22,8 +22,7 @@ class MusicalIconButton : ImageView {
         init()
     }
 
-    fun init() {
-        setBackgroundResource(R.drawable.music_button_background)
+    private fun init() {
         setPadding(context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F),

@@ -21,6 +21,10 @@ class MusicalIconButtonAdapter(private val context: Context, private val musics:
             button.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
             button.setOnClickListener{onItemClick(position)}
             button.setImageResource(musics[position].icon)
+            if (musics[position].isActive)
+                button.setBackgroundResource(R.drawable.active_music_button_background)
+            else
+                button.setBackgroundResource(R.drawable.music_button_background)
         } else {
             button = convertView as MusicalIconButton
         }
