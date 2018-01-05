@@ -1,5 +1,6 @@
 package com.hanihashemi.babysleep
 
+import android.content.Intent
 import android.os.Handler
 import android.view.View.inflate
 import android.widget.TextView
@@ -10,6 +11,7 @@ import com.hanihashemi.babysleep.widget.ExpandableGridView
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment_header.*
 
+
 /**
  * Created by hani on 12/24/17.
  */
@@ -19,6 +21,14 @@ class MainFragment : BaseFragment() {
     override fun customizeUI() {
 
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
+        settings.setOnClickListener {
+            //            if (!MediaPlayerService.isServiceRunning(context)) {
+            val intent = Intent(context, MediaPlayerService::class.java)
+            intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.PLAY.ordinal)
+            intent.putExtra(MediaPlayerService.ARGUMENT.SONG_NAME.name, R.raw.all_pretty_horses)
+            context.startService(intent)
+//            }
+        }
 
         // nature
         val natureMusics = mutableListOf<Music>()
