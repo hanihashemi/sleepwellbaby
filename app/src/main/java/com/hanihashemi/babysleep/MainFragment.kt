@@ -1,9 +1,15 @@
 package com.hanihashemi.babysleep
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Handler
+import android.support.v4.content.LocalBroadcastManager
+import android.util.Log
 import android.view.View.inflate
 import android.widget.TextView
+import android.widget.Toast
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
@@ -95,5 +101,23 @@ class MainFragment : BaseFragment() {
         gridView.adapter = MusicalTextButtonAdapter(context, natureMusics)
 
         wrapperLayout.addView(myLayout)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiver, IntentFilter("custom-event-name"));
+    }
+
+    override fun onPause() {
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(mMessageReceiver);
+        super.onPause()
+    }
+
+    val mMessageReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val message = intent?.getStringExtra("message")
+            Toast.makeText(context, "Got message: " + message, Toast.LENGTH_LONG).show()
+        }
+
     }
 }

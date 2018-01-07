@@ -7,20 +7,20 @@ import android.content.Intent
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.IBinder
+import android.support.v4.content.LocalBroadcastManager
 
 
 /**
  * Created by irantalent on 1/4/18.
  */
-public class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
     lateinit var mediaPlayer: MediaPlayer
-    var count = 0
 
-    public enum class ACTION {
+    enum class ACTION {
         PLAY, PAUSE, STOP, SYNC
     }
 
-    public enum class ARGUMENT {
+    enum class ARGUMENT {
         ACTION, SONG_NAME
     }
 
@@ -50,13 +50,19 @@ public class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, Med
                 ACTION.STOP.ordinal -> {
                     stop()
                 }
-                ACTION.SYNC.ordinal -> {
-
-                }
             }
+
+            sync()
         }
 
         return START_STICKY
+    }
+
+    private fun sync() {
+        val intent = Intent("custom-event-name")
+        // You can also include some extra data.
+        intent.putExtra("message", "This is my message!")
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
     }
 
     private fun stop() {
