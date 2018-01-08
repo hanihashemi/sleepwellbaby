@@ -20,7 +20,6 @@ class MusicalTextButton : Button{
     }
 
     fun init() {
-        setBackgroundResource(R.drawable.music_button_background)
         setPadding(context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F),

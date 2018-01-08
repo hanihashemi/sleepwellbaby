@@ -6,8 +6,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.support.v4.content.LocalBroadcastManager
-import android.util.Log
 import android.view.View.inflate
+import android.widget.BaseAdapter
 import android.widget.TextView
 import android.widget.Toast
 import com.hanihashemi.babysleep.base.BaseFragment
@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.main_fragment_header.*
  */
 class MainFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.main_fragment
+    val musicList = mutableListOf<Music>()
+    val adapterList = mutableListOf<BaseAdapter>()
 
     override fun customizeUI() {
 
@@ -83,37 +85,50 @@ class MainFragment : BaseFragment() {
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
     }
 
-    private fun addIconSectionLayout(name: String, natureMusics: MutableList<Music>) {
+    private fun addIconSectionLayout(name: String, musics: MutableList<Music>) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        gridView.adapter = MusicalIconButtonAdapter(context, natureMusics)
+        val musicalIconButtonAdapter = MusicalIconButtonAdapter(context, musics, { music -> onItemClick(music) })
 
+        gridView.adapter = musicalIconButtonAdapter
         wrapperLayout.addView(myLayout)
+        adapterList.add(musicalIconButtonAdapter)
+        musicList.addAll(musics)
     }
 
-    private fun addTextSectionLayout(name: String, natureMusics: MutableList<Music>) {
+    private fun addTextSectionLayout(name: String, musics: MutableList<Music>) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        gridView.adapter = MusicalTextButtonAdapter(context, natureMusics)
+        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onItemClick(music) })
 
+        gridView.adapter = musicTextButtonAdapter
         wrapperLayout.addView(myLayout)
+        adapterList.add(musicTextButtonAdapter)
+        musicList.addAll(musics)
+    }
+
+    private fun onItemClick(music: Music) {
+        musicList.forEach { item -> item.isActive = false }
+        music.isActive = !music.isActive
+
+        adapterList.forEach { item -> item.notifyDataSetChanged() }
     }
 
     override fun onResume() {
         super.onResume()
-        LocalBroadcastManager.getInstance(context).registerReceiver(mMessageReceiver, IntentFilter("custom-event-name"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("custom-event-name"));
     }
 
     override fun onPause() {
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(mMessageReceiver);
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver);
         super.onPause()
     }
 
-    val mMessageReceiver = object : BroadcastReceiver() {
+    private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val message = intent?.getStringExtra("message")
             Toast.makeText(context, "Got message: " + message, Toast.LENGTH_LONG).show()
