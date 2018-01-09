@@ -12,6 +12,7 @@
 
     <color name="itemDannyBoy">#941ed8</color>
     <color name="itemGotoSleep">#1860cc</color>
+    <color name="itemAllPrettyHorses">#18cc90</color>
     <color name="itemLullaby">#ced811</color>
     <color name="itemMusicBox">#d31b1b</color>
 </resources>

@@ -9,17 +9,17 @@ import kotlinx.android.parcel.Parcelize
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-class Music(val id: Long) : Parcelable {
-    public var isActive = false
-    public var name = ""
-    public var icon: Int = -1
-    public var color: Int = -1
+class Music(val id: Long, val fileId: Int) : Parcelable {
+    @Transient var isActive = false
+    @Transient var name = ""
+    @Transient var icon: Int = -1
+    @Transient var color: Int = -1
 
-    constructor(id: Long, icon: Int) : this(id) {
+    constructor(id: Long, fileId: Int, icon: Int) : this(id, fileId) {
         this.icon = icon
     }
 
-    constructor(id: Long, name: String, color: Int) : this(id) {
+    constructor(id: Long, fileId: Int, name: String, color: Int) : this(id, fileId) {
         this.name = name
         this.color = color
     }

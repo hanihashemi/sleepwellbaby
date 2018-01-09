@@ -33,40 +33,41 @@ class MainFragment : BaseFragment() {
 
         // nature
         val natureMusics = mutableListOf<Music>()
-        natureMusics.add(Music(0, R.drawable.ic_forest))
-        natureMusics.add(Music(1, R.drawable.ic_sea))
-        natureMusics.add(Music(2, R.drawable.ic_rain))
+        natureMusics.add(Music(0, R.raw.forest, R.drawable.ic_forest))
+        natureMusics.add(Music(1, R.raw.sea, R.drawable.ic_sea))
+        natureMusics.add(Music(2, R.raw.rain, R.drawable.ic_rain))
 
         //mother
         val motherMusics = mutableListOf<Music>()
-        motherMusics.add(Music(3, R.drawable.ic_heart))
-        motherMusics.add(Music(4, R.drawable.ic_lung))
-        motherMusics.add(Music(5, R.drawable.ic_womb))
+        motherMusics.add(Music(3, R.raw.heart, R.drawable.ic_heart))
+        motherMusics.add(Music(4, R.raw.lung, R.drawable.ic_lung))
+        motherMusics.add(Music(5, R.raw.womb, R.drawable.ic_womb))
 
         //transport
         val transportMusics = mutableListOf<Music>()
-        transportMusics.add(Music(6, R.drawable.ic_car))
-        transportMusics.add(Music(7, R.drawable.ic_airplane))
-        transportMusics.add(Music(8, R.drawable.ic_train))
-        transportMusics.add(Music(9, R.drawable.ic_helicopter))
+        transportMusics.add(Music(6, R.raw.car, R.drawable.ic_car))
+        transportMusics.add(Music(7, R.raw.airplane, R.drawable.ic_airplane))
+        transportMusics.add(Music(8, R.raw.train, R.drawable.ic_train))
+        transportMusics.add(Music(9, R.raw.helicopter, R.drawable.ic_helicopter))
 
         //appliance
         val applianceMusics = mutableListOf<Music>()
-        applianceMusics.add(Music(10, R.drawable.ic_blender))
-        applianceMusics.add(Music(11, R.drawable.ic_cleaner))
+        applianceMusics.add(Music(10, R.raw.blender, R.drawable.ic_blender))
+        applianceMusics.add(Music(11, R.raw.cleaner, R.drawable.ic_cleaner))
 
         //persian songs
         val persianMusics = mutableListOf<Music>()
-        persianMusics.add(Music(12, "حسنی", R.color.itemHasani))
-        persianMusics.add(Music(13, "گنجشک لالا", R.color.itemGonjeshkLala))
-        persianMusics.add(Music(14, "چرا", R.color.itemChera))
+        persianMusics.add(Music(12, R.raw.hasani, "حسنی", R.color.itemHasani))
+        persianMusics.add(Music(13, R.raw.gonjeshk, "گنجشک لالا", R.color.itemGonjeshkLala))
+        persianMusics.add(Music(14, R.raw.chera, "چرا", R.color.itemChera))
 
         //english songs
         val englishMusics = mutableListOf<Music>()
-        englishMusics.add(Music(15, "Music Box", R.color.itemMusicBox))
-        englishMusics.add(Music(17, "Danny Boy", R.color.itemDannyBoy))
-        englishMusics.add(Music(16, "Lullabay", R.color.itemLullaby))
-        englishMusics.add(Music(17, "Go to Sleep", R.color.itemGotoSleep))
+        englishMusics.add(Music(15, R.raw.music_box, "Music Box", R.color.itemMusicBox))
+        englishMusics.add(Music(17, R.raw.danny_boy, "Danny Boy", R.color.itemDannyBoy))
+        englishMusics.add(Music(16, R.raw.lullaby, "Lullabay", R.color.itemLullaby))
+        englishMusics.add(Music(17, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
+        englishMusics.add(Music(18, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
 
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
