@@ -9,12 +9,13 @@ import android.net.Uri
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import com.hanihashemi.babysleep.model.Music
+import timber.log.Timber
 
 
 /**
  * Created by irantalent on 1/4/18.
  */
-class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
+class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
     lateinit var mediaPlayer: MediaPlayer
 
     enum class ACTION {
@@ -40,7 +41,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
             when (action) {
                 ACTION.PLAY.ordinal -> {
                     val music = intent.getParcelableExtra<Music>(ARGUMENT.MUSIC_OBJ.name)
-//                    play(music.)
+                    play(music.fileId)
                 }
                 ACTION.PAUSE.ordinal -> {
                     pause()
@@ -65,7 +66,6 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
 
     private fun stop() {
         mediaPlayer.stop()
-        mediaPlayer.release()
     }
 
     private fun pause() {
@@ -82,9 +82,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
         super.onCreate()
         mediaPlayer = MediaPlayer()
         mediaPlayer.setOnPreparedListener(this)
-        mediaPlayer.setOnCompletionListener(this)
         mediaPlayer.setOnErrorListener(this)
-        mediaPlayer.isLooping = true
     }
 
     override fun onDestroy() {
@@ -100,11 +98,18 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
     }
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        when (what){
+            MediaPlayer.MEDIA_ERROR_UNKNOWN -> Timber.w("Error =====> MEDIA_ERROR_UNKNOWN")
+            MediaPlayer.MEDIA_ERROR_SERVER_DIED -> Timber.w("Error =====> MEDIA_ERROR_SERVER_DIED")
+        }
 
-    override fun onCompletion(mp: MediaPlayer?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        when (extra){
+            MediaPlayer.MEDIA_ERROR_IO -> Timber.w("Error =====> MEDIA_ERROR_IO")
+            MediaPlayer.MEDIA_ERROR_MALFORMED -> Timber.w("Error =====> MEDIA_ERROR_MALFORMED")
+            MediaPlayer.MEDIA_ERROR_TIMED_OUT -> Timber.w("Error =====> MEDIA_ERROR_TIME_OUT")
+            MediaPlayer.MEDIA_ERROR_UNSUPPORTED -> Timber.w("Error =====> MEDIA_ERROR_UNSUPPORTED")
+        }
 
+        return true
+    }
 }

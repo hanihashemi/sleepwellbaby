@@ -34,7 +34,7 @@ class MainFragment : BaseFragment() {
         // nature
         val natureMusics = mutableListOf<Music>()
         natureMusics.add(Music(0, R.raw.forest, R.drawable.ic_forest))
-        natureMusics.add(Music(1, R.raw.sea, R.drawable.ic_sea))
+        natureMusics.add(Music(1, R.raw.new_sea, R.drawable.ic_sea))
         natureMusics.add(Music(2, R.raw.rain, R.drawable.ic_rain))
 
         //mother
