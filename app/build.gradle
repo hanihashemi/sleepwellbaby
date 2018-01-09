@@ -3,6 +3,10 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 apply plugin: 'kotlin-android'
 
 android {
+    androidExtensions {
+        experimental = true
+    }
+
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.hanihashemi.babysleep"
