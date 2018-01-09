@@ -8,6 +8,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
+import com.hanihashemi.babysleep.model.Music
 
 
 /**
@@ -21,7 +22,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
     }
 
     enum class ARGUMENT {
-        ACTION, SONG_NAME
+        ACTION, MUSIC_OBJ
     }
 
 
@@ -38,11 +39,8 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
 
             when (action) {
                 ACTION.PLAY.ordinal -> {
-                    val songId = intent.getIntExtra(ARGUMENT.SONG_NAME.name, -1)
-                    if (songId == -1)
-                        throw Exception("songId doesn't provided !!")
-                    else
-                        play(songId)
+                    val music = intent.getParcelableExtra<Music>(ARGUMENT.MUSIC_OBJ.name)
+//                    play(music.)
                 }
                 ACTION.PAUSE.ordinal -> {
                     pause()

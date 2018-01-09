@@ -27,16 +27,9 @@ class MainFragment : BaseFragment() {
     val adapterList = mutableListOf<BaseAdapter>()
 
     override fun customizeUI() {
-
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
-        settings.setOnClickListener {
-            //            if (!MediaPlayerService.isServiceRunning(context)) {
-            val intent = Intent(context, MediaPlayerService::class.java)
-            intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.PLAY.ordinal)
-            intent.putExtra(MediaPlayerService.ARGUMENT.SONG_NAME.name, R.raw.all_pretty_horses)
-            context.startService(intent)
-//            }
-        }
+
+        sync()
 
         // nature
         val natureMusics = mutableListOf<Music>()
@@ -85,6 +78,12 @@ class MainFragment : BaseFragment() {
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
     }
 
+    private fun sync() {
+        val intent = Intent(context, MediaPlayerService::class.java)
+        intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.SYNC.ordinal)
+        context.startService(intent)
+    }
+
     private fun addIconSectionLayout(name: String, musics: MutableList<Music>) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
@@ -114,8 +113,12 @@ class MainFragment : BaseFragment() {
     private fun onItemClick(music: Music) {
         musicList.forEach { item -> item.isActive = false }
         music.isActive = !music.isActive
-
         adapterList.forEach { item -> item.notifyDataSetChanged() }
+
+        val intent = Intent(context, MediaPlayerService::class.java)
+        intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.PLAY.ordinal)
+        intent.putExtra(MediaPlayerService.ARGUMENT.MUSIC_OBJ.name, music)
+        context.startService(intent)
     }
 
     override fun onResume() {

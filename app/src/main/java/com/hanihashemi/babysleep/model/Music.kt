@@ -1,9 +1,15 @@
 package com.hanihashemi.babysleep.model
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  * Created by hani on 12/24/17.
  */
-class Music(val id: Long) {
+@SuppressLint("ParcelCreator")
+@Parcelize
+class Music(val id: Long) : Parcelable {
     public var isActive = false
     public var name = ""
     public var icon: Int = -1
