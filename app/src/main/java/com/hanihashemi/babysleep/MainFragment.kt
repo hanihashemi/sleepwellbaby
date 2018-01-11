@@ -6,15 +6,16 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.support.v4.content.LocalBroadcastManager
+import android.view.View
 import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.TextView
-import android.widget.Toast
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
 import com.hanihashemi.babysleep.widget.ExpandableGridView
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.main_fragment_footer.*
 import kotlinx.android.synthetic.main.main_fragment_header.*
 
 
@@ -23,18 +24,19 @@ import kotlinx.android.synthetic.main.main_fragment_header.*
  */
 class MainFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.main_fragment
-    val musicList = mutableListOf<Music>()
-    val adapterList = mutableListOf<BaseAdapter>()
+    private val musicList = mutableListOf<Music>()
+    private val adapterList = mutableListOf<BaseAdapter>()
+    private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
-
-        sync()
+        playToggle.setOnClickListener { onPlayToggleClick() }
+        syncRequest()
 
         // nature
         val natureMusics = mutableListOf<Music>()
         natureMusics.add(Music(0, R.raw.forest, R.drawable.ic_forest))
-        natureMusics.add(Music(1, R.raw.new_sea, R.drawable.ic_sea))
+        natureMusics.add(Music(1, R.raw.sea, R.drawable.ic_sea))
         natureMusics.add(Music(2, R.raw.rain, R.drawable.ic_rain))
 
         //mother
@@ -64,10 +66,10 @@ class MainFragment : BaseFragment() {
         //english songs
         val englishMusics = mutableListOf<Music>()
         englishMusics.add(Music(15, R.raw.music_box, "Music Box", R.color.itemMusicBox))
-        englishMusics.add(Music(17, R.raw.danny_boy, "Danny Boy", R.color.itemDannyBoy))
-        englishMusics.add(Music(16, R.raw.lullaby, "Lullabay", R.color.itemLullaby))
-        englishMusics.add(Music(17, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
-        englishMusics.add(Music(18, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
+        englishMusics.add(Music(16, R.raw.danny_boy, "Danny Boy", R.color.itemDannyBoy))
+        englishMusics.add(Music(17, R.raw.lullaby, "Lullabay", R.color.itemLullaby))
+        englishMusics.add(Music(18, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
+        englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
 
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
@@ -79,9 +81,26 @@ class MainFragment : BaseFragment() {
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
     }
 
-    private fun sync() {
+    private fun onPlayToggleClick() {
+        when (lastPlayerStatus) {
+            MediaPlayerService.STATUS.PLAYING -> {
+                val intent = Intent(context, MediaPlayerService::class.java)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PAUSE)
+                context.startService(intent)
+            }
+            MediaPlayerService.STATUS.PAUSE -> {
+                val intent = Intent(context, MediaPlayerService::class.java)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
+                context.startService(intent)
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun syncRequest() {
         val intent = Intent(context, MediaPlayerService::class.java)
-        intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.SYNC.ordinal)
+        intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SYNC)
         context.startService(intent)
     }
 
@@ -112,19 +131,15 @@ class MainFragment : BaseFragment() {
     }
 
     private fun onItemClick(music: Music) {
-        musicList.forEach { item -> item.isActive = false }
-        music.isActive = !music.isActive
-        adapterList.forEach { item -> item.notifyDataSetChanged() }
-
         val intent = Intent(context, MediaPlayerService::class.java)
-        intent.putExtra(MediaPlayerService.ARGUMENT.ACTION.name, MediaPlayerService.ACTION.PLAY.ordinal)
-        intent.putExtra(MediaPlayerService.ARGUMENT.MUSIC_OBJ.name, music)
+        intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
+        intent.putExtra(MediaPlayerService.ARGUMENTS.MUSIC_OBJ.name, music)
         context.startService(intent)
     }
 
     override fun onResume() {
         super.onResume()
-        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter("custom-event-name"));
+        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter(MediaPlayerService.BROADCAST_KEY));
     }
 
     override fun onPause() {
@@ -134,8 +149,29 @@ class MainFragment : BaseFragment() {
 
     private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val message = intent?.getStringExtra("message")
-            Toast.makeText(context, "Got message: " + message, Toast.LENGTH_LONG).show()
+            fun resetMusics() = musicList.forEach { item -> item.isActive = false }
+            fun resetMusics(elseId: Long?) = musicList.forEach { item -> item.isActive = item.id == elseId }
+
+            fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
+
+            val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
+            val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
+            lastPlayerStatus = status as MediaPlayerService.STATUS
+
+            when (status) {
+                MediaPlayerService.STATUS.PLAYING,
+                MediaPlayerService.STATUS.PAUSE -> {
+                    resetMusics(music?.id)
+                    notifyAllAdapters()
+                    playToggle.visibility = View.VISIBLE
+                    playToggle.setImageResource(if (status == MediaPlayerService.STATUS.PLAYING) R.drawable.ic_pause else R.drawable.ic_play)
+                }
+                MediaPlayerService.STATUS.STOP -> {
+                    resetMusics()
+                    notifyAllAdapters()
+                    playToggle.visibility = View.INVISIBLE
+                }
+            }
         }
 
     }
