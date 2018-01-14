@@ -1,6 +1,7 @@
 package com.hanihashemi.babysleep
 
 import android.app.Application
+import android.content.Context
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
 import com.hanihashemi.babysleep.helper.FakeCrashLibrary
@@ -17,6 +18,7 @@ class App : Application() {
         super.onCreate()
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+        NotificationManager(this as Context).createMainNotificationChannel()
 
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())

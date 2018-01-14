@@ -34,6 +34,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
         val BROADCAST_KEY = "message_from_mars"
         val BROADCAST_ARG_STATUS = "status"
         val BROADCAST_ARG_MUSIC = "music_track"
+        val ONGOING_NOTIFICATION_ID = 221
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -67,26 +68,31 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
     private fun stop() {
         sync(STATUS.STOP)
         mediaPlayer.stop()
+        stopForeground(true)
     }
 
     private fun pause() {
         sync(STATUS.PAUSE)
         mediaPlayer.pause()
+        stopForeground(true)
     }
 
     private fun play(music: Music?) {
         if (music == null)
             return
+
         this.music = music
-        sync(STATUS.PLAYING)
         mediaPlayer.reset()
         mediaPlayer.setDataSource(this, Uri.parse("android.resource://$packageName/${music.fileId}"))
         mediaPlayer.isLooping = true
         mediaPlayer.prepareAsync()
     }
 
+    private fun showNotification(title: String) = startForeground(ONGOING_NOTIFICATION_ID, NotificationManager(this as Context).mediaPlayerServiceNotification(title))
+
     override fun onCreate() {
         super.onCreate()
+
         mediaPlayer = MediaPlayer()
         mediaPlayer.setOnPreparedListener(this)
         mediaPlayer.setOnErrorListener(this)
@@ -100,6 +106,8 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
 
     override fun onPrepared(mp: MediaPlayer?) {
         mediaPlayer.start()
+        showNotification("در حال پخش")
+        sync(STATUS.PLAYING)
     }
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
