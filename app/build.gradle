@@ -35,6 +35,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.nex3z:flow-layout:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.6.0'
+//    compile 'com.google.android.exoplayer:exoplayer:2.6.1'
 }
 repositories {
     mavenCentral()

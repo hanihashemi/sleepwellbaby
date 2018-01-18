@@ -10,11 +10,13 @@ import android.support.v4.content.LocalBroadcastManager
 import com.hanihashemi.babysleep.model.Music
 import timber.log.Timber
 
+
 /**
  * Created by irantalent on 1/4/18.
  */
 class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
     private lateinit var mediaPlayer: MediaPlayer
+    //    private lateinit var player: SimpleExoPlayer
     private var music: Music? = null
     private var lastStatus = STATUS.STOP
 
@@ -86,6 +88,26 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
         mediaPlayer.setDataSource(this, Uri.parse("android.resource://$packageName/${music.fileId}"))
         mediaPlayer.isLooping = true
         mediaPlayer.prepareAsync()
+
+//        ///////////////////////////////
+
+//        val rendersFactory = DefaultRenderersFactory(this, null, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
+//        val trackSelector = DefaultTrackSelector()
+//        player = ExoPlayerFactory.newSimpleInstance(rendersFactory, trackSelector)
+//
+//        val dataSpec = DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.airplane_01))
+//        val rawResourceDataSource = RawResourceDataSource(this as Context)
+//        rawResourceDataSource.open(dataSpec)
+//
+//        val audioSource = ExtractorMediaSource(
+//                rawResourceDataSource.uri,
+//                DataSource.Factory({ rawResourceDataSource }),
+//                DefaultExtractorsFactory(),
+//                null, null)
+//        val loopingMediaSource = LoopingMediaSource(audioSource)
+//
+//        player.prepare(loopingMediaSource)
+//        player.playWhenReady = true
     }
 
     private fun showNotification(title: String) = startForeground(ONGOING_NOTIFICATION_ID, NotificationManager(this as Context).mediaPlayerServiceNotification(title))
