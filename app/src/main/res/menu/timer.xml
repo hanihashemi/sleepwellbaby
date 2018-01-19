@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/never"
+        android:title="هرگز" />
+
+    <item
+        android:id="@+id/fiveMinutes"
+        android:title="۵ دقیقه" />
+
+    <item
+        android:id="@+id/fifteenMinutes"
+        android:title="۱۵ دقیقه" />
+
+    <item
+        android:id="@+id/thirtyMinutes"
+        android:title="۳۰ دقیقه" />
+
+    <item
+        android:id="@+id/oneHour"
+        android:title="۱ ساعت" />
+
+</menu>

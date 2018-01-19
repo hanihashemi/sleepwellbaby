@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Handler
 import android.support.v4.content.LocalBroadcastManager
+import android.view.MenuItem
 import android.view.View
 import android.view.View.inflate
 import android.widget.BaseAdapter
@@ -14,6 +15,8 @@ import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
 import com.hanihashemi.babysleep.widget.ExpandableGridView
+import com.kennyc.bottomsheet.BottomSheet
+import com.kennyc.bottomsheet.BottomSheetListener
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment_footer.*
 import kotlinx.android.synthetic.main.main_fragment_header.*
@@ -31,6 +34,7 @@ class MainFragment : BaseFragment() {
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
         playToggle.setOnClickListener { onPlayToggleClick() }
+        timer.setOnClickListener { onTimerClick() }
         syncRequest()
 
         // nature
@@ -79,6 +83,43 @@ class MainFragment : BaseFragment() {
         addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
 
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    }
+
+    private fun onTimerClick() {
+        BottomSheet.Builder(activity)
+                .setSheet(R.menu.timer)
+                .setTitle("قطغ آهنگ بعد از ")
+                .setCancelable(true)
+                .setListener(object : BottomSheetListener {
+                    override fun onSheetDismissed(p0: BottomSheet, p1: Any?, p2: Int) {
+
+                    }
+
+                    override fun onSheetShown(p0: BottomSheet, p1: Any?) {
+
+                    }
+
+                    override fun onSheetItemSelected(p0: BottomSheet, item: MenuItem?, p2: Any?) {
+                        when (item?.itemId) {
+                            R.id.never -> {
+
+                            }
+                            R.id.fiveMinutes -> {
+
+                            }
+                            R.id.fifteenMinutes -> {
+
+                            }
+                            R.id.thirtyMinutes -> {
+
+                            }
+                            R.id.oneHour -> {
+
+                            }
+                        }
+                    }
+                })
+                .show()
     }
 
     private fun onPlayToggleClick() {
@@ -139,11 +180,11 @@ class MainFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter(MediaPlayerService.BROADCAST_KEY));
+        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter(MediaPlayerService.BROADCAST_KEY))
     }
 
     override fun onPause() {
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver);
+        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
         super.onPause()
     }
 
