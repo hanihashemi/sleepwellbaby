@@ -4,19 +4,16 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import com.hanihashemi.babysleep.model.Music
 import timber.log.Timber
 
-
 /**
  * Created by irantalent on 1/4/18.
  */
-class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener {
-    private lateinit var mediaPlayer: MediaPlayer
-    //    private lateinit var player: SimpleExoPlayer
+class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
+    private var player: PerfectLoopMediaPlayer? = null
     private var music: Music? = null
     private var lastStatus = STATUS.STOP
 
@@ -48,7 +45,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
             when ((action as ACTIONS)) {
                 ACTIONS.PLAY -> {
                     val receivedMusic = intent.getParcelableExtra<Music>(ARGUMENTS.MUSIC_OBJ.name)
-                    play(if (receivedMusic == null) this.music else receivedMusic)
+                    play(receivedMusic ?: this.music)
                 }
                 ACTIONS.PAUSE -> pause()
                 ACTIONS.STOP -> stop()
@@ -69,67 +66,36 @@ class MediaPlayerService : Service(), MediaPlayer.OnPreparedListener, MediaPlaye
 
     private fun stop() {
         sync(STATUS.STOP)
-        mediaPlayer.stop()
+        player?.stop()
         stopForeground(true)
     }
 
     private fun pause() {
         sync(STATUS.PAUSE)
-        mediaPlayer.pause()
+        player?.pause()
         stopForeground(true)
     }
 
     private fun play(music: Music?) {
         if (music == null)
             return
+        if (player != null && player!!.isPlaying) {
+            player?.stop()
+            player?.release()
+        }
 
         this.music = music
-        mediaPlayer.reset()
-        mediaPlayer.setDataSource(this, Uri.parse("android.resource://$packageName/${music.fileId}"))
-        mediaPlayer.isLooping = true
-        mediaPlayer.prepareAsync()
-
-//        ///////////////////////////////
-
-//        val rendersFactory = DefaultRenderersFactory(this, null, DefaultRenderersFactory.EXTENSION_RENDERER_MODE_OFF)
-//        val trackSelector = DefaultTrackSelector()
-//        player = ExoPlayerFactory.newSimpleInstance(rendersFactory, trackSelector)
-//
-//        val dataSpec = DataSpec(RawResourceDataSource.buildRawResourceUri(R.raw.airplane_01))
-//        val rawResourceDataSource = RawResourceDataSource(this as Context)
-//        rawResourceDataSource.open(dataSpec)
-//
-//        val audioSource = ExtractorMediaSource(
-//                rawResourceDataSource.uri,
-//                DataSource.Factory({ rawResourceDataSource }),
-//                DefaultExtractorsFactory(),
-//                null, null)
-//        val loopingMediaSource = LoopingMediaSource(audioSource)
-//
-//        player.prepare(loopingMediaSource)
-//        player.playWhenReady = true
+        player = PerfectLoopMediaPlayer.create(this, music.fileId)
+        showNotification("در حال پخش")
+        sync(STATUS.PLAYING)
     }
 
     private fun showNotification(title: String) = startForeground(ONGOING_NOTIFICATION_ID, NotificationManager(this as Context).mediaPlayerServiceNotification(title))
 
-    override fun onCreate() {
-        super.onCreate()
-
-        mediaPlayer = MediaPlayer()
-        mediaPlayer.setOnPreparedListener(this)
-        mediaPlayer.setOnErrorListener(this)
-    }
-
     override fun onDestroy() {
         sync(STATUS.STOP)
-        mediaPlayer.release()
+        player?.release()
         super.onDestroy()
-    }
-
-    override fun onPrepared(mp: MediaPlayer?) {
-        mediaPlayer.start()
-        showNotification("در حال پخش")
-        sync(STATUS.PLAYING)
     }
 
     override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
