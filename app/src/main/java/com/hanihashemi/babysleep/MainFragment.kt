@@ -163,13 +163,13 @@ class MainFragment : BaseFragment() {
                 MediaPlayerService.STATUS.PAUSE -> {
                     resetMusics(music?.id)
                     notifyAllAdapters()
-                    playToggle.visibility = View.VISIBLE
+                    includeControlLayout.visibility = View.VISIBLE
                     playToggle.setImageResource(if (status == MediaPlayerService.STATUS.PLAYING) R.drawable.ic_pause else R.drawable.ic_play)
                 }
                 MediaPlayerService.STATUS.STOP -> {
                     resetMusics()
                     notifyAllAdapters()
-                    playToggle.visibility = View.INVISIBLE
+                    includeControlLayout.visibility = View.GONE
                 }
             }
         }

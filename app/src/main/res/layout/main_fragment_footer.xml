@@ -35,7 +35,6 @@
         android:layout_marginRight="8dp"
         android:background="@drawable/circle_ripple"
         android:padding="2dp"
-        android:visibility="invisible"
         app:srcCompat="@drawable/ic_play"
         tools:ignore="ContentDescription" />
 

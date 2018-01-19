@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,10 +8,12 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/include"
-        android:layout_alignParentTop="true"
+        android:layout_height="0dp"
         android:background="@color/mainBackground"
+        app:layout_constraintBottom_toTopOf="@+id/includeControlLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:context="com.hanihashemi.babysleep.MainActivity">
 
         <LinearLayout
@@ -30,6 +33,14 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/main_fragment_footer"
-        android:id="@+id/include" />
-</RelativeLayout>
+    <include
+        android:id="@+id/includeControlLayout"
+        layout="@layout/main_fragment_footer"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+</android.support.constraint.ConstraintLayout>
