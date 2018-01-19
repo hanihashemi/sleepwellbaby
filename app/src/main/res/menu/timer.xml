@@ -7,18 +7,18 @@
 
     <item
         android:id="@+id/fiveMinutes"
-        android:title="۵ دقیقه" />
+        android:title="بعد از ۵ دقیقه" />
 
     <item
         android:id="@+id/fifteenMinutes"
-        android:title="۱۵ دقیقه" />
+        android:title="بعد از ۱۵ دقیقه" />
 
     <item
         android:id="@+id/thirtyMinutes"
-        android:title="۳۰ دقیقه" />
+        android:title="بعد از ۳۰ دقیقه" />
 
     <item
         android:id="@+id/oneHour"
-        android:title="۱ ساعت" />
+        android:title="بعد از یک ساعت" />
 
 </menu>

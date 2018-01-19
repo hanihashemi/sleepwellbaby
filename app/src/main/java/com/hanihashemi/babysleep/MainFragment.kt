@@ -88,7 +88,7 @@ class MainFragment : BaseFragment() {
     private fun onTimerClick() {
         BottomSheet.Builder(activity)
                 .setSheet(R.menu.timer)
-                .setTitle("قطغ آهنگ بعد از ")
+                .setTitle("قطع آهنگ")
                 .setCancelable(true)
                 .setListener(object : BottomSheetListener {
                     override fun onSheetDismissed(p0: BottomSheet, p1: Any?, p2: Int) {
