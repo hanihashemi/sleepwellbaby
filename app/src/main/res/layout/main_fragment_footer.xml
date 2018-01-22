@@ -38,9 +38,12 @@
         tools:ignore="ContentDescription" />
 
     <TextView
+        android:id="@+id/txtTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_toEndOf="@id/timer"
         android:layout_toRightOf="@id/timer"
         android:paddingEnd="0dp"
@@ -48,10 +51,8 @@
         android:paddingRight="0dp"
         android:paddingStart="5dp"
         android:paddingTop="5dp"
-        android:text="05:20"
         android:textColor="#fff"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="invisible" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

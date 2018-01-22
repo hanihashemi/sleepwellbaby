@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.CountDownTimer
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import com.hanihashemi.babysleep.model.Music
@@ -16,9 +17,11 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     private var player: PerfectLoopMediaPlayer? = null
     private var music: Music? = null
     private var lastStatus = STATUS.STOP
+    private var sleepTimerMillis = 0L
+    private var countDownTimer: CountDownTimer? = null
 
     enum class ACTIONS {
-        PLAY, PAUSE, STOP, SYNC
+        PLAY, PAUSE, STOP, SYNC, SET_SLEEP_TIMER
     }
 
     enum class STATUS {
@@ -26,14 +29,15 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     }
 
     enum class ARGUMENTS {
-        ACTION, MUSIC_OBJ
+        ACTION, MUSIC_OBJ, SLEEP_TIMER_MILLIS
     }
 
     companion object {
-        val BROADCAST_KEY = "message_from_mars"
-        val BROADCAST_ARG_STATUS = "status"
-        val BROADCAST_ARG_MUSIC = "music_track"
-        val ONGOING_NOTIFICATION_ID = 221
+        const val BROADCAST_KEY = "message_from_mars"
+        const val BROADCAST_ARG_STATUS = "status"
+        const val BROADCAST_ARG_MUSIC = "music_track"
+        const val BROADCAST_ARG_MILLIS_UNTIL_FINISHED = "CURRENT_MILLIS"
+        const val ONGOING_NOTIFICATION_ID = 221
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -50,28 +54,59 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
                 ACTIONS.PAUSE -> pause()
                 ACTIONS.STOP -> stop()
                 ACTIONS.SYNC -> sync(lastStatus)
+                ACTIONS.SET_SLEEP_TIMER -> {
+                    sleepTimerMillis = intent.getLongExtra(ARGUMENTS.SLEEP_TIMER_MILLIS.name, 0)
+                    stopTimer()
+                    if (player?.isPlaying!!)
+                        startTimer()
+                }
             }
         }
 
         return START_STICKY
     }
 
-    private fun sync(status: STATUS) {
+    private fun startTimer() {
+        if (sleepTimerMillis <= 2000L) {
+            sleepTimerMillis = 0
+            return
+        }
+        this.countDownTimer = object : CountDownTimer(sleepTimerMillis, 1000) {
+            override fun onFinish() {
+                stop()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                sleepTimerMillis = millisUntilFinished
+                sync(lastStatus, millisUntilFinished + 1)
+            }
+        }
+        this.countDownTimer?.start()
+    }
+
+    private fun stopTimer() {
+        this.countDownTimer?.cancel()
+    }
+
+    private fun sync(status: STATUS, millisUntilFinished: Long = 0) {
         lastStatus = status
         val intent = Intent(BROADCAST_KEY)
         intent.putExtra(BROADCAST_ARG_STATUS, lastStatus)
         intent.putExtra(BROADCAST_ARG_MUSIC, music)
+        intent.putExtra(BROADCAST_ARG_MILLIS_UNTIL_FINISHED, millisUntilFinished)
         LocalBroadcastManager.getInstance(this as Context).sendBroadcast(intent)
     }
 
     private fun stop() {
         sync(STATUS.STOP)
         player?.stop()
+        stopTimer()
         stopForeground(true)
     }
 
     private fun pause() {
         sync(STATUS.PAUSE)
+        stopTimer()
         player?.pause()
         stopForeground(true)
     }
@@ -85,6 +120,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
         }
 
         this.music = music
+        startTimer()
         player = PerfectLoopMediaPlayer.create(this, music.fileId)
         showNotification("در حال پخش")
         sync(STATUS.PLAYING)
@@ -93,8 +129,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     private fun showNotification(title: String) = startForeground(ONGOING_NOTIFICATION_ID, NotificationManager(this as Context).mediaPlayerServiceNotification(title))
 
     override fun onDestroy() {
-        sync(STATUS.STOP)
-        player?.release()
+        stop()
         super.onDestroy()
     }
 

@@ -26,7 +26,7 @@ class MusicalTextButtonAdapter(private val context: Context, private val musics:
             button.gravity = Gravity.CENTER
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setTypeface(null, Typeface.BOLD)
-            button.setTextColor(ContextCompat.getColor(context, musics[position].color))
+            button.setTextColor(ContextCompat.getColor(context, musics[position].colorOrIcon))
         } else {
             button = convertView as MusicalTextButton
         }

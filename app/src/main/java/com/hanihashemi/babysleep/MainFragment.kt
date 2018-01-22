@@ -39,27 +39,27 @@ class MainFragment : BaseFragment() {
 
         // nature
         val natureMusics = mutableListOf<Music>()
-        natureMusics.add(Music(0, R.raw.forest, R.drawable.ic_forest))
-        natureMusics.add(Music(1, R.raw.sea, R.drawable.ic_sea))
-        natureMusics.add(Music(2, R.raw.rain, R.drawable.ic_rain))
+        natureMusics.add(Music(0, R.raw.forest, "Forest", R.drawable.ic_forest))
+        natureMusics.add(Music(1, R.raw.sea, "Sea", R.drawable.ic_sea))
+        natureMusics.add(Music(2, R.raw.rain, "Rain", R.drawable.ic_rain))
 
         //mother
         val motherMusics = mutableListOf<Music>()
-        motherMusics.add(Music(3, R.raw.heart, R.drawable.ic_heart))
-        motherMusics.add(Music(4, R.raw.lung, R.drawable.ic_lung))
-        motherMusics.add(Music(5, R.raw.womb, R.drawable.ic_womb))
+        motherMusics.add(Music(3, R.raw.heart, "Hear", R.drawable.ic_heart))
+        motherMusics.add(Music(4, R.raw.lung, "Lung", R.drawable.ic_lung))
+        motherMusics.add(Music(5, R.raw.womb, "Womb", R.drawable.ic_womb))
 
         //transport
         val transportMusics = mutableListOf<Music>()
-        transportMusics.add(Music(6, R.raw.car, R.drawable.ic_car))
-        transportMusics.add(Music(7, R.raw.airplane, R.drawable.ic_airplane))
-        transportMusics.add(Music(8, R.raw.train, R.drawable.ic_train))
-        transportMusics.add(Music(9, R.raw.helicopter, R.drawable.ic_helicopter))
+        transportMusics.add(Music(6, R.raw.car, "Car", R.drawable.ic_car))
+        transportMusics.add(Music(7, R.raw.airplane, "Airplane", R.drawable.ic_airplane))
+        transportMusics.add(Music(8, R.raw.train, "Train", R.drawable.ic_train))
+        transportMusics.add(Music(9, R.raw.helicopter, "Helicopter", R.drawable.ic_helicopter))
 
         //appliance
         val applianceMusics = mutableListOf<Music>()
-        applianceMusics.add(Music(10, R.raw.blender, R.drawable.ic_blender))
-        applianceMusics.add(Music(11, R.raw.cleaner, R.drawable.ic_cleaner))
+        applianceMusics.add(Music(10, R.raw.blender, "Blender", R.drawable.ic_blender))
+        applianceMusics.add(Music(11, R.raw.cleaner, "Cleaner", R.drawable.ic_cleaner))
 
         //persian songs
         val persianMusics = mutableListOf<Music>()
@@ -100,23 +100,26 @@ class MainFragment : BaseFragment() {
                     }
 
                     override fun onSheetItemSelected(p0: BottomSheet, item: MenuItem?, p2: Any?) {
+                        var millis = 0L
                         when (item?.itemId) {
-                            R.id.never -> {
-
-                            }
                             R.id.fiveMinutes -> {
-
+                                millis = 30000L //300000L
                             }
                             R.id.fifteenMinutes -> {
-
+                                millis = 900000L
                             }
                             R.id.thirtyMinutes -> {
-
+                                millis = 18000000L
                             }
                             R.id.oneHour -> {
-
+                                millis = 3600000L
                             }
                         }
+
+                        val intent = Intent(context, MediaPlayerService::class.java)
+                        intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SET_SLEEP_TIMER)
+                        intent.putExtra(MediaPlayerService.ARGUMENTS.SLEEP_TIMER_MILLIS.name, millis)
+                        context.startService(intent)
                     }
                 })
                 .show()
@@ -197,7 +200,9 @@ class MainFragment : BaseFragment() {
 
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
+            val millisUntilFinished = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
             lastPlayerStatus = status as MediaPlayerService.STATUS
+            txtTimer.text = convertMillisToTime(millisUntilFinished)
 
             when (status) {
                 MediaPlayerService.STATUS.PLAYING,
@@ -215,5 +220,13 @@ class MainFragment : BaseFragment() {
             }
         }
 
+    }
+
+    private fun convertMillisToTime(millisUntilFinished: Long?): String {
+        val second = millisUntilFinished!! / 1000 % 60
+        val minute = millisUntilFinished / (1000 * 60) % 60
+
+        val time = String.format("%02d:%02d", minute, second)
+        return if (time == "00:00") "" else time
     }
 }
