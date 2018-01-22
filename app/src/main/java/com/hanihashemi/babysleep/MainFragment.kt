@@ -201,18 +201,19 @@ class MainFragment : BaseFragment() {
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
             val millisUntilFinished = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
-            lastPlayerStatus = status as MediaPlayerService.STATUS
             txtTimer.text = convertMillisToTime(millisUntilFinished)
 
             when (status) {
                 MediaPlayerService.STATUS.PLAYING,
                 MediaPlayerService.STATUS.PAUSE -> {
+                    lastPlayerStatus = status as MediaPlayerService.STATUS
                     resetMusics(music?.id)
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.VISIBLE
                     playToggle.setImageResource(if (status == MediaPlayerService.STATUS.PLAYING) R.drawable.ic_pause else R.drawable.ic_play)
                 }
                 MediaPlayerService.STATUS.STOP -> {
+                    lastPlayerStatus = status as MediaPlayerService.STATUS
                     resetMusics()
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.GONE
