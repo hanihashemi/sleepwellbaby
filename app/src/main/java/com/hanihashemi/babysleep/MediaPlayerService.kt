@@ -25,7 +25,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     }
 
     enum class STATUS {
-        PLAYING, PAUSE, STOP
+        PLAYING, PAUSE, STOP, NONE
     }
 
     enum class ARGUMENTS {
@@ -78,7 +78,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
 
             override fun onTick(millisUntilFinished: Long) {
                 sleepTimerMillis = millisUntilFinished
-                sync(lastStatus, millisUntilFinished + 1)
+                sync(STATUS.NONE, millisUntilFinished + 1)
             }
         }
         this.countDownTimer?.start()
