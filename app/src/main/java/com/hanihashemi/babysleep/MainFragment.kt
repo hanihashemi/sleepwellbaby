@@ -35,6 +35,7 @@ class MainFragment : BaseFragment() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { onTimerClick() }
+        settings.setOnClickListener { onSettingsClick() }
         syncRequest()
 
         // nature
@@ -83,6 +84,10 @@ class MainFragment : BaseFragment() {
         addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
 
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    }
+
+    private fun onSettingsClick() {
+        IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
     }
 
     private fun onTimerClick() {
