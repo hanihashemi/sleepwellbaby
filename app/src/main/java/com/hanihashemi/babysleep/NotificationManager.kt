@@ -61,7 +61,7 @@ class NotificationManager(private val context: Context) {
         return NotificationManager(context).createNotification()
                 .addAction(action)
                 .setContentTitle(title)
-                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setSmallIcon(R.drawable.ic_notification)
                 .setContentIntent(mainActivityIntent)
                 .build()
     }
