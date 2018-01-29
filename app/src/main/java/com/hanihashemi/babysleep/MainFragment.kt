@@ -108,7 +108,7 @@ class MainFragment : BaseFragment() {
                         var millis = 0L
                         when (item?.itemId) {
                             R.id.fiveMinutes -> {
-                                millis = 30000L //300000L
+                                millis = 300000L
                             }
                             R.id.fifteenMinutes -> {
                                 millis = 900000L
