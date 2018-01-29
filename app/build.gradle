@@ -3,10 +3,17 @@ apply plugin: 'org.jetbrains.kotlin.android.extensions'
 apply plugin: 'kotlin-android'
 
 android {
+    signingConfigs {
+        PremiumSign {
+            keyAlias 'babysleep'
+            keyPassword 'kkeGT#%g5vfw>/'
+            storeFile file('/Users/irantalent/Dropbox/Projects/Baby Sleep/keystore.jks')
+            storePassword 'Wewflk@;244!drt5~'
+        }
+    }
     androidExtensions {
         experimental = true
     }
-
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.hanihashemi.babysleep"
@@ -19,8 +26,9 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.PremiumSign
         }
     }
 }
@@ -31,7 +39,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.jakewharton.timber:timber:4.6.0'
-    implementation ('com.github.Kennyc1012:BottomSheet:2.4.0') {
+    implementation('com.github.Kennyc1012:BottomSheet:2.4.0') {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-v7'
