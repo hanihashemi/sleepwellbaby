@@ -148,6 +148,7 @@ class PerfectLoopMediaPlayer {
         }
     }
 
+    @Suppress("DEPRECATION")
     fun setAudioStreamType(audioStreamType: Int) {
         if (mCurrentPlayer != null) {
             mCurrentPlayer!!.setAudioStreamType(audioStreamType)
