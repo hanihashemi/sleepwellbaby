@@ -55,4 +55,13 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toEndOf="@+id/txtTimer"
+        android:layout_toLeftOf="@id/playToggle"
+        android:layout_toRightOf="@+id/txtTimer"
+        android:layout_toStartOf="@id/playToggle" />
+
 </RelativeLayout>
