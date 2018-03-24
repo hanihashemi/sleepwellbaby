@@ -117,6 +117,14 @@ class PerfectLoopMediaPlayer {
 
     }
 
+    fun currentPosition(): Int? {
+        return mCurrentPlayer?.currentPosition
+    }
+
+    fun duration(): Int? {
+        return mCurrentPlayer?.duration
+    }
+
     @Throws(IllegalStateException::class)
     fun stop() {
         if (mCurrentPlayer != null && mCurrentPlayer!!.isPlaying) {
@@ -125,7 +133,6 @@ class PerfectLoopMediaPlayer {
         } else {
             Log.d(TAG, "stop() | mCurrentPlayer " + "is NULL or not playing")
         }
-
     }
 
     @Throws(IllegalStateException::class)
