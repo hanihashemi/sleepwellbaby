@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.CountDownTimer
+import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
 import com.hanihashemi.babysleep.model.Music
@@ -19,6 +20,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     private var lastStatus = STATUS.STOP
     private var sleepTimerMillis = 0L
     private var countDownTimer: CountDownTimer? = null
+    private val progressHandler = Handler()
 
     enum class ACTIONS {
         PLAY, PAUSE, STOP, SYNC, SET_SLEEP_TIMER
@@ -36,7 +38,9 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
         const val BROADCAST_KEY = "message_from_mars"
         const val BROADCAST_ARG_STATUS = "status"
         const val BROADCAST_ARG_MUSIC = "music_track"
-        const val BROADCAST_ARG_MILLIS_UNTIL_FINISHED = "CURRENT_MILLIS"
+        const val BROADCAST_ARG_MILLIS_UNTIL_FINISHED = "current_millis"
+        const val BROADCAST_ARG_DURATION = "duration"
+        const val BROADCAST_ARG_CURRENT_POSITION = "current_position"
         const val ONGOING_NOTIFICATION_ID = 221
     }
 
@@ -78,7 +82,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
 
             override fun onTick(millisUntilFinished: Long) {
                 sleepTimerMillis = millisUntilFinished
-                sync(STATUS.NONE, millisUntilFinished + 1)
+                sync(STATUS.NONE)
             }
         }
         this.countDownTimer?.start()
@@ -88,12 +92,14 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
         this.countDownTimer?.cancel()
     }
 
-    private fun sync(status: STATUS, millisUntilFinished: Long = 0) {
+    private fun sync(status: STATUS) {
         lastStatus = status
         val intent = Intent(BROADCAST_KEY)
         intent.putExtra(BROADCAST_ARG_STATUS, lastStatus)
         intent.putExtra(BROADCAST_ARG_MUSIC, music)
-        intent.putExtra(BROADCAST_ARG_MILLIS_UNTIL_FINISHED, millisUntilFinished)
+        intent.putExtra(BROADCAST_ARG_MILLIS_UNTIL_FINISHED, sleepTimerMillis + 1)
+        intent.putExtra(BROADCAST_ARG_DURATION, player?.duration())
+        intent.putExtra(BROADCAST_ARG_CURRENT_POSITION, player?.currentPosition())
         LocalBroadcastManager.getInstance(this as Context).sendBroadcast(intent)
     }
 
@@ -114,16 +120,32 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     private fun play(music: Music?) {
         if (music == null)
             return
+
+        var lastPosition = player?.currentPosition() ?: 0
+
         if (player != null && player!!.isPlaying) {
             player?.stop()
             player?.release()
         }
+
+        if (this.music?.fileId != music.fileId)
+            lastPosition = 0
 
         this.music = music
         startTimer()
         player = PerfectLoopMediaPlayer.create(this, music.fileId)
         showNotification("در حال پخش")
         sync(STATUS.PLAYING)
+
+        progressHandler.removeCallbacksAndMessages(null)
+        progressHandler.post(object : Runnable {
+            override fun run() {
+                sync(lastStatus)
+                if (lastStatus == STATUS.PLAYING)
+                    progressHandler.postDelayed(this, 1000)
+            }
+
+        })
     }
 
     private fun showNotification(title: String) = startForeground(ONGOING_NOTIFICATION_ID, NotificationManager(this as Context).mediaPlayerServiceNotification(title))

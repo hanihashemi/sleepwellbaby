@@ -125,6 +125,10 @@ class PerfectLoopMediaPlayer {
         return mCurrentPlayer?.duration
     }
 
+    fun seekTo(msec: Int) {
+        mCurrentPlayer?.seekTo(msec)
+    }
+
     @Throws(IllegalStateException::class)
     fun stop() {
         if (mCurrentPlayer != null && mCurrentPlayer!!.isPlaying) {

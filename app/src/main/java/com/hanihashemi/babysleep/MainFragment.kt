@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Handler
 import android.support.v4.content.LocalBroadcastManager
 import android.view.MenuItem
@@ -36,6 +38,8 @@ class MainFragment : BaseFragment() {
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { onTimerClick() }
         settings.setOnClickListener { onSettingsClick() }
+        seekBar.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        seekBar.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
         syncRequest()
 
         // nature
@@ -206,6 +210,11 @@ class MainFragment : BaseFragment() {
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
             val millisUntilFinished = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
+            val duration = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_DURATION, 0) ?: 0
+            val currentPosition = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_CURRENT_POSITION, 0) ?: 0
+
+            seekBar.max = duration
+            seekBar.progress = currentPosition
             txtTimer.text = convertMillisToTime(millisUntilFinished)
 
             when (status) {
@@ -215,6 +224,7 @@ class MainFragment : BaseFragment() {
                     resetMusics(music?.id)
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.VISIBLE
+                    seekBar.visibility = View.VISIBLE
                     playToggle.setImageResource(if (status == MediaPlayerService.STATUS.PLAYING) R.drawable.ic_pause else R.drawable.ic_play)
                 }
                 MediaPlayerService.STATUS.STOP -> {
@@ -222,6 +232,7 @@ class MainFragment : BaseFragment() {
                     resetMusics()
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.GONE
+                    seekBar.visibility = View.GONE
                 }
             }
         }
