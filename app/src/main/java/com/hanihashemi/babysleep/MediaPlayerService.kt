@@ -23,7 +23,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     private val progressHandler = Handler()
 
     enum class ACTIONS {
-        PLAY, PAUSE, STOP, SYNC, SET_SLEEP_TIMER
+        PLAY, PAUSE, STOP, SYNC, SET_SLEEP_TIMER, SEEK_TO,
     }
 
     enum class STATUS {
@@ -31,7 +31,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
     }
 
     enum class ARGUMENTS {
-        ACTION, MUSIC_OBJ, SLEEP_TIMER_MILLIS
+        ACTION, MUSIC_OBJ, SLEEP_TIMER_MILLIS, SEEK_TO_MILLIS,
     }
 
     companion object {
@@ -58,6 +58,9 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
                 ACTIONS.PAUSE -> pause()
                 ACTIONS.STOP -> stop()
                 ACTIONS.SYNC -> sync(lastStatus)
+                ACTIONS.SEEK_TO -> {
+                    seekTo(intent.getIntExtra(ARGUMENTS.SEEK_TO_MILLIS.name, 0))
+                }
                 ACTIONS.SET_SLEEP_TIMER -> {
                     sleepTimerMillis = intent.getLongExtra(ARGUMENTS.SLEEP_TIMER_MILLIS.name, 0)
                     stopTimer()
@@ -68,6 +71,10 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
         }
 
         return START_STICKY
+    }
+
+    private fun seekTo(toMillis: Int) {
+        player?.seekTo(toMillis)
     }
 
     private fun startTimer() {
