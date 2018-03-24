@@ -12,7 +12,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.View.inflate
 import android.widget.BaseAdapter
+import android.widget.SeekBar
 import android.widget.TextView
+import android.widget.Toast
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
@@ -32,12 +34,29 @@ class MainFragment : BaseFragment() {
     private val musicList = mutableListOf<Music>()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
+    private var seekbarTouching = false
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { onTimerClick() }
         settings.setOnClickListener { onSettingsClick() }
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                seekbarTouching = true
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                seekbarTouching = false
+                val intent = Intent(context, MediaPlayerService::class.java)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SEEK_TO)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.SEEK_TO_MILLIS.name, seekBar?.progress)
+                context.startService(intent)
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+        })
         seekBar.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
         seekBar.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
         syncRequest()
@@ -214,7 +233,8 @@ class MainFragment : BaseFragment() {
             val currentPosition = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_CURRENT_POSITION, 0) ?: 0
 
             seekBar.max = duration
-            seekBar.progress = currentPosition
+            if (!seekbarTouching)
+                seekBar.progress = currentPosition
             txtTimer.text = convertMillisToTime(millisUntilFinished)
 
             when (status) {
