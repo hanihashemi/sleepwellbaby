@@ -14,14 +14,11 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
-import android.widget.Toast
-import com.hanihashemi.babysleep.MediaPlayerService
-import com.hanihashemi.babysleep.MusicalIconButtonAdapter
-import com.hanihashemi.babysleep.MusicalTextButtonAdapter
-import com.hanihashemi.babysleep.R
+import com.hanihashemi.babysleep.*
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
+import com.hanihashemi.babysleep.ui.record.RecordActivity
 import com.hanihashemi.babysleep.widget.ExpandableGridView
 import com.kennyc.bottomsheet.BottomSheet
 import com.kennyc.bottomsheet.BottomSheetListener
@@ -38,7 +35,7 @@ class MainFragment : BaseFragment() {
     private val musicList = mutableListOf<Music>()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
-    private var seekbarTouching = false
+    private var seekBarTouching = false
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
@@ -47,11 +44,11 @@ class MainFragment : BaseFragment() {
         settings.setOnClickListener { onSettingsClick() }
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                seekbarTouching = true
+                seekBarTouching = true
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                seekbarTouching = false
+                seekBarTouching = false
                 val intent = Intent(context, MediaPlayerService::class.java)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SEEK_TO)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.SEEK_TO_MILLIS.name, seekBar?.progress)
@@ -224,10 +221,10 @@ class MainFragment : BaseFragment() {
         musicList.addAll(musics)
     }
 
-    private fun onVoiceItemClick(music: Music){
-        when(music.id){
+    private fun onVoiceItemClick(music: Music) {
+        when (music.id) {
             20L -> {
-                Toast.makeText(context, "Hey", Toast.LENGTH_LONG).show()
+                RecordActivity.start(context)
             }
         }
     }
@@ -264,7 +261,7 @@ class MainFragment : BaseFragment() {
                     ?: 0
 
             seekBar.max = duration
-            if (!seekbarTouching)
+            if (!seekBarTouching)
                 seekBar.progress = currentPosition
             txtTimer.text = convertMillisToTime(millisUntilFinished)
 

@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="mainBackground">#7f6087</color>
+    <color name="textLight">#ffffff</color>
 
     <color name="itemHasani">#f19926</color>
     <color name="itemChera">#79dc2d</color>
