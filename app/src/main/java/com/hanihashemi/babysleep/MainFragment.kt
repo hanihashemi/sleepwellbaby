@@ -99,12 +99,17 @@ class MainFragment : BaseFragment() {
         englishMusics.add(Music(18, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
         englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
 
+        //english songs
+        val voices = mutableListOf<Music>()
+        voices.add(Music(20, "ضبط کن", R.color.itemAddVoice))
+
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
         addIconSectionLayout("حمل و نقل", transportMusics)
         addIconSectionLayout("لوازم خانگی", applianceMusics)
         addTextSectionLayout("لالایی فارسی", persianMusics)
         addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
+        addVoiceSectionLayout("صدای شما", voices)
 
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
     }
@@ -202,6 +207,27 @@ class MainFragment : BaseFragment() {
         musicList.addAll(musics)
     }
 
+    private fun addVoiceSectionLayout(name: String, musics: MutableList<Music>) {
+        val myLayout = inflate(context, R.layout.section_layout, null)
+        myLayout.findViewById<TextView>(R.id.title).text = name
+
+        val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
+        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onVoiceItemClick(music) })
+
+        gridView.adapter = musicTextButtonAdapter
+        wrapperLayout.addView(myLayout)
+        adapterList.add(musicTextButtonAdapter)
+        musicList.addAll(musics)
+    }
+
+    private fun onVoiceItemClick(music: Music){
+        when(music.id){
+            20L -> {
+                Toast.makeText(context, "Hey", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
     private fun onItemClick(music: Music) {
         val intent = Intent(context, MediaPlayerService::class.java)
         intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
@@ -230,7 +256,8 @@ class MainFragment : BaseFragment() {
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
             val millisUntilFinished = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
             val duration = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_DURATION, 0) ?: 0
-            val currentPosition = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_CURRENT_POSITION, 0) ?: 0
+            val currentPosition = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_CURRENT_POSITION, 0)
+                    ?: 0
 
             seekBar.max = duration
             if (!seekbarTouching)

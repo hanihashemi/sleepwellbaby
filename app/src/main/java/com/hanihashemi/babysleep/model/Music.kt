@@ -10,4 +10,5 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 class Music(val id: Long, val fileId: Int, val name: String, val colorOrIcon: Int, var isActive: Boolean = false) : Parcelable {
+    constructor(id: Long, name: String, colorOrIcon: Int, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isActive)
 }
