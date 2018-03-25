@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep
+package com.hanihashemi.babysleep.ui.main
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -15,6 +15,10 @@ import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
 import android.widget.Toast
+import com.hanihashemi.babysleep.MediaPlayerService
+import com.hanihashemi.babysleep.MusicalIconButtonAdapter
+import com.hanihashemi.babysleep.MusicalTextButtonAdapter
+import com.hanihashemi.babysleep.R
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music

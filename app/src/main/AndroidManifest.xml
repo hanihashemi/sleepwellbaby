@@ -13,7 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:supportsRtl,android:allowBackup">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

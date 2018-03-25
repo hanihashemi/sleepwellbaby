@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep
+package com.hanihashemi.babysleep.ui.main
 
 import android.support.v4.app.Fragment
 import com.hanihashemi.babysleep.base.BaseActivityWithSingleFragment
