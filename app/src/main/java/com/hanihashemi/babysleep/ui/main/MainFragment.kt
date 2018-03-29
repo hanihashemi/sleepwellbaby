@@ -14,7 +14,10 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
-import com.hanihashemi.babysleep.*
+import com.hanihashemi.babysleep.MediaPlayerService
+import com.hanihashemi.babysleep.MusicalIconButtonAdapter
+import com.hanihashemi.babysleep.MusicalTextButtonAdapter
+import com.hanihashemi.babysleep.R
 import com.hanihashemi.babysleep.base.BaseFragment
 import com.hanihashemi.babysleep.helper.IntentHelper
 import com.hanihashemi.babysleep.model.Music
@@ -25,7 +28,6 @@ import com.kennyc.bottomsheet.BottomSheetListener
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment_footer.*
 import kotlinx.android.synthetic.main.main_fragment_header.*
-
 
 /**
  * Created by hani on 12/24/17.
@@ -224,7 +226,9 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             20L -> {
-                RecordActivity.start(context)
+                VoiceRecordingDependency(activity, {
+                    RecordActivity.start(context)
+                }).check()
             }
         }
     }
