@@ -7,7 +7,7 @@ android {
         PremiumSign {
             keyAlias 'babysleep'
             keyPassword 'kkeGT#%g5vfw>/'
-            storeFile file('/Users/irantalent/Dropbox/Projects/Baby Sleep/keystore.jks')
+            storeFile file('~/Dropbox/Projects/Baby Sleep/keystore.jks')
             storePassword 'Wewflk@;244!drt5~'
         }
     }
