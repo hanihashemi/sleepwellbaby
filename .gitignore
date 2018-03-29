@@ -7,3 +7,4 @@
 .externalNativeBuild
 /.idea/
 /gradle.properties
+/app/release/
