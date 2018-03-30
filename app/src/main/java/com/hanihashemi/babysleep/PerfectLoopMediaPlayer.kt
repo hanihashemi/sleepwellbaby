@@ -20,7 +20,10 @@ class PerfectLoopMediaPlayer {
 
     private val onCompletionListener = MediaPlayer.OnCompletionListener { mediaPlayer ->
         mCurrentPlayer = mNextPlayer
-        createNextMediaPlayerRaw()
+        if (mPath == null)
+            createNextMediaPlayerRaw()
+        else
+            createNextMediaPlayerPath()
         mediaPlayer.release()
     }
 
@@ -71,6 +74,7 @@ class PerfectLoopMediaPlayer {
         mContext = context
         mPath = path
         try {
+            mCurrentPlayer = MediaPlayer()
             mCurrentPlayer!!.setDataSource(mPath)
             mCurrentPlayer!!.setOnPreparedListener { mCurrentPlayer!!.start() }
             mCurrentPlayer!!.prepareAsync()
@@ -93,15 +97,6 @@ class PerfectLoopMediaPlayer {
             mNextPlayer!!.prepareAsync()
         } catch (e: IOException) {
             e.printStackTrace()
-        }
-
-    }
-
-    fun setVolume(leftVolume: Float, rightVolume: Float) {
-        if (mCurrentPlayer != null) {
-            mCurrentPlayer!!.setVolume(leftVolume, rightVolume)
-        } else {
-            Log.d(TAG, "setVolume()")
         }
 
     }
@@ -150,40 +145,12 @@ class PerfectLoopMediaPlayer {
 
     }
 
-    fun setWakeMode(c: Context, mode: Int) {
-        if (mCurrentPlayer != null) {
-            mCurrentPlayer!!.setWakeMode(c, mode)
-            Log.d(TAG, "setWakeMode() | ")
-        } else {
-            Log.d(TAG, "setWakeMode() | " + "mCurrentPlayer is NULL")
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    fun setAudioStreamType(audioStreamType: Int) {
-        if (mCurrentPlayer != null) {
-            mCurrentPlayer!!.setAudioStreamType(audioStreamType)
-        } else {
-            Log.d(TAG, "setAudioStreamType() | " + "mCurrentPlayer is NULL")
-        }
-    }
-
     fun release() {
         Log.d(TAG, "release()")
         if (mCurrentPlayer != null)
             mCurrentPlayer!!.release()
         if (mNextPlayer != null)
             mNextPlayer!!.release()
-    }
-
-    fun reset() {
-        if (mCurrentPlayer != null) {
-            Log.d(TAG, "reset()")
-            mCurrentPlayer!!.reset()
-        } else {
-            Log.d(TAG, "reset() | " + "mCurrentPlayer is NULL")
-        }
-
     }
 
     companion object {
