@@ -9,6 +9,7 @@ import android.graphics.PorterDuff
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import android.view.View
 import android.view.View.inflate
@@ -109,7 +110,7 @@ class MainFragment : BaseFragment() {
 
         val audioFile = ContextCompat.getDataDir(context)
         audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
-                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index+1).toString(), R.color.itemAddVoice, false, file)) }
+                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, false, file)) }
 
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
@@ -220,7 +221,7 @@ class MainFragment : BaseFragment() {
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onVoiceItemClick(music) })
+        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onVoiceItemClick(music) }, { music -> onVoiceItemLongClick(music) })
 
         gridView.adapter = musicTextButtonAdapter
         wrapperLayout.addView(myLayout)
@@ -237,6 +238,17 @@ class MainFragment : BaseFragment() {
             }
             else -> onItemClick(music)
         }
+    }
+
+    private fun onVoiceItemLongClick(music: Music) {
+        if (music.id == 20)
+            return
+
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage("می خواهید این صدا را حذف کنید؟")
+                .setPositiveButton("بله", { _, _->music.file?.delete() })
+                .setNegativeButton("خیر", null)
+        builder.create().show()
     }
 
     private fun onItemClick(music: Music) {

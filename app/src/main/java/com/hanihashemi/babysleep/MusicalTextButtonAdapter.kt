@@ -10,12 +10,11 @@ import android.widget.BaseAdapter
 import com.hanihashemi.babysleep.helper.dpToPx
 import com.hanihashemi.babysleep.model.Music
 import com.hanihashemi.babysleep.widget.MusicalTextButton
-import timber.log.Timber
 
 /**
  * Created by hani on 12/24/17.
  */
-class MusicalTextButtonAdapter(private val context: Context, private val musics: List<Music>, private val onItemClick: (music: Music) -> Unit) : BaseAdapter() {
+class MusicalTextButtonAdapter(private val context: Context, private val musics: List<Music>, private val onItemClick: (music: Music) -> Unit, private val onItemLongClick: (music: Music) -> Unit = {}) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val button: MusicalTextButton
 
@@ -25,6 +24,10 @@ class MusicalTextButtonAdapter(private val context: Context, private val musics:
             button.text = musics[position].name
             button.gravity = Gravity.CENTER
             button.setOnClickListener { onItemClick(musics[position]) }
+            button.setOnLongClickListener {
+                onItemLongClick(musics[position])
+                false
+            }
             button.setTypeface(null, Typeface.BOLD)
             button.setTextColor(ContextCompat.getColor(context, musics[position].colorOrIcon))
         } else {
