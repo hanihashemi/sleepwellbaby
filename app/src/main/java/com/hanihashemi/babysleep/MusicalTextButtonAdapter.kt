@@ -41,7 +41,7 @@ class MusicalTextButtonAdapter(private val context: Context, private val musics:
 
     override fun getItem(position: Int) = musics[position]
 
-    override fun getItemId(position: Int) = musics[position].id
+    override fun getItemId(position: Int) = musics[position].id.toLong()
 
     override fun getCount() = musics.size
 }

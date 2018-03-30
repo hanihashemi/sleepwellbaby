@@ -140,7 +140,12 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
 
         this.music = music
         startTimer()
-        player = PerfectLoopMediaPlayer.create(this, music.fileId)
+
+        if (music.file != null)
+            player = PerfectLoopMediaPlayer.create(this, music.file!!.absolutePath)
+        else
+            player = PerfectLoopMediaPlayer.create(this, music.fileId)
+
         showNotification("در حال پخش")
         sync(STATUS.PLAYING)
 

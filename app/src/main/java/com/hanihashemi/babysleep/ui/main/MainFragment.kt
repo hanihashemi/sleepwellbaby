@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
+import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.view.MenuItem
 import android.view.View
@@ -105,6 +106,10 @@ class MainFragment : BaseFragment() {
         //english songs
         val voices = mutableListOf<Music>()
         voices.add(Music(20, "ضبط کن", R.color.itemAddVoice))
+
+        val audioFile = ContextCompat.getDataDir(context)
+        audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
+                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index+1).toString(), R.color.itemAddVoice, false, file)) }
 
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
@@ -225,11 +230,12 @@ class MainFragment : BaseFragment() {
 
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
-            20L -> {
+            20 -> {
                 VoiceRecordingDependency(activity, {
                     RecordActivity.start(context)
                 }).check()
             }
+            else -> onItemClick(music)
         }
     }
 
@@ -253,7 +259,7 @@ class MainFragment : BaseFragment() {
     private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             fun resetMusics() = musicList.forEach { item -> item.isActive = false }
-            fun resetMusics(elseId: Long?) = musicList.forEach { item -> item.isActive = item.id == elseId }
+            fun resetMusics(elseId: Int?) = musicList.forEach { item -> item.isActive = item.id == elseId }
 
             fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
 
