@@ -14,7 +14,7 @@ import com.hanihashemi.babysleep.widget.MusicalTextButton
 /**
  * Created by hani on 12/24/17.
  */
-class MusicalTextButtonAdapter(private val context: Context, private val musics: List<Music>, private val onItemClick: (music: Music) -> Unit, private val onItemLongClick: (music: Music) -> Unit = {}) : BaseAdapter() {
+class MusicalTextButtonAdapter(private val context: Context, private var musics: MutableList<Music>, private val onItemClick: (music: Music) -> Unit, private val onItemLongClick: (music: Music) -> Unit = {}) : BaseAdapter() {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val button: MusicalTextButton
 
@@ -40,6 +40,12 @@ class MusicalTextButtonAdapter(private val context: Context, private val musics:
             button.setBackgroundResource(R.drawable.music_button_background)
 
         return button
+    }
+
+    fun refresh(musics: List<Music>){
+        this.musics.clear()
+        this.musics.addAll(musics)
+        notifyDataSetChanged()
     }
 
     override fun getItem(position: Int) = musics[position]

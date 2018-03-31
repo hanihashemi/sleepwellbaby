@@ -40,6 +40,7 @@ class MainFragment : BaseFragment() {
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     private var seekBarTouching = false
+    var voiceItemsAdapter: MusicalTextButtonAdapter? = null
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
@@ -104,7 +105,28 @@ class MainFragment : BaseFragment() {
         englishMusics.add(Music(18, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
         englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
 
-        //english songs
+        addIconSectionLayout("طبیعت", natureMusics)
+        addIconSectionLayout("مادر", motherMusics)
+        addIconSectionLayout("حمل و نقل", transportMusics)
+        addIconSectionLayout("لوازم خانگی", applianceMusics)
+        addTextSectionLayout("لالایی فارسی", persianMusics)
+        addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
+        addVoiceSectionLayout("صدای شما")
+
+        Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        updateVoiceFiles()
+    }
+
+    private fun updateVoiceFiles() {
+        if (musicList.size == 0)
+            return
+
+        removeVoicesFromMusic()
+
         val voices = mutableListOf<Music>()
         voices.add(Music(20, "ضبط کن", R.color.itemAddVoice))
 
@@ -112,16 +134,11 @@ class MainFragment : BaseFragment() {
         audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
                 .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, false, file)) }
 
-        addIconSectionLayout("طبیعت", natureMusics)
-        addIconSectionLayout("مادر", motherMusics)
-        addIconSectionLayout("حمل و نقل", transportMusics)
-        addIconSectionLayout("لوازم خانگی", applianceMusics)
-        addTextSectionLayout("لالایی فارسی", persianMusics)
-        addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
-        addVoiceSectionLayout("صدای شما", voices)
-
-        Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+        voiceItemsAdapter?.refresh(voices)
+        musicList.addAll(voices)
     }
+
+    private fun removeVoicesFromMusic() = musicList.removeAll { it.id >= 20 }
 
     private fun onSettingsClick() {
         IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
@@ -216,17 +233,18 @@ class MainFragment : BaseFragment() {
         musicList.addAll(musics)
     }
 
-    private fun addVoiceSectionLayout(name: String, musics: MutableList<Music>) {
+    private fun addVoiceSectionLayout(name: String) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onVoiceItemClick(music) }, { music -> onVoiceItemLongClick(music) })
+        voiceItemsAdapter = MusicalTextButtonAdapter(context, mutableListOf(), { music -> onVoiceItemClick(music) }, { music -> onVoiceItemLongClick(music) })
 
-        gridView.adapter = musicTextButtonAdapter
+        gridView.adapter = voiceItemsAdapter
         wrapperLayout.addView(myLayout)
-        adapterList.add(musicTextButtonAdapter)
-        musicList.addAll(musics)
+        adapterList.add(voiceItemsAdapter!!)
+
+        updateVoiceFiles()
     }
 
     private fun onVoiceItemClick(music: Music) {
@@ -246,7 +264,10 @@ class MainFragment : BaseFragment() {
 
         val builder = AlertDialog.Builder(activity)
         builder.setMessage("می خواهید این صدا را حذف کنید؟")
-                .setPositiveButton("بله", { _, _->music.file?.delete() })
+                .setPositiveButton("بله", { _, _ ->
+                    music.file?.delete()
+                    updateVoiceFiles()
+                })
                 .setNegativeButton("خیر", null)
         builder.create().show()
     }
