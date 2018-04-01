@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.record_fragment.*
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
+import java.util.*
 
 /**
  * Created by Hani on 3/26/18.
@@ -16,6 +17,8 @@ class RecordFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.record_fragment
     private var mediaRecorder: MediaRecorder? = null
     private var file: File? = null
+    private val timer = Timer()
+    private var timerMillis = 0L
 
     override fun customizeUI() {
         btnCancel.setOnClickListener {
@@ -63,9 +66,20 @@ class RecordFragment : BaseFragment() {
         }
 
         mediaRecorder?.start()
+
+        timer.schedule(object: TimerTask() {
+            override fun run() {
+                if (timerMillis == 300L)
+                    activity.finish()
+
+                activity.runOnUiThread { txtTimer.text = convertMillisToTime(timerMillis * 1000) }
+                timerMillis++
+            }
+        }, 0, 1000)
     }
 
     private fun stopRecording() {
+        timer.cancel()
         mediaRecorder?.stop()
         mediaRecorder?.release()
         mediaRecorder = null
@@ -73,5 +87,12 @@ class RecordFragment : BaseFragment() {
 
     private fun deleteRecordingFile() {
         file?.deleteOnExit()
+    }
+
+    private fun convertMillisToTime(millis: Long?): String {
+        val second = millis!! / 1000 % 60
+        val minute = millis / (1000 * 60) % 60
+
+        return String.format("%02d:%02d", minute, second)
     }
 }
