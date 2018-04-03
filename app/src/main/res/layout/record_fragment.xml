@@ -63,4 +63,18 @@
         app:layout_constraintBottom_toTopOf="@+id/btnCancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.tyorikan.voicerecordingvisualizer.VisualizerView
+        android:id="@+id/visualizer"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTimer"
+        app:numColumns="100"
+        app:renderColor="@color/waveVisualization"
+        app:renderRange="top"
+        app:renderType="pixel" />
 </android.support.constraint.ConstraintLayout>

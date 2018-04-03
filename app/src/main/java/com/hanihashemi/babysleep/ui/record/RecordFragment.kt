@@ -4,6 +4,7 @@ import android.media.MediaRecorder
 import android.support.v4.content.ContextCompat
 import com.hanihashemi.babysleep.R
 import com.hanihashemi.babysleep.base.BaseFragment
+import com.tyorikan.voicerecordingvisualizer.RecordingSampler
 import kotlinx.android.synthetic.main.record_fragment.*
 import timber.log.Timber
 import java.io.File
@@ -34,8 +35,10 @@ class RecordFragment : BaseFragment() {
     }
 
     override fun onStop() {
-        super.onStop()
         stopRecording()
+        super.onStop()
+        if (!activity.isFinishing)
+            activity.finish()
     }
 
     private fun newFile(): File {
@@ -67,7 +70,7 @@ class RecordFragment : BaseFragment() {
 
         mediaRecorder?.start()
 
-        timer.schedule(object: TimerTask() {
+        timer.schedule(object : TimerTask() {
             override fun run() {
                 if (timerMillis == 300L)
                     activity.finish()
