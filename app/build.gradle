@@ -35,12 +35,12 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation(name: 'visualizer', ext: 'aar')
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.jakewharton.timber:timber:4.6.0'
-    implementation 'com.tyorikan:voice-recording-visualizer:1.0.3@aar'
-    implementation ('com.karumi:dexter:4.2.0') {
+    implementation('com.karumi:dexter:4.2.0') {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
         exclude group: 'com.android.support', module: 'support-v7'
