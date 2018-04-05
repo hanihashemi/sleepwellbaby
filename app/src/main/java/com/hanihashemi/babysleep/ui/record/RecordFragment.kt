@@ -63,17 +63,7 @@ class RecordFragment : BaseFragment() {
         super.onPause()
     }
 
-    private fun newFile(): File {
-        var id = 0
-        var file: File
-
-        do {
-            val fileName = "${ContextCompat.getDataDir(context).absolutePath}/audio-${id++}.aac"
-            file = File(fileName)
-        } while (file.exists())
-
-        return file
-    }
+    private fun newFile() = File("${ContextCompat.getDataDir(context).absolutePath}/${System.currentTimeMillis() / 1000}.aac")
 
     private fun startRecording() {
         file = newFile()
