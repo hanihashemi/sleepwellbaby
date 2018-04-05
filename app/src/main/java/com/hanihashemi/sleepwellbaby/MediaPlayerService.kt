@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep
+package com.hanihashemi.sleepwellbaby
 
 import android.app.Service
 import android.content.Context
@@ -8,7 +8,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
-import com.hanihashemi.babysleep.model.Music
+import com.hanihashemi.sleepwellbaby.model.Music
 import timber.log.Timber
 
 /**

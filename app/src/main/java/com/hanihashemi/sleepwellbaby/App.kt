@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep
+package com.hanihashemi.sleepwellbaby
 
 import android.app.Application
 import android.content.Context

@@ -1,19 +1,16 @@
-package com.hanihashemi.babysleep.widget
+package com.hanihashemi.sleepwellbaby.widget
 
 import android.content.Context
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.ImageView
-import com.hanihashemi.babysleep.R
-import com.hanihashemi.babysleep.helper.dpToPx
-
+import android.widget.Button
+import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.helper.dpToPx
 
 /**
- * Created by hani on 12/21/17.
+ * Created by irantalent on 12/30/17.
  */
-
-class MusicalIconButton : ImageView {
-
+class MusicalTextButton : Button{
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs, 0) {
         init()
     }
@@ -22,7 +19,7 @@ class MusicalIconButton : ImageView {
         init()
     }
 
-    private fun init() {
+    fun init() {
         setPadding(context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F),

@@ -1,8 +1,8 @@
-package com.hanihashemi.babysleep.base
+package com.hanihashemi.sleepwellbaby.base
 
 import android.content.Intent
 import android.support.v4.app.Fragment
-import com.hanihashemi.babysleep.R
+import com.hanihashemi.sleepwellbaby.R
 
 /**
  * Created by hani on 12/24/17.

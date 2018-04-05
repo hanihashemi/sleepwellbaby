@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android'
 android {
     signingConfigs {
         PremiumSign {
-            keyAlias 'babysleep'
+            keyAlias 'sleepwellbaby'
             keyPassword 'kkeGT#%g5vfw>/'
             storeFile file('/home/hani/Dropbox/Projects/Baby Sleep/keystore.jks')
             storePassword 'Wewflk@;244!drt5~'
@@ -16,7 +16,7 @@ android {
     }
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.hanihashemi.babysleep"
+        applicationId "com.hanihashemi.sleepwellbaby"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1

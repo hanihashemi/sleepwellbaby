@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep
+package com.hanihashemi.sleepwellbaby
 
 import android.annotation.TargetApi
 import android.app.Notification
@@ -11,7 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
-import com.hanihashemi.babysleep.ui.main.MainActivity
+import com.hanihashemi.sleepwellbaby.ui.main.MainActivity
 
 /**
  * Created by irantalent on 1/13/18.

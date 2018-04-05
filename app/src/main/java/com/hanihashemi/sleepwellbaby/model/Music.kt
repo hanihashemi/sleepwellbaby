@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep.model
+package com.hanihashemi.sleepwellbaby.model
 
 import android.annotation.SuppressLint
 import android.os.Parcelable

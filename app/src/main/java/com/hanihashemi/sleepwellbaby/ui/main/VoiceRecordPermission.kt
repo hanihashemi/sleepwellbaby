@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep.ui.main
+package com.hanihashemi.sleepwellbaby.ui.main
 
 import android.Manifest
 import android.app.Activity

@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep.ui.record
+package com.hanihashemi.sleepwellbaby.ui.record
 
 /**
  * Created by Hani on 4/5/18.

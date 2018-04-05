@@ -19,7 +19,7 @@
         android:textSize="16sp"
         android:textStyle="bold" />
 
-    <com.hanihashemi.babysleep.widget.ExpandableGridView
+    <com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
         android:id="@+id/gridView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,12 +1,12 @@
-package com.hanihashemi.babysleep.ui.record
+package com.hanihashemi.sleepwellbaby.ui.record
 
 import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Handler
 import android.support.v4.content.ContextCompat
 import com.gelitenight.waveview.library.WaveView
-import com.hanihashemi.babysleep.R
-import com.hanihashemi.babysleep.base.BaseFragment
+import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import kotlinx.android.synthetic.main.record_fragment.*
 import timber.log.Timber
 import java.io.File

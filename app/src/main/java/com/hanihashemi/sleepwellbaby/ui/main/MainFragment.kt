@@ -1,4 +1,4 @@
-package com.hanihashemi.babysleep.ui.main
+package com.hanihashemi.sleepwellbaby.ui.main
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,15 +16,15 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
-import com.hanihashemi.babysleep.MediaPlayerService
-import com.hanihashemi.babysleep.MusicalIconButtonAdapter
-import com.hanihashemi.babysleep.MusicalTextButtonAdapter
-import com.hanihashemi.babysleep.R
-import com.hanihashemi.babysleep.base.BaseFragment
-import com.hanihashemi.babysleep.helper.IntentHelper
-import com.hanihashemi.babysleep.model.Music
-import com.hanihashemi.babysleep.ui.record.RecordActivity
-import com.hanihashemi.babysleep.widget.ExpandableGridView
+import com.hanihashemi.sleepwellbaby.MediaPlayerService
+import com.hanihashemi.sleepwellbaby.MusicalIconButtonAdapter
+import com.hanihashemi.sleepwellbaby.MusicalTextButtonAdapter
+import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.base.BaseFragment
+import com.hanihashemi.sleepwellbaby.helper.IntentHelper
+import com.hanihashemi.sleepwellbaby.model.Music
+import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
+import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
 import com.kennyc.bottomsheet.BottomSheet
 import com.kennyc.bottomsheet.BottomSheetListener
 import kotlinx.android.synthetic.main.main_fragment.*
