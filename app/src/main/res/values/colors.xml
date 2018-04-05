@@ -18,6 +18,6 @@
     <color name="itemMusicBox">#d31b1b</color>
     <color name="itemAddVoice">#EA2A30</color>
 
-    <color name="waveBehind">#3094699f</color>
-    <color name="waveFront">#30946987</color>
+    <color name="waveBehind">#30be6ed2</color>
+    <color name="waveFront">#28be6ed2</color>
 </resources>
