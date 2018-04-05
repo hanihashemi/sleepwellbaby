@@ -19,7 +19,7 @@ import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 /**
  * Created by Hani on 3/30/18.
  */
-class VoiceRecordingDependency(private val activity: Activity, private val record: () -> Unit) {
+class VoiceRecordPermission(private val activity: Activity, private val record: () -> Unit) {
     fun check() {
         if (!isExternalStorageWritable()) {
             Toast.makeText(activity, "حافظه خارجی قابل نوشتن نیست!", Toast.LENGTH_LONG).show()

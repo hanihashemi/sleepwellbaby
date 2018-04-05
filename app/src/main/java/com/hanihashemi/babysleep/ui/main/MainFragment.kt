@@ -250,7 +250,7 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             20 -> {
-                VoiceRecordingDependency(activity, {
+                VoiceRecordPermission(activity, {
                     RecordActivity.start(context)
                 }).check()
             }
