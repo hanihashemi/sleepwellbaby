@@ -327,7 +327,6 @@ class MainFragment : BaseFragment() {
                 }
             }
         }
-
     }
 
     private fun convertMillisToTime(millisUntilFinished: Long?): String {
