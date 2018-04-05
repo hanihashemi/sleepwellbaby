@@ -6,4 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/iransans</item>
     </style>
+
+    <style name="BottomSheet">
+        <item name="android:gravity">right</item>
+    </style>
 </resources>

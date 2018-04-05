@@ -147,6 +147,7 @@ class MainFragment : BaseFragment() {
     private fun onTimerClick() {
         BottomSheet.Builder(activity)
                 .setSheet(R.menu.timer)
+                .setStyle(R.style.BottomSheet)
                 .setTitle("قطع آهنگ")
                 .setCancelable(true)
                 .setListener(object : BottomSheetListener {
