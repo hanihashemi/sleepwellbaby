@@ -1,7 +1,9 @@
 package com.hanihashemi.babysleep.ui.record
 
+import android.graphics.Color
 import android.media.MediaRecorder
 import android.support.v4.content.ContextCompat
+import com.gelitenight.waveview.library.WaveView
 import com.hanihashemi.babysleep.R
 import com.hanihashemi.babysleep.base.BaseFragment
 import kotlinx.android.synthetic.main.record_fragment.*
@@ -19,6 +21,7 @@ class RecordFragment : BaseFragment() {
     private var file: File? = null
     private val timer = Timer()
     private var timerMillis = 0L
+    private lateinit var waveHelper: WaveHelper
 
     override fun customizeUI() {
         btnCancel.setOnClickListener {
@@ -26,6 +29,13 @@ class RecordFragment : BaseFragment() {
             activity.finish()
         }
         btnSave.setOnClickListener { activity.finish() }
+
+        waveHelper = WaveHelper(wave)
+        wave.setShapeType(WaveView.ShapeType.SQUARE)
+        wave.setBorder(0, Color.BLACK)
+        wave.setWaveColor(
+                ContextCompat.getColor(context, R.color.waveBehind),
+                ContextCompat.getColor(context, R.color.waveFront))
     }
 
     override fun onStart() {
@@ -38,6 +48,16 @@ class RecordFragment : BaseFragment() {
         super.onStop()
         if (!activity.isFinishing)
             activity.finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        waveHelper.start()
+    }
+
+    override fun onPause() {
+        waveHelper.cancel()
+        super.onPause()
     }
 
     private fun newFile(): File {
