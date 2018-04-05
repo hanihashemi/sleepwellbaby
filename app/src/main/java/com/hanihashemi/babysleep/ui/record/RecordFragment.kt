@@ -2,6 +2,7 @@ package com.hanihashemi.babysleep.ui.record
 
 import android.graphics.Color
 import android.media.MediaRecorder
+import android.os.Handler
 import android.support.v4.content.ContextCompat
 import com.gelitenight.waveview.library.WaveView
 import com.hanihashemi.babysleep.R
@@ -25,7 +26,7 @@ class RecordFragment : BaseFragment() {
 
     override fun customizeUI() {
         btnCancel.setOnClickListener {
-            deleteRecordingFile()
+            stopRecording(true)
             activity.finish()
         }
         btnSave.setOnClickListener { activity.finish() }
@@ -52,7 +53,9 @@ class RecordFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        waveHelper.start()
+        Handler().postDelayed({
+            waveHelper.start()
+        }, 2000)
     }
 
     override fun onPause() {
@@ -100,15 +103,12 @@ class RecordFragment : BaseFragment() {
         }, 0, 1000)
     }
 
-    private fun stopRecording() {
+    private fun stopRecording(delete: Boolean = false) {
         timer.cancel()
         mediaRecorder?.stop()
         mediaRecorder?.release()
         mediaRecorder = null
-    }
-
-    private fun deleteRecordingFile() {
-        file?.deleteOnExit()
+        if (delete) file?.delete()
     }
 
     private fun convertMillisToTime(millis: Long?): String {
