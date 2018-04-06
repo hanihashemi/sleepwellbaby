@@ -20,16 +20,13 @@ class MusicalTextButtonAdapter(private val context: Context, private var musics:
 
         if (convertView == null) {
             button = MusicalTextButton(context, null)
-            button.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
-            button.text = musics[position].name
-            button.gravity = Gravity.CENTER
+            button.setText(musics[position].name)
+            button.setTextColor(musics[position].colorOrIcon)
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setOnLongClickListener {
                 onItemLongClick(musics[position])
                 false
             }
-            button.setTypeface(null, Typeface.BOLD)
-            button.setTextColor(ContextCompat.getColor(context, musics[position].colorOrIcon))
         } else {
             button = convertView as MusicalTextButton
         }

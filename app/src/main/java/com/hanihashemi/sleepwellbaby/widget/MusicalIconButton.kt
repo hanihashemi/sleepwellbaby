@@ -2,9 +2,10 @@ package com.hanihashemi.sleepwellbaby.widget
 
 import android.content.Context
 import android.os.Build
+import android.support.annotation.DrawableRes
 import android.util.AttributeSet
+import android.widget.FrameLayout
 import android.widget.ImageView
-import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
 
 
@@ -12,7 +13,8 @@ import com.hanihashemi.sleepwellbaby.helper.dpToPx
  * Created by hani on 12/21/17.
  */
 
-class MusicalIconButton : ImageView {
+class MusicalIconButton : FrameLayout {
+    val image = ImageView(context, null)
 
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs, 0) {
         init()
@@ -23,19 +25,27 @@ class MusicalIconButton : ImageView {
     }
 
     private fun init() {
-        setPadding(context.dpToPx(15F),
-                context.dpToPx(15F),
-                context.dpToPx(15F),
-                context.dpToPx(15F))
         setElevation()
         isClickable = true
         isFocusable = true
-        rotationY = 180F
+
+        initImage()
     }
 
     private fun setElevation() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             elevation = context.dpToPx(3F).toFloat()
-        }
     }
+
+    private fun initImage() {
+        image.setPadding(context.dpToPx(15F),
+                context.dpToPx(15F),
+                context.dpToPx(15F),
+                context.dpToPx(15F))
+        image.rotationY = 180F
+
+        addView(image)
+    }
+
+    fun setImageResource(@DrawableRes resId: Int) = image.setImageResource(resId)
 }
