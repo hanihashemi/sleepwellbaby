@@ -22,6 +22,7 @@ class MusicalTextButtonAdapter(private val context: Context, private var musics:
             button = MusicalTextButton(context, null)
             button.setText(musics[position].name)
             button.setTextColor(musics[position].colorOrIcon)
+            if (musics[position].isLocked) button.addLock()
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setOnLongClickListener {
                 onItemLongClick(musics[position])

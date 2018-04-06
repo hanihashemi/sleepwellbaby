@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes
 import android.util.AttributeSet
 import android.widget.FrameLayout
 import android.widget.ImageView
+import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
 
 
@@ -48,4 +49,10 @@ class MusicalIconButton : FrameLayout {
     }
 
     fun setImageResource(@DrawableRes resId: Int) = image.setImageResource(resId)
+
+    fun addLock() {
+        val lockImage = ImageView(context, null)
+        lockImage.setImageResource(R.drawable.ic_locked_song)
+        addView(lockImage)
+    }
 }

@@ -9,7 +9,9 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
+import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
 
 /**
@@ -58,5 +60,11 @@ class MusicalTextButton : FrameLayout {
 
     fun setTextColor(@ColorRes color: Int) {
         text.setTextColor(ContextCompat.getColor(context, color))
+    }
+
+    fun addLock() {
+        val lockImage = ImageView(context, null)
+        lockImage.setImageResource(R.drawable.ic_locked_song)
+        addView(lockImage)
     }
 }
