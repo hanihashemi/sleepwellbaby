@@ -10,7 +10,7 @@ import java.io.File
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-class Music(val id: Int, val fileId: Int, val name: String, val colorOrIcon: Int, var isActive: Boolean = false, var file: File? = null) : Parcelable {
-    constructor(id: Int, name: String, colorOrIcon: Int, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isActive)
-    constructor(id: Int, name:String, colorOrIcon: Int, isActive: Boolean = false, file: File) : this(id, -1, name, colorOrIcon, isActive, file)
+class Music(val id: Int, val fileId: Int, val name: String, val colorOrIcon: Int, var isLocked: Boolean = false, var isActive: Boolean = false, var file: File? = null) : Parcelable {
+    constructor(id: Int, name: String, colorOrIcon: Int, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive)
+    constructor(id: Int, name: String, colorOrIcon: Int, file: File, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive, file)
 }

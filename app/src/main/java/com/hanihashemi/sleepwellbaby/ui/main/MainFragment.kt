@@ -40,7 +40,8 @@ class MainFragment : BaseFragment() {
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     private var seekBarTouching = false
-    var voiceItemsAdapter: MusicalTextButtonAdapter? = null
+    private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
+    private val isPremium = false
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
@@ -69,7 +70,7 @@ class MainFragment : BaseFragment() {
 
         // nature
         val natureMusics = mutableListOf<Music>()
-        natureMusics.add(Music(0, R.raw.forest, "Forest", R.drawable.ic_forest))
+        natureMusics.add(Music(0, R.raw.forest, "Forest", R.drawable.ic_forest, isLocked = true))
         natureMusics.add(Music(1, R.raw.sea, "Sea", R.drawable.ic_sea))
         natureMusics.add(Music(2, R.raw.rain, "Rain", R.drawable.ic_rain))
 
@@ -77,14 +78,14 @@ class MainFragment : BaseFragment() {
         val motherMusics = mutableListOf<Music>()
         motherMusics.add(Music(3, R.raw.heart, "Hear", R.drawable.ic_heart))
         motherMusics.add(Music(4, R.raw.lung, "Lung", R.drawable.ic_lung))
-        motherMusics.add(Music(5, R.raw.womb, "Womb", R.drawable.ic_womb))
+        motherMusics.add(Music(5, R.raw.womb, "Womb", R.drawable.ic_womb, isLocked = true))
 
         //transport
         val transportMusics = mutableListOf<Music>()
         transportMusics.add(Music(6, R.raw.car, "Car", R.drawable.ic_car))
         transportMusics.add(Music(7, R.raw.airplane, "Airplane", R.drawable.ic_airplane))
-        transportMusics.add(Music(8, R.raw.train, "Train", R.drawable.ic_train))
-        transportMusics.add(Music(9, R.raw.helicopter, "Helicopter", R.drawable.ic_helicopter))
+        transportMusics.add(Music(8, R.raw.train, "Train", R.drawable.ic_train, isLocked = true))
+        transportMusics.add(Music(9, R.raw.helicopter, "Helicopter", R.drawable.ic_helicopter, isLocked = true))
 
         //appliance
         val applianceMusics = mutableListOf<Music>()
@@ -93,7 +94,7 @@ class MainFragment : BaseFragment() {
 
         //persian songs
         val persianMusics = mutableListOf<Music>()
-        persianMusics.add(Music(12, R.raw.hasani, "حسنی", R.color.itemHasani))
+        persianMusics.add(Music(12, R.raw.hasani, "حسنی", R.color.itemHasani, isLocked = true))
         persianMusics.add(Music(13, R.raw.gonjeshk, "گنجشک لالا", R.color.itemGonjeshkLala))
         persianMusics.add(Music(14, R.raw.chera, "چرا", R.color.itemChera))
 
@@ -101,9 +102,9 @@ class MainFragment : BaseFragment() {
         val englishMusics = mutableListOf<Music>()
         englishMusics.add(Music(15, R.raw.music_box, "Music Box", R.color.itemMusicBox))
         englishMusics.add(Music(16, R.raw.danny_boy, "Danny Boy", R.color.itemDannyBoy))
-        englishMusics.add(Music(17, R.raw.lullaby, "Lullabay", R.color.itemLullaby))
+        englishMusics.add(Music(17, R.raw.lullaby, "Lullabay", R.color.itemLullaby, isLocked = true))
         englishMusics.add(Music(18, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
-        englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses))
+        englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses, isLocked = true))
 
         addIconSectionLayout("طبیعت", natureMusics)
         addIconSectionLayout("مادر", motherMusics)
@@ -132,7 +133,7 @@ class MainFragment : BaseFragment() {
 
         val audioFile = ContextCompat.getDataDir(context)
         audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
-                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, false, file)) }
+                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, file)) }
 
         voiceItemsAdapter?.refresh(voices)
         musicList.addAll(voices)
