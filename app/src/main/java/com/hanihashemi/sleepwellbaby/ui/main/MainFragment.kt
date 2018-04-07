@@ -24,6 +24,7 @@ import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.model.Music
 import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
+import com.hanihashemi.sleepwellbaby.ui.upgrade.UpgradeActivity
 import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
 import com.kennyc.bottomsheet.BottomSheet
 import com.kennyc.bottomsheet.BottomSheetListener
@@ -41,7 +42,6 @@ class MainFragment : BaseFragment() {
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     private var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
-    private val isPremium = false
 
     override fun customizeUI() {
         airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
@@ -275,6 +275,11 @@ class MainFragment : BaseFragment() {
     }
 
     private fun onItemClick(music: Music) {
+        if (music.isLocked) {
+            UpgradeActivity.start(context)
+            return
+        }
+
         val intent = Intent(context, MediaPlayerService::class.java)
         intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
         intent.putExtra(MediaPlayerService.ARGUMENTS.MUSIC_OBJ.name, music)
