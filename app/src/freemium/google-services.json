@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "539629407126",
+    "firebase_url": "https://sleepwellbaby-a353f.firebaseio.com",
+    "project_id": "sleepwellbaby-a353f",
+    "storage_bucket": "sleepwellbaby-a353f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539629407126:android:11921fa3be5cd141",
+        "android_client_info": {
+          "package_name": "com.hanihashemi.sleepwellbaby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539629407126-u198di50n32o4or98jjb6doftgsbbu8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz31INmJUV469PkqDtTy0xbOHqb0oSjM4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539629407126:android:29cee2098d13560e",
+        "android_client_info": {
+          "package_name": "com.hanihashemi.sleepwellbaby.freemium"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "539629407126-0870kmmmt5ccm5mpu544118bjunmfgr1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hanihashemi.sleepwellbaby.freemium",
+            "certificate_hash": "e539ce931f2e344c3de215a900ced14c3201b128"
+          }
+        },
+        {
+          "client_id": "539629407126-u198di50n32o4or98jjb6doftgsbbu8v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAz31INmJUV469PkqDtTy0xbOHqb0oSjM4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "539629407126-u198di50n32o4or98jjb6doftgsbbu8v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
