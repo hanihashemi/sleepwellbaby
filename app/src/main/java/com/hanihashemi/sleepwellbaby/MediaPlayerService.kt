@@ -128,15 +128,15 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
         if (music == null)
             return
 
-        var lastPosition = player?.currentPosition() ?: 0
+//        var lastPosition = player?.currentPosition() ?: 0
 
         if (player != null && player!!.isPlaying) {
             player?.stop()
             player?.release()
         }
 
-        if (this.music?.fileId != music.fileId)
-            lastPosition = 0
+//        if (this.music?.fileId != music.fileId)
+//            lastPosition = 0
 
         this.music = music
         startTimer()
