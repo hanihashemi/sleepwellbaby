@@ -20,7 +20,7 @@ class MusicalIconButtonAdapter(private val context: Context, private val musics:
             button.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setImageResource(musics[position].colorOrIcon)
-            if (musics[position].isLocked) button.addLock()
+            if (musics[position].isLocked && BuildConfig.FLAVOR == "freemium") button.addLock()
         } else {
             button = convertView as MusicalIconButton
         }

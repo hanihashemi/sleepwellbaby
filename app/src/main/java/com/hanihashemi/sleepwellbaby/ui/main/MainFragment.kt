@@ -16,10 +16,7 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
-import com.hanihashemi.sleepwellbaby.MediaPlayerService
-import com.hanihashemi.sleepwellbaby.MusicalIconButtonAdapter
-import com.hanihashemi.sleepwellbaby.MusicalTextButtonAdapter
-import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.*
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.model.Music
@@ -275,7 +272,7 @@ class MainFragment : BaseFragment() {
     }
 
     private fun onItemClick(music: Music) {
-        if (music.isLocked) {
+        if (music.isLocked && BuildConfig.FLAVOR == "freemium") {
             UpgradeActivity.start(context)
             return
         }
