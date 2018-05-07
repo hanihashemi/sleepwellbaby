@@ -20,7 +20,6 @@ import com.hanihashemi.sleepwellbaby.*
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.model.Music
-import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
 import com.hanihashemi.sleepwellbaby.ui.upgrade.UpgradeActivity
 import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
 import com.kennyc.bottomsheet.BottomSheet
@@ -249,9 +248,7 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             20 -> {
-                VoiceRecordPermission(activity, {
-                    RecordActivity.start(context)
-                }).check()
+                VoiceRecordPermission(context).check(activity)
             }
             else -> onItemClick(music)
         }
