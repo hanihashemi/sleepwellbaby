@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat
 import com.gelitenight.waveview.library.WaveView
 import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
+import com.hanihashemi.sleepwellbaby.helper.FileHelper
 import kotlinx.android.synthetic.main.record_fragment.*
 import timber.log.Timber
 import java.io.File
@@ -63,10 +64,8 @@ class RecordFragment : BaseFragment() {
         super.onPause()
     }
 
-    private fun newFile() = File("${ContextCompat.getDataDir(context).absolutePath}/${System.currentTimeMillis() / 1000}.aac")
-
     private fun startRecording() {
-        file = newFile()
+        file = FileHelper().newFile(context)
 
         mediaRecorder = MediaRecorder()
         mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
