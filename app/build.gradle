@@ -66,6 +66,12 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation 'com.gelitenight.waveview:waveview:1.0.0'
+
+    // Mockito
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.7.19'
+    androidTestImplementation "org.mockito:mockito-android:2.7.19"
+
     implementation('com.karumi:dexter:4.2.0') {
         exclude group: 'com.android.support', module: 'appcompat'
         exclude group: 'com.android.support', module: 'support-v4'
