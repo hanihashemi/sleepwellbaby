@@ -10,7 +10,6 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
-import android.view.MenuItem
 import android.view.View
 import android.view.View.inflate
 import android.widget.BaseAdapter
@@ -19,11 +18,10 @@ import android.widget.TextView
 import com.hanihashemi.sleepwellbaby.*
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
+import com.hanihashemi.sleepwellbaby.helper.TimeHelper
 import com.hanihashemi.sleepwellbaby.model.Music
 import com.hanihashemi.sleepwellbaby.ui.upgrade.UpgradeActivity
 import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
-import com.kennyc.bottomsheet.BottomSheet
-import com.kennyc.bottomsheet.BottomSheetListener
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.main_fragment_footer.*
 import kotlinx.android.synthetic.main.main_fragment_header.*
@@ -38,32 +36,17 @@ class MainFragment : BaseFragment() {
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     private var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
+    private val countOfDefaultMusics = 20
 
     override fun customizeUI() {
-        airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
-        playToggle.setOnClickListener { onPlayToggleClick() }
-        timer.setOnClickListener { onTimerClick() }
-        settings.setOnClickListener { onSettingsClick() }
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                seekBarTouching = true
-            }
-
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                seekBarTouching = false
-                val intent = Intent(context, MediaPlayerService::class.java)
-                intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SEEK_TO)
-                intent.putExtra(MediaPlayerService.ARGUMENTS.SEEK_TO_MILLIS.name, seekBar?.progress)
-                context.startService(intent)
-            }
-
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-            }
-        })
-        seekBar.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
-        seekBar.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        setActions()
+        initSeekbar()
         syncRequest()
+        addDefaultMusics()
+        Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    }
 
+    private fun addDefaultMusics() {
         // nature
         val natureMusics = mutableListOf<Music>()
         natureMusics.add(Music(0, R.raw.forest, "Forest", R.drawable.ic_forest, isLocked = true))
@@ -109,8 +92,36 @@ class MainFragment : BaseFragment() {
         addTextSectionLayout("لالایی فارسی", persianMusics)
         addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
         addVoiceSectionLayout("صدای شما")
+    }
 
-        Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+    private fun initSeekbar() {
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+                seekBarTouching = true
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                seekBarTouching = false
+                val intent = Intent(context, MediaPlayerService::class.java)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SEEK_TO)
+                intent.putExtra(MediaPlayerService.ARGUMENTS.SEEK_TO_MILLIS.name, seekBar?.progress)
+                context.startService(intent)
+            }
+
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+        })
+        seekBar.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        seekBar.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN)
+    }
+
+    private fun setActions() {
+        airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
+        playToggle.setOnClickListener { onPlayToggleClick() }
+        timer.setOnClickListener { showBottomSheet(activity as MainActivity) }
+        settings.setOnClickListener {
+            IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
+        }
     }
 
     override fun onStart() {
@@ -118,13 +129,11 @@ class MainFragment : BaseFragment() {
         updateVoiceFiles()
     }
 
-    private val countOfDefaultMusics = 20
-
     private fun updateVoiceFiles() {
         if (musicManager.isEmpty())
             return
 
-        removeVoicesFromMusic()
+        musicManager.removeAfter(countOfDefaultMusics)
 
         val voices = mutableListOf<Music>()
         voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
@@ -135,53 +144,6 @@ class MainFragment : BaseFragment() {
 
         voiceItemsAdapter?.refresh(voices)
         musicManager.addAll(voices)
-    }
-
-    private fun removeVoicesFromMusic() = musicManager.removeAfter(countOfDefaultMusics)
-
-    private fun onSettingsClick() {
-        IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
-    }
-
-    private fun onTimerClick() {
-        BottomSheet.Builder(activity)
-                .setSheet(R.menu.timer)
-                .setStyle(R.style.BottomSheet)
-                .setTitle("قطع آهنگ")
-                .setCancelable(true)
-                .setListener(object : BottomSheetListener {
-                    override fun onSheetDismissed(p0: BottomSheet, p1: Any?, p2: Int) {
-
-                    }
-
-                    override fun onSheetShown(p0: BottomSheet, p1: Any?) {
-
-                    }
-
-                    override fun onSheetItemSelected(p0: BottomSheet, item: MenuItem?, p2: Any?) {
-                        var millis = 0L
-                        when (item?.itemId) {
-                            R.id.fiveMinutes -> {
-                                millis = 300000L
-                            }
-                            R.id.fifteenMinutes -> {
-                                millis = 900000L
-                            }
-                            R.id.thirtyMinutes -> {
-                                millis = 18000000L
-                            }
-                            R.id.oneHour -> {
-                                millis = 3600000L
-                            }
-                        }
-
-                        val intent = Intent(context, MediaPlayerService::class.java)
-                        intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SET_SLEEP_TIMER)
-                        intent.putExtra(MediaPlayerService.ARGUMENTS.SLEEP_TIMER_MILLIS.name, millis)
-                        context.startService(intent)
-                    }
-                })
-                .show()
     }
 
     private fun onPlayToggleClick() {
@@ -249,7 +211,7 @@ class MainFragment : BaseFragment() {
 
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
-            20 -> {
+            countOfDefaultMusics -> {
                 VoiceRecordPermission(context).check(activity)
             }
             else -> onItemClick(music)
@@ -306,7 +268,7 @@ class MainFragment : BaseFragment() {
             seekBar.max = duration
             if (!seekBarTouching)
                 seekBar.progress = currentPosition
-            txtTimer.text = convertMillisToTime(millisUntilFinished)
+            txtTimer.text = TimeHelper().convertMillisToTime(millisUntilFinished)
 
             when (status) {
                 MediaPlayerService.STATUS.PLAYING,
@@ -327,13 +289,5 @@ class MainFragment : BaseFragment() {
                 }
             }
         }
-    }
-
-    private fun convertMillisToTime(millisUntilFinished: Long?): String {
-        val second = millisUntilFinished!! / 1000 % 60
-        val minute = millisUntilFinished / (1000 * 60) % 60
-
-        val time = String.format("%02d:%02d", minute, second)
-        return if (time == "00:00") "" else time
     }
 }
