@@ -14,7 +14,7 @@ class Music(val id: Int, val fileId: Int, val name: String, val colorOrIcon: Int
     constructor(id: Int, name: String, colorOrIcon: Int = -1, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive)
     constructor(id: Int, name: String, colorOrIcon: Int = -1, file: File, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive, file)
 
-    override fun equals(other: Any?) = (other is Music && other.id == this.id)
+    override fun equals(other: Any?) = (other != null && other is Music && other.id == this.id)
 
     override fun hashCode(): Int {
         var result = id

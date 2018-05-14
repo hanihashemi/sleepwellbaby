@@ -6,14 +6,14 @@ import org.junit.Test
 
 class MusicManagerTest {
     @Test
-    fun isEmpty_false_scenario() {
+    fun isEmpty_listIsNotEmpty() {
         val musicManager = MusicManager()
         musicManager.addAll(populate())
         assertFalse(musicManager.isEmpty())
     }
 
     @Test
-    fun isEmpty_true_scenario(){
+    fun isEmpty_listIsEmpty(){
         val musicManager = MusicManager()
         assertTrue(musicManager.isEmpty())
     }
@@ -30,11 +30,24 @@ class MusicManagerTest {
     }
 
     @Test
-    fun resetActiveMusics(){
+    fun resetActiveMusics_resetAll(){
         val musicManager = MusicManager()
         musicManager.addAll(populateActiveMusics())
 
-        assertFalse(musicManager.resetActiveMusics().all { (it as Music).isActive})
+        assertTrue(musicManager.getMusics().all { it.isActive })
+        musicManager.resetActiveMusics()
+        assertFalse(musicManager.getMusics().all { it.isActive })
+    }
+
+    @Test
+    fun resetActiveMusics_resetAll_ExceptOne(){
+        val musicManager = MusicManager()
+        musicManager.addAll(populateActiveMusics())
+
+        assertTrue(musicManager.getMusics().all { it.isActive })
+        musicManager.resetActiveMusics(Music(1, ""))
+        assertTrue(musicManager.getMusics()[1].isActive)
+        assertFalse(musicManager.getMusics().filter { it.id != 1 }.all { it.isActive })
     }
 
     private fun populateActiveMusics(): MutableList<Music>{

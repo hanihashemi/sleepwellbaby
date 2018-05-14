@@ -14,12 +14,12 @@ class MusicManager{
 
     fun removeAfter(index: Int) = musics.removeAll { it.id >= index }
 
-    fun resetActiveMusics(except: Music? = null) = musics.map { item -> item.isActive = false }
+    fun resetActiveMusics(except: Music? = null) = musics.forEach { it.isActive = it == except }
 
     operator fun get(index: Int) = musics[index]
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
-    fun getMusics(): MutableList<Music>?{
+    fun getMusics(): MutableList<Music>{
         return musics
     }
 }

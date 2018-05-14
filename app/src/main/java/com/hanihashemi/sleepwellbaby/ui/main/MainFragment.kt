@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.main_fragment_header.*
  */
 class MainFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.main_fragment
-    private val musicList = mutableListOf<Music>()
+    private val musicManager = MusicManager()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     private var seekBarTouching = false
@@ -118,24 +118,26 @@ class MainFragment : BaseFragment() {
         updateVoiceFiles()
     }
 
+    private val countOfDefaultMusics = 20
+
     private fun updateVoiceFiles() {
-        if (musicList.size == 0)
+        if (musicManager.isEmpty())
             return
 
         removeVoicesFromMusic()
 
         val voices = mutableListOf<Music>()
-        voices.add(Music(20, "ضبط کن", R.color.itemAddVoice))
+        voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
 
         val audioFile = ContextCompat.getDataDir(context)
         audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
                 .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, file)) }
 
         voiceItemsAdapter?.refresh(voices)
-        musicList.addAll(voices)
+        musicManager.addAll(voices)
     }
 
-    private fun removeVoicesFromMusic() = musicList.removeAll { it.id >= 20 }
+    private fun removeVoicesFromMusic() = musicManager.removeAfter(countOfDefaultMusics)
 
     private fun onSettingsClick() {
         IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
@@ -215,7 +217,7 @@ class MainFragment : BaseFragment() {
         gridView.adapter = musicalIconButtonAdapter
         wrapperLayout.addView(myLayout)
         adapterList.add(musicalIconButtonAdapter)
-        musicList.addAll(musics)
+        musicManager.addAll(musics)
     }
 
     private fun addTextSectionLayout(name: String, musics: MutableList<Music>) {
@@ -228,7 +230,7 @@ class MainFragment : BaseFragment() {
         gridView.adapter = musicTextButtonAdapter
         wrapperLayout.addView(myLayout)
         adapterList.add(musicTextButtonAdapter)
-        musicList.addAll(musics)
+        musicManager.addAll(musics)
     }
 
     private fun addVoiceSectionLayout(name: String) {
@@ -292,9 +294,6 @@ class MainFragment : BaseFragment() {
 
     private val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            fun resetMusics() = musicList.forEach { item -> item.isActive = false }
-            fun resetMusics(elseId: Int?) = musicList.forEach { item -> item.isActive = item.id == elseId }
-
             fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
 
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
@@ -313,7 +312,7 @@ class MainFragment : BaseFragment() {
                 MediaPlayerService.STATUS.PLAYING,
                 MediaPlayerService.STATUS.PAUSE -> {
                     lastPlayerStatus = status as MediaPlayerService.STATUS
-                    resetMusics(music?.id)
+                    musicManager.resetActiveMusics(music)
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.VISIBLE
                     seekBar.visibility = View.VISIBLE
@@ -321,7 +320,7 @@ class MainFragment : BaseFragment() {
                 }
                 MediaPlayerService.STATUS.STOP -> {
                     lastPlayerStatus = status as MediaPlayerService.STATUS
-                    resetMusics()
+                    musicManager.resetActiveMusics()
                     notifyAllAdapters()
                     includeControlLayout.visibility = View.GONE
                     seekBar.visibility = View.GONE
