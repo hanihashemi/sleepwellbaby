@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
+import android.support.annotation.VisibleForTesting
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
@@ -34,7 +35,8 @@ class MainFragment : BaseFragment() {
     private val musicManager = MusicManager()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
-    private var seekBarTouching = false
+    @VisibleForTesting
+    var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
     private val countOfDefaultMusics = 20
 
@@ -254,13 +256,15 @@ class MainFragment : BaseFragment() {
         super.onPause()
     }
 
-    private val messageReceiver = object : BroadcastReceiver() {
+    @Suppress("MemberVisibilityCanBePrivate")
+    @VisibleForTesting
+    val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
 
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
-            val millisUntilFinished = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
+            val millisUntilFinish = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
             val duration = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_DURATION, 0) ?: 0
             val currentPosition = intent?.getIntExtra(MediaPlayerService.BROADCAST_ARG_CURRENT_POSITION, 0)
                     ?: 0
@@ -268,7 +272,7 @@ class MainFragment : BaseFragment() {
             seekBar.max = duration
             if (!seekBarTouching)
                 seekBar.progress = currentPosition
-            txtTimer.text = TimeHelper().convertMillisToTime(millisUntilFinished)
+            txtTimer.text = TimeHelper().convertMillisToTime(millisUntilFinish)
 
             when (status) {
                 MediaPlayerService.STATUS.PLAYING,

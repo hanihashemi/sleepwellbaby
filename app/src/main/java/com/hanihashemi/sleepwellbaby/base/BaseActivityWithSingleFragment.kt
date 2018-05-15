@@ -13,7 +13,7 @@ abstract class BaseActivityWithSingleFragment : BaseActivity() {
     override val layoutResource
         get() = R.layout.activity_with_single_fragment
 
-    protected val fragment: Fragment
+    val fragment: Fragment
         get() = supportFragmentManager.findFragmentByTag(fragmentTag)
 
     protected abstract fun createFragment(): Fragment
