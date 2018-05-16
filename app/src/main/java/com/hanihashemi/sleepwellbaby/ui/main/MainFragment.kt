@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.main_fragment_header.*
  */
 class MainFragment : BaseFragment() {
     override val layoutResource: Int get() = R.layout.main_fragment
-    private val musicManager = MusicManager()
+    val musicManager = MusicManager()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     @VisibleForTesting
