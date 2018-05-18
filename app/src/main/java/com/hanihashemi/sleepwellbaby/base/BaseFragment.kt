@@ -1,10 +1,12 @@
 package com.hanihashemi.sleepwellbaby.base
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.AndroidSupportInjection
 
 /**
  * Created by hani on 12/24/17.
@@ -23,6 +25,11 @@ abstract class BaseFragment : Fragment() {
 
     override fun getView(): View {
         return view
+    }
+
+    override fun onAttach(context: Context?) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
     }
 
     protected abstract fun customizeUI()
