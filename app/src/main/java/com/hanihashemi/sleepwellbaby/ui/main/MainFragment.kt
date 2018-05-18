@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
-import android.support.annotation.VisibleForTesting
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
@@ -35,7 +34,6 @@ class MainFragment : BaseFragment() {
     val musicManager = MusicManager()
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
-    @VisibleForTesting
     var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
     private val countOfDefaultMusics = 20
@@ -256,12 +254,11 @@ class MainFragment : BaseFragment() {
         super.onPause()
     }
 
+    fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
+
     @Suppress("MemberVisibilityCanBePrivate")
-    @VisibleForTesting
     val messageReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
-
             val status = intent?.getSerializableExtra(MediaPlayerService.BROADCAST_ARG_STATUS)
             val music = intent?.getParcelableExtra<Music>(MediaPlayerService.BROADCAST_ARG_MUSIC)
             val millisUntilFinish = intent?.getLongExtra(MediaPlayerService.BROADCAST_ARG_MILLIS_UNTIL_FINISHED, 0)
