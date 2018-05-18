@@ -16,7 +16,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class MainFragmentTest {
+class MainFragmentTest_MessageReceiver {
 
     @Test
     fun messageReceiver_onReceive_noneStatus() {
