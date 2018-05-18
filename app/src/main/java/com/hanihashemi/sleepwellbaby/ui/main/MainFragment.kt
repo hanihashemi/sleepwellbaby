@@ -120,7 +120,7 @@ class MainFragment : BaseFragment() {
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { showBottomSheet(activity as MainActivity) }
         settings.setOnClickListener {
-            IntentHelper().sendMail(activity, "jhanihashemi@gmail.com", "نظر و یا پیشنهاد", "")
+            IntentHelper().sendMail(activity, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "نظر و یا پیشنهاد", "")
         }
     }
 
