@@ -7,7 +7,6 @@ import android.content.IntentFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
-import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -17,6 +16,7 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.hanihashemi.sleepwellbaby.*
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
+import com.hanihashemi.sleepwellbaby.helper.AudioFileHelper
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.helper.TimeHelper
 import com.hanihashemi.sleepwellbaby.model.Music
@@ -36,7 +36,7 @@ class MainFragment : BaseFragment() {
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
-    private val countOfDefaultMusics = 20
+    val countOfDefaultMusics = 20
 
     override fun customizeUI() {
         setActions()
@@ -129,7 +129,7 @@ class MainFragment : BaseFragment() {
         updateVoiceFiles()
     }
 
-    private fun updateVoiceFiles() {
+    fun updateVoiceFiles() {
         if (musicManager.isEmpty())
             return
 
@@ -138,9 +138,12 @@ class MainFragment : BaseFragment() {
         val voices = mutableListOf<Music>()
         voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
 
-        val audioFile = ContextCompat.getDataDir(context)
-        audioFile.listFiles { file -> file?.path?.endsWith(".aac") ?: false }
-                .forEachIndexed { index, file -> voices.add(Music(21 + index, (index + 1).toString(), R.color.itemAddVoice, file)) }
+        AudioFileHelper().list(context)
+                .forEachIndexed { index, file ->
+                    voices.add(Music(
+                            countOfDefaultMusics + index, (index + 1).toString(),
+                            R.color.itemAddVoice, file))
+                }
 
         voiceItemsAdapter?.refresh(voices)
         musicManager.addAll(voices)
