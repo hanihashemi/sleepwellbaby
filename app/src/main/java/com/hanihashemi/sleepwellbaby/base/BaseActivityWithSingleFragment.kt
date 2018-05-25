@@ -27,9 +27,8 @@ abstract class BaseActivityWithSingleFragment : BaseActivity() {
                 .commit()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val fragment = supportFragmentManager.findFragmentByTag(fragmentTag)
-        fragment?.onActivityResult(requestCode, resultCode, data)
+        fragment.onActivityResult(requestCode, resultCode, data)
     }
 }

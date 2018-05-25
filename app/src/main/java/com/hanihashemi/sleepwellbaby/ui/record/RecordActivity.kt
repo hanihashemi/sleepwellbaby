@@ -1,6 +1,6 @@
 package com.hanihashemi.sleepwellbaby.ui.record
 
-import android.content.Context
+import android.app.Activity
 import android.content.Intent
 import android.support.v4.app.Fragment
 import com.hanihashemi.sleepwellbaby.base.BaseActivityWithSingleFragment
@@ -10,9 +10,11 @@ import com.hanihashemi.sleepwellbaby.base.BaseActivityWithSingleFragment
  */
 class RecordActivity : BaseActivityWithSingleFragment() {
     companion object {
-        fun start(context: Context) {
-            val starter = Intent(context, RecordActivity::class.java)
-            context.startActivity(starter)
+        const val requestCode = 222
+
+        fun start(activity: Activity) {
+            val starter = Intent(activity, RecordActivity::class.java)
+            activity.startActivityForResult(starter, requestCode)
         }
     }
 

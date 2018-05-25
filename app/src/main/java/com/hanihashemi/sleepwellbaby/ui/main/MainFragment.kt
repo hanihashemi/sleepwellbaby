@@ -1,5 +1,6 @@
 package com.hanihashemi.sleepwellbaby.ui.main
 
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -20,6 +21,7 @@ import com.hanihashemi.sleepwellbaby.helper.AudioFileHelper
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.helper.TimeHelper
 import com.hanihashemi.sleepwellbaby.model.Music
+import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
 import com.hanihashemi.sleepwellbaby.ui.upgrade.UpgradeActivity
 import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -36,11 +38,11 @@ class MainFragment : BaseFragment() {
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     var seekBarTouching = false
     private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
-    val countOfDefaultMusics = 20
+    private val countOfDefaultMusics = 20
 
     override fun customizeUI() {
         setActions()
-        initSeekbar()
+        initSeekBar()
         syncRequest()
         addDefaultMusics()
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
@@ -94,7 +96,7 @@ class MainFragment : BaseFragment() {
         addVoiceSectionLayout("صدای شما")
     }
 
-    private fun initSeekbar() {
+    private fun initSeekBar() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
                 seekBarTouching = true
@@ -122,11 +124,6 @@ class MainFragment : BaseFragment() {
         settings.setOnClickListener {
             IntentHelper().sendMail(activity, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "نظر و یا پیشنهاد", "")
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        updateVoiceFiles()
     }
 
     fun updateVoiceFiles() {
@@ -215,7 +212,7 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             countOfDefaultMusics -> {
-                VoiceRecordPermission(context).check(activity)
+                VoiceRecordPermission(activity).check(activity)
             }
             else -> onItemClick(music)
         }
@@ -293,5 +290,11 @@ class MainFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RecordActivity.requestCode && resultCode == Activity.RESULT_OK)
+            updateVoiceFiles()
     }
 }

@@ -2,7 +2,6 @@ package com.hanihashemi.sleepwellbaby.ui.main
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Environment
 import android.support.v4.content.ContextCompat
@@ -21,7 +20,7 @@ import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 /**
  * Created by Hani on 3/30/18.
  */
-class VoiceRecordPermission(private val context: Context) {
+class VoiceRecordPermission(private val context: Activity) {
     fun check(activity: Activity) {
         if (!isExternalStorageWritable()) {
             Toast.makeText(context, "حافظه خارجی قابل نوشتن نیست!", Toast.LENGTH_LONG).show()

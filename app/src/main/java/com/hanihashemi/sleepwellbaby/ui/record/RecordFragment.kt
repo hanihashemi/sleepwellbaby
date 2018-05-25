@@ -1,5 +1,6 @@
 package com.hanihashemi.sleepwellbaby.ui.record
 
+import android.app.Activity
 import android.graphics.Color
 import android.media.MediaRecorder
 import android.os.Handler
@@ -30,7 +31,7 @@ class RecordFragment : BaseFragment() {
             stopRecording(true)
             activity.finish()
         }
-        btnSave.setOnClickListener { activity.finish() }
+        btnSave.setOnClickListener { finishWithOKResult() }
 
         waveHelper = WaveHelper(wave)
         wave.setShapeType(WaveView.ShapeType.SQUARE)
@@ -84,12 +85,17 @@ class RecordFragment : BaseFragment() {
         timer.schedule(object : TimerTask() {
             override fun run() {
                 if (timerMillis == 300L)
-                    activity.finish()
+                    finishWithOKResult()
 
                 activity.runOnUiThread { txtTimer.text = convertMillisToTime(timerMillis * 1000) }
                 timerMillis++
             }
         }, 0, 1000)
+    }
+
+    private fun finishWithOKResult() {
+        activity.setResult(Activity.RESULT_OK)
+        activity.finish()
     }
 
     private fun stopRecording(delete: Boolean = false) {
