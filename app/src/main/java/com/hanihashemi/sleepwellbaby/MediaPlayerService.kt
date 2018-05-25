@@ -89,7 +89,7 @@ class MediaPlayerService : Service(), MediaPlayer.OnErrorListener {
 
             override fun onTick(millisUntilFinished: Long) {
                 sleepTimerMillis = millisUntilFinished
-                sync(STATUS.NONE)
+                sync(STATUS.PLAYING)
             }
         }
         this.countDownTimer?.start()
