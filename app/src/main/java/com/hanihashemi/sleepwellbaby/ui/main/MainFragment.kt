@@ -37,7 +37,6 @@ class MainFragment : BaseFragment() {
     private val adapterList = mutableListOf<BaseAdapter>()
     private var lastPlayerStatus = MediaPlayerService.STATUS.STOP
     var seekBarTouching = false
-    private var voiceItemsAdapter: MusicalTextButtonAdapter? = null
     private val countOfDefaultMusics = 20
 
     override fun customizeUI() {
@@ -142,8 +141,13 @@ class MainFragment : BaseFragment() {
                             R.color.itemAddVoice, file))
                 }
 
-        voiceItemsAdapter?.refresh(voices)
         musicManager.addAll(voices)
+
+        val voiceItemsAdapter = MusicalTextButtonAdapter(
+                context, voices,
+                { music -> onVoiceItemClick(music) },
+                { music -> onVoiceItemLongClick(music) })
+        gridView.adapter = voiceItemsAdapter
     }
 
     private fun onPlayToggleClick() {
@@ -195,16 +199,14 @@ class MainFragment : BaseFragment() {
         musicManager.addAll(musics)
     }
 
+    lateinit var gridView: ExpandableGridView
+
     private fun addVoiceSectionLayout(name: String) {
         val myLayout = inflate(context, R.layout.section_layout, null)
         myLayout.findViewById<TextView>(R.id.title).text = name
 
-        val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        voiceItemsAdapter = MusicalTextButtonAdapter(context, mutableListOf(), { music -> onVoiceItemClick(music) }, { music -> onVoiceItemLongClick(music) })
-
-        gridView.adapter = voiceItemsAdapter
+        gridView = myLayout.findViewById(R.id.gridView2)
         wrapperLayout.addView(myLayout)
-        adapterList.add(voiceItemsAdapter!!)
 
         updateVoiceFiles()
     }
@@ -254,7 +256,10 @@ class MainFragment : BaseFragment() {
         super.onPause()
     }
 
-    fun notifyAllAdapters() = adapterList.forEach { item -> item.notifyDataSetChanged() }
+    fun notifyAllAdapters() {
+        (gridView.adapter as MusicalTextButtonAdapter).notifyDataSetChanged()
+        adapterList.forEach { item -> item.notifyDataSetChanged() }
+    }
 
     @Suppress("MemberVisibilityCanBePrivate")
     val messageReceiver = object : BroadcastReceiver() {
