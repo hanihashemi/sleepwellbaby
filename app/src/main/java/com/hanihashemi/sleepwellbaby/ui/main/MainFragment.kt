@@ -137,7 +137,7 @@ class MainFragment : BaseFragment() {
         AudioFileHelper().list(context)
                 .forEachIndexed { index, file ->
                     voices.add(Music(
-                            countOfDefaultMusics + index, (index + 1).toString(),
+                            countOfDefaultMusics + index + 1, (index + 1).toString(),
                             R.color.itemAddVoice, file))
                 }
 
