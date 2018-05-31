@@ -26,7 +26,7 @@
         android:columnWidth="70dp"
         android:numColumns="auto_fit"
         android:paddingTop="30dp"
-        android:rotationY="180"
         android:stretchMode="spacingWidth"
+        android:rotationY="180"
         android:verticalSpacing="10dp" />
 </FrameLayout>

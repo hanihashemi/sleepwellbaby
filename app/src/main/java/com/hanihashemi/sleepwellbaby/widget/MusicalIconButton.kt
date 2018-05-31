@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
+import com.hanihashemi.sleepwellbaby.helper.isRTL
 
 
 /**
@@ -43,7 +44,7 @@ class MusicalIconButton : FrameLayout {
                 context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F))
-        image.rotationY = 180F
+        image.rotationY = if (isRTL()) 0F else 180F
 
         addView(image)
     }

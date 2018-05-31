@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
+import com.hanihashemi.sleepwellbaby.helper.isRTL
 
 /**
  * Created by irantalent on 12/30/17.
@@ -47,7 +48,7 @@ class MusicalTextButton : FrameLayout {
                 context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F))
-        text.rotationY = 180F
+        text.rotationY = if (isRTL()) 0F else 180F
         text.setTypeface(null, Typeface.BOLD)
         text.gravity = Gravity.CENTER
 
