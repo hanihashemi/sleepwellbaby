@@ -76,7 +76,7 @@ class MainFragment : BaseFragment() {
         val persianMusics = mutableListOf<Music>()
         persianMusics.add(Music(12, R.raw.hasani, "حسنی", R.color.itemHasani, isLocked = true))
         persianMusics.add(Music(13, R.raw.gonjeshk, "گنجشک لالا", R.color.itemGonjeshkLala))
-        persianMusics.add(Music(14, R.raw.chera, "چرا", R.color.itemChera))
+        persianMusics.add(Music(14, R.raw.chera, "چرا ؟!", R.color.itemChera))
 
         //english songs
         val englishMusics = mutableListOf<Music>()

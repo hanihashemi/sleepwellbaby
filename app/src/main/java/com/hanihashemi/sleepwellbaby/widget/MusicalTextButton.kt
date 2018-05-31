@@ -5,12 +5,13 @@ import android.graphics.Typeface
 import android.os.Build
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.TextViewCompat
+import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
 import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
 import com.hanihashemi.sleepwellbaby.helper.isRTL
@@ -19,7 +20,7 @@ import com.hanihashemi.sleepwellbaby.helper.isRTL
  * Created by irantalent on 12/30/17.
  */
 class MusicalTextButton : FrameLayout {
-    val text = TextView(context, null)
+    val text = AppCompatTextView(context, null)
 
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs, 0) {
         init()
@@ -44,6 +45,7 @@ class MusicalTextButton : FrameLayout {
     }
 
     private fun initText() {
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(text, TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM)
         text.setPadding(context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F),
