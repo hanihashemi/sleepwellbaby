@@ -109,12 +109,4 @@ class MainActivityTest {
         val textView2 = onView(withId(R.id.txtTimer))
         textView2.check(matches(isDisplayed()))
     }
-
-    private fun sleep(duration: Long) {
-        try {
-            Thread.sleep(duration)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
-    }
 }
