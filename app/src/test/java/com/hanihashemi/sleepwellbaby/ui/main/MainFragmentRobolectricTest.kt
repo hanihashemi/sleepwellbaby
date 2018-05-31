@@ -9,7 +9,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 
 @RunWith(RobolectricTestRunner::class)
-class MainFragmentTest {
+class MainFragmentRobolectricTest {
     @Test
     fun updateVoiceFiles() {
         val activity = startActivity()
