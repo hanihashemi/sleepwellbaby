@@ -14,10 +14,10 @@ abstract class BaseFragment : Fragment() {
     private lateinit var view: View
     protected abstract val layoutResource: Int
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater!!.inflate(layoutResource, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        view = inflater.inflate(layoutResource, container, false)
         if (arguments != null)
-            gatherArguments(arguments)
+            gatherArguments(arguments!!)
         customizeUI()
         return view
     }

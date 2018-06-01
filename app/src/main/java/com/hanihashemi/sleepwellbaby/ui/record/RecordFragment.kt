@@ -29,7 +29,7 @@ class RecordFragment : BaseFragment() {
     override fun customizeUI() {
         btnCancel.setOnClickListener {
             stopRecording(true)
-            activity.finish()
+            activity?.finish()
         }
         btnSave.setOnClickListener { finishWithOKResult() }
 
@@ -37,8 +37,8 @@ class RecordFragment : BaseFragment() {
         wave.setShapeType(WaveView.ShapeType.SQUARE)
         wave.setBorder(0, Color.BLACK)
         wave.setWaveColor(
-                ContextCompat.getColor(context, R.color.waveBehind),
-                ContextCompat.getColor(context, R.color.waveFront))
+                ContextCompat.getColor(context!!, R.color.waveBehind),
+                ContextCompat.getColor(context!!, R.color.waveFront))
     }
 
     override fun onStart() {
@@ -49,8 +49,8 @@ class RecordFragment : BaseFragment() {
     override fun onStop() {
         stopRecording()
         super.onStop()
-        if (!activity.isFinishing)
-            activity.finish()
+        if (activity != null && !activity!!.isFinishing)
+            activity?.finish()
     }
 
     override fun onResume() {
@@ -66,7 +66,7 @@ class RecordFragment : BaseFragment() {
     }
 
     private fun startRecording() {
-        file = AudioFileHelper().newFile(context)
+        file = AudioFileHelper().newFile(context!!)
 
         mediaRecorder = MediaRecorder()
         mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
@@ -87,15 +87,15 @@ class RecordFragment : BaseFragment() {
                 if (timerMillis == 300L)
                     finishWithOKResult()
 
-                activity.runOnUiThread { txtTimer.text = convertMillisToTime(timerMillis * 1000) }
+                activity?.runOnUiThread { txtTimer.text = convertMillisToTime(timerMillis * 1000) }
                 timerMillis++
             }
         }, 0, 1000)
     }
 
     private fun finishWithOKResult() {
-        activity.setResult(Activity.RESULT_OK)
-        activity.finish()
+        activity?.setResult(Activity.RESULT_OK)
+        activity?.finish()
     }
 
     private fun stopRecording(delete: Boolean = false) {

@@ -106,7 +106,7 @@ class MainFragment : BaseFragment() {
                 val intent = Intent(context, MediaPlayerService::class.java)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SEEK_TO)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.SEEK_TO_MILLIS.name, seekBar?.progress)
-                context.startService(intent)
+                context?.startService(intent)
             }
 
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -117,16 +117,19 @@ class MainFragment : BaseFragment() {
     }
 
     private fun setActions() {
-        airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity) }
+        if (activity == null)
+            return
+
+        airplane.setOnClickListener { IntentHelper().openAirplaneModeSettings(activity!!) }
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { showBottomSheet(activity as MainActivity) }
         settings.setOnClickListener {
-            IntentHelper().sendMail(activity, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "نظر و یا پیشنهاد", "")
+            IntentHelper().sendMail(activity!!, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "نظر و یا پیشنهاد", "")
         }
     }
 
     fun updateVoiceFiles() {
-        if (musicManager.isEmpty())
+        if (musicManager.isEmpty() || context == null)
             return
 
         musicManager.removeAfter(countOfDefaultMusics)
@@ -134,17 +137,19 @@ class MainFragment : BaseFragment() {
         val voices = mutableListOf<Music>()
         voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
 
-        AudioFileHelper().list(context)
-                .forEachIndexed { index, file ->
-                    voices.add(Music(
-                            countOfDefaultMusics + index + 1, (index + 1).toString(),
-                            R.color.itemAddVoice, file))
-                }
+        val directoryFiles = AudioFileHelper().list(context!!)
+        if (directoryFiles != null)
+            directoryFiles
+                    .forEachIndexed { index, file ->
+                        voices.add(Music(
+                                countOfDefaultMusics + index + 1, (index + 1).toString(),
+                                R.color.itemAddVoice, file))
+                    }
 
         musicManager.addAll(voices)
 
         val voiceItemsAdapter = MusicalTextButtonAdapter(
-                context, voices,
+                context!!, voices,
                 { music -> onVoiceItemClick(music) },
                 { music -> onVoiceItemLongClick(music) })
         gridView.adapter = voiceItemsAdapter
@@ -155,12 +160,12 @@ class MainFragment : BaseFragment() {
             MediaPlayerService.STATUS.PLAYING -> {
                 val intent = Intent(context, MediaPlayerService::class.java)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PAUSE)
-                context.startService(intent)
+                context?.startService(intent)
             }
             MediaPlayerService.STATUS.PAUSE -> {
                 val intent = Intent(context, MediaPlayerService::class.java)
                 intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
-                context.startService(intent)
+                context?.startService(intent)
             }
             else -> {
             }
@@ -170,7 +175,7 @@ class MainFragment : BaseFragment() {
     private fun syncRequest() {
         val intent = Intent(context, MediaPlayerService::class.java)
         intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.SYNC)
-        context.startService(intent)
+        context?.startService(intent)
     }
 
     private fun addIconSectionLayout(name: String, musics: MutableList<Music>) {
@@ -178,7 +183,7 @@ class MainFragment : BaseFragment() {
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        val musicalIconButtonAdapter = MusicalIconButtonAdapter(context, musics, { music -> onItemClick(music) })
+        val musicalIconButtonAdapter = MusicalIconButtonAdapter(context!!, musics, { music -> onItemClick(music) })
 
         gridView.adapter = musicalIconButtonAdapter
         wrapperLayout.addView(myLayout)
@@ -191,7 +196,7 @@ class MainFragment : BaseFragment() {
         myLayout.findViewById<TextView>(R.id.title).text = name
 
         val gridView = myLayout.findViewById<ExpandableGridView>(R.id.gridView2)
-        val musicTextButtonAdapter = MusicalTextButtonAdapter(context, musics, { music -> onItemClick(music) })
+        val musicTextButtonAdapter = MusicalTextButtonAdapter(context!!, musics, { music -> onItemClick(music) })
 
         gridView.adapter = musicTextButtonAdapter
         wrapperLayout.addView(myLayout)
@@ -214,7 +219,7 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             countOfDefaultMusics -> {
-                VoiceRecordPermission(activity).check(activity)
+                VoiceRecordPermission(activity!!).check(activity!!)
             }
             else -> onItemClick(music)
         }
@@ -224,7 +229,7 @@ class MainFragment : BaseFragment() {
         if (music.id == 20)
             return
 
-        val builder = AlertDialog.Builder(activity)
+        val builder = AlertDialog.Builder(activity!!)
         builder.setMessage("می خواهید این صدا را حذف کنید؟")
                 .setPositiveButton("بله", { _, _ ->
                     music.file?.delete()
@@ -236,23 +241,23 @@ class MainFragment : BaseFragment() {
 
     private fun onItemClick(music: Music) {
         if (music.isLocked && BuildConfig.FLAVOR == "freemium") {
-            UpgradeActivity.start(context)
+            UpgradeActivity.start(context!!)
             return
         }
 
         val intent = Intent(context, MediaPlayerService::class.java)
         intent.putExtra(MediaPlayerService.ARGUMENTS.ACTION.name, MediaPlayerService.ACTIONS.PLAY)
         intent.putExtra(MediaPlayerService.ARGUMENTS.MUSIC_OBJ.name, music)
-        context.startService(intent)
+        context?.startService(intent)
     }
 
     override fun onResume() {
         super.onResume()
-        LocalBroadcastManager.getInstance(context).registerReceiver(messageReceiver, IntentFilter(MediaPlayerService.BROADCAST_KEY))
+        LocalBroadcastManager.getInstance(context!!).registerReceiver(messageReceiver, IntentFilter(MediaPlayerService.BROADCAST_KEY))
     }
 
     override fun onPause() {
-        LocalBroadcastManager.getInstance(context).unregisterReceiver(messageReceiver)
+        LocalBroadcastManager.getInstance(context!!).unregisterReceiver(messageReceiver)
         super.onPause()
     }
 
