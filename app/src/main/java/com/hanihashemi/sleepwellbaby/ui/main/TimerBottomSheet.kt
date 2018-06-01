@@ -11,7 +11,7 @@ fun showBottomSheet(activity: MainActivity) {
     BottomSheet.Builder(activity)
             .setSheet(R.menu.timer)
             .setStyle(R.style.BottomSheet)
-            .setTitle("قطع آهنگ")
+            .setTitle("زمانبندی توقف أهنگ")
             .setCancelable(true)
             .setListener(object : BottomSheetListener {
                 override fun onSheetDismissed(p0: BottomSheet, p1: Any?, p2: Int) {
