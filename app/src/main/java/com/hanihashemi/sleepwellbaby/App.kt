@@ -23,6 +23,11 @@ class App : Application() {
 //                .build()
 //                .inject(this)
 
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            return;
+//        }
+//        LeakCanary.install(this)
+
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         NotificationManager(this as Context).createMainNotificationChannel()
 
