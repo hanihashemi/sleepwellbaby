@@ -23,7 +23,7 @@
         android:padding="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_insert_comment"
+        app:srcCompat="@drawable/ic_help"
         tools:ignore="ContentDescription" />
 
     <android.support.v7.widget.AppCompatImageButton

@@ -21,6 +21,7 @@ import com.hanihashemi.sleepwellbaby.helper.AudioFileHelper
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.helper.TimeHelper
 import com.hanihashemi.sleepwellbaby.model.Music
+import com.hanihashemi.sleepwellbaby.ui.feedback.FeedbackDialog
 import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
 import com.hanihashemi.sleepwellbaby.ui.upgrade.UpgradeActivity
 import com.hanihashemi.sleepwellbaby.widget.ExpandableGridView
@@ -124,7 +125,7 @@ class MainFragment : BaseFragment() {
         playToggle.setOnClickListener { onPlayToggleClick() }
         timer.setOnClickListener { showBottomSheet(activity as MainActivity) }
         settings.setOnClickListener {
-            IntentHelper().sendMail(activity!!, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "نظر و یا پیشنهاد", "")
+            FeedbackDialog().show(fragmentManager, FeedbackDialog::class.java.simpleName)
         }
     }
 
