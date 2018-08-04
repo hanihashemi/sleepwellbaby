@@ -49,12 +49,19 @@ android {
     }
     flavorDimensions "default"
     productFlavors {
-        freemium {
+        freemiumMyket {
             applicationIdSuffix ".freemium"
-//            signingConfig signingConfigs.FreemiumSign
+            signingConfig signingConfigs.FreemiumSign
         }
-        premium {
-//            signingConfig signingConfigs.PremiumSign
+        premiumMyket {
+            signingConfig signingConfigs.PremiumSign
+        }
+        freeiumGooglePlay{
+            applicationIdSuffix ".freemium"
+            signingConfig signingConfigs.FreemiumSign
+        }
+        premiumGooglePlay{
+            signingConfig signingConfigs.PremiumSign
         }
     }
     testOptions {
