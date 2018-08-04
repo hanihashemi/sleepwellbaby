@@ -1,4 +1,4 @@
-package com.hanihashemi.sleepwellbaby
+package com.hanihashemi.sleepwellbaby.service
 
 /**
  * Created by irantalent on 1/18/18.
