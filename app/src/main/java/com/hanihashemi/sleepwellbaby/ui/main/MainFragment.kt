@@ -15,9 +15,11 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
-import com.hanihashemi.sleepwellbaby.*
+import com.hanihashemi.sleepwellbaby.BuildConfig
+import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
 import com.hanihashemi.sleepwellbaby.helper.AudioFileHelper
+import com.hanihashemi.sleepwellbaby.helper.FlavorHelper
 import com.hanihashemi.sleepwellbaby.helper.IntentHelper
 import com.hanihashemi.sleepwellbaby.helper.TimeHelper
 import com.hanihashemi.sleepwellbaby.model.Music
@@ -94,8 +96,9 @@ class MainFragment : BaseFragment() {
         addIconSectionLayout("مادر", motherMusics)
         addIconSectionLayout("حمل و نقل", transportMusics)
         addIconSectionLayout("لوازم خانگی", applianceMusics)
-        addTextSectionLayout("لالایی فارسی", persianMusics)
         addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
+        if (!FlavorHelper(BuildConfig.FLAVOR).isMyket())
+            addTextSectionLayout("لالایی فارسی", persianMusics)
         addVoiceSectionLayout("صدای شما")
     }
 
@@ -235,16 +238,16 @@ class MainFragment : BaseFragment() {
 
         val builder = AlertDialog.Builder(activity!!)
         builder.setMessage("می خواهید این صدا را حذف کنید؟")
-                .setPositiveButton("بله", { _, _ ->
+                .setPositiveButton("بله") { _, _ ->
                     music.file?.delete()
                     updateVoiceFiles()
-                })
+                }
                 .setNegativeButton("خیر", null)
         builder.create().show()
     }
 
     private fun onItemClick(music: Music) {
-        if (music.isLocked && BuildConfig.FLAVOR == "freemium") {
+        if (music.isLocked && FlavorHelper(BuildConfig.FLAVOR).isFree()) {
             UpgradeActivity.start(context!!)
             return
         }

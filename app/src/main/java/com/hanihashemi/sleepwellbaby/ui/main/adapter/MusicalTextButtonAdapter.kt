@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.hanihashemi.sleepwellbaby.BuildConfig
 import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.helper.FlavorHelper
 import com.hanihashemi.sleepwellbaby.model.Music
 import com.hanihashemi.sleepwellbaby.widget.MusicalTextButton
 
@@ -20,7 +21,7 @@ class MusicalTextButtonAdapter(private val context: Context, private var musics:
             button = MusicalTextButton(context, null)
             button.setText(musics[position].name)
             button.setTextColor(musics[position].colorOrIcon)
-            if (musics[position].isLocked && BuildConfig.FLAVOR == "freemium") button.addLock()
+            if (musics[position].isLocked && FlavorHelper(BuildConfig.FLAVOR).isFree()) button.addLock()
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setOnLongClickListener {
                 onItemLongClick(musics[position])

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.hanihashemi.sleepwellbaby.BuildConfig
 import com.hanihashemi.sleepwellbaby.R
+import com.hanihashemi.sleepwellbaby.helper.FlavorHelper
 import com.hanihashemi.sleepwellbaby.helper.dpToPx
 import com.hanihashemi.sleepwellbaby.model.Music
 import com.hanihashemi.sleepwellbaby.widget.MusicalIconButton
@@ -22,7 +23,7 @@ class MusicalIconButtonAdapter(private val context: Context, private val musics:
             button.layoutParams = ViewGroup.LayoutParams(context.dpToPx(70F), context.dpToPx(70F))
             button.setOnClickListener { onItemClick(musics[position]) }
             button.setImageResource(musics[position].colorOrIcon)
-            if (musics[position].isLocked && BuildConfig.FLAVOR == "freemium") button.addLock()
+            if (musics[position].isLocked && FlavorHelper(BuildConfig.FLAVOR).isFree()) button.addLock()
         } else {
             button = convertView as MusicalIconButton
         }
