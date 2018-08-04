@@ -51,10 +51,10 @@ android {
     productFlavors {
         freemium {
             applicationIdSuffix ".freemium"
-            signingConfig signingConfigs.FreemiumSign
+//            signingConfig signingConfigs.FreemiumSign
         }
         premium {
-            signingConfig signingConfigs.PremiumSign
+//            signingConfig signingConfigs.PremiumSign
         }
     }
     testOptions {
@@ -83,17 +83,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.18.3'
     testImplementation 'org.robolectric:robolectric:3.8'
-
-    // Leak Canary
-//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-//    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
-
-    // dagger
-//    implementation 'com.google.dagger:dagger:2.11'
-//    implementation 'com.google.dagger:dagger-android:2.11'
-//    implementation 'com.google.dagger:dagger-android-support:2.11'
-//    kapt 'com.google.dagger:dagger-android-processor:2.11'
-//    kapt 'com.google.dagger:dagger-compiler:2.11'
 
     implementation('com.karumi:dexter:4.2.0') {
         exclude group: 'com.android.support', module: 'appcompat'
