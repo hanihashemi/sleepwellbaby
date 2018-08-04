@@ -3,7 +3,7 @@ package com.hanihashemi.sleepwellbaby.ui.main
 import android.content.Context
 import android.content.Intent
 import android.view.View
-import com.hanihashemi.sleepwellbaby.MediaPlayerService
+import com.hanihashemi.sleepwellbaby.service.MediaPlayerService
 import com.hanihashemi.sleepwellbaby.base.BaseActivityWithSingleFragment
 import com.hanihashemi.sleepwellbaby.model.Music
 import kotlinx.android.synthetic.main.main_fragment.*

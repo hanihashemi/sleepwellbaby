@@ -2,7 +2,7 @@ package com.hanihashemi.sleepwellbaby.ui.main
 
 import android.content.Intent
 import android.view.MenuItem
-import com.hanihashemi.sleepwellbaby.MediaPlayerService
+import com.hanihashemi.sleepwellbaby.service.MediaPlayerService
 import com.hanihashemi.sleepwellbaby.R
 import com.kennyc.bottomsheet.BottomSheet
 import com.kennyc.bottomsheet.BottomSheetListener

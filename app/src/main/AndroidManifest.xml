@@ -33,7 +33,7 @@
             android:name=".ui.upgrade.UpgradeActivity"
             android:parentActivityName=".ui.main.MainActivity" />
 
-        <service android:name=".MediaPlayerService" />
+        <service android:name=".service.MediaPlayerService" />
     </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import com.hanihashemi.sleepwellbaby.service.MediaPlayerService
 import com.hanihashemi.sleepwellbaby.ui.main.MainActivity
 
 /**
