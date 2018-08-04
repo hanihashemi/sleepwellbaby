@@ -1,13 +1,11 @@
-package com.hanihashemi.sleepwellbaby
+package com.hanihashemi.sleepwellbaby.ui.main.adapter
 
 import android.content.Context
-import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
-import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import com.hanihashemi.sleepwellbaby.helper.dpToPx
+import com.hanihashemi.sleepwellbaby.BuildConfig
+import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.model.Music
 import com.hanihashemi.sleepwellbaby.widget.MusicalTextButton
 
