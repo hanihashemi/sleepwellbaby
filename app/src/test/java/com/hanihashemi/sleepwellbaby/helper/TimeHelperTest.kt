@@ -1,8 +1,7 @@
 package com.hanihashemi.sleepwellbaby.helper
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 class TimeHelperTest {
 
