@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
 import com.crashlytics.android.Crashlytics
+import com.hanihashemi.sleepwellbaby.notification.NotificationManager
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 

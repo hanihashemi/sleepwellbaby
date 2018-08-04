@@ -8,7 +8,7 @@ import android.os.CountDownTimer
 import android.os.Handler
 import android.os.IBinder
 import android.support.v4.content.LocalBroadcastManager
-import com.hanihashemi.sleepwellbaby.NotificationManager
+import com.hanihashemi.sleepwellbaby.notification.NotificationManager
 import com.hanihashemi.sleepwellbaby.PerfectLoopMediaPlayer
 import com.hanihashemi.sleepwellbaby.model.Music
 import timber.log.Timber
