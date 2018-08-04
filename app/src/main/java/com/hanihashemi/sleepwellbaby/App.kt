@@ -17,16 +17,6 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        DaggerAppComponent
-//                .builder()
-//                .application(this)
-//                .build()
-//                .inject(this)
-
-//        if (LeakCanary.isInAnalyzerProcess(this)) {
-//            return;
-//        }
-//        LeakCanary.install(this)
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         NotificationManager(this as Context).createMainNotificationChannel()
