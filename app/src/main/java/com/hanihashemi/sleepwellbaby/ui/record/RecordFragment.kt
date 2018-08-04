@@ -66,7 +66,7 @@ class RecordFragment : BaseFragment() {
     }
 
     private fun startRecording() {
-        file = AudioFileHelper().newFile(context!!)
+        file = AudioFileHelper(context!!).newFile()
 
         mediaRecorder = MediaRecorder()
         mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)

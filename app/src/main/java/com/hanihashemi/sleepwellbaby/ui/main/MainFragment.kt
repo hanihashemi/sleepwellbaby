@@ -144,7 +144,7 @@ class MainFragment : BaseFragment() {
         val voices = mutableListOf<Music>()
         voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
 
-        val directoryFiles = AudioFileHelper().list(context!!)
+        val directoryFiles = AudioFileHelper(context!!).list()
         if (directoryFiles != null)
             directoryFiles
                     .forEachIndexed { index, file ->
@@ -226,7 +226,10 @@ class MainFragment : BaseFragment() {
     private fun onVoiceItemClick(music: Music) {
         when (music.id) {
             countOfDefaultMusics -> {
-                VoiceRecordPermission(activity!!).check(activity!!)
+                if (FlavorHelper(BuildConfig.FLAVOR).isFree() && AudioFileHelper(context!!).size() > 2)
+                    UpgradeActivity.start(context!!)
+                else
+                    VoiceRecordPermission(activity!!).check(activity!!)
             }
             else -> onItemClick(music)
         }
