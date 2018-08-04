@@ -10,9 +10,27 @@ import java.io.File
  */
 @SuppressLint("ParcelCreator")
 @Parcelize
-class Music(val id: Int, val fileId: Int, val name: String, val colorOrIcon: Int, var isLocked: Boolean = false, var isActive: Boolean = false, var file: File? = null) : Parcelable {
-    constructor(id: Int, name: String, colorOrIcon: Int = -1, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive)
-    constructor(id: Int, name: String, colorOrIcon: Int = -1, file: File, isLocked: Boolean = false, isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive, file)
+class Music(
+        val id: Int,
+        val fileId: Int,
+        val name: String,
+        val colorOrIcon: Int,
+        var isLocked: Boolean = false,
+        var isActive: Boolean = false,
+        var file: File? = null) : Parcelable {
+
+    constructor(id: Int,
+                name: String,
+                colorOrIcon: Int = -1,
+                isLocked: Boolean = false,
+                isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive)
+
+    constructor(id: Int,
+                name: String,
+                colorOrIcon: Int = -1,
+                file: File,
+                isLocked: Boolean = false,
+                isActive: Boolean = false) : this(id, -1, name, colorOrIcon, isLocked, isActive, file)
 
     override fun equals(other: Any?) = (other != null && other is Music && other.id == this.id)
 
