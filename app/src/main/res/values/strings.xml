@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">SleepWellBaby</string>
 
+    <!--Actions-->
     <string name="close">بستن</string>
     <string name="cancel">انصراف</string>
     <string name="save">ذخیره</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
 
     <!--Feedback Screen-->
     <string name="feedback_description">هانی هاشمی هستم، خوشحالم که از این اپ استفاده می کنید. آدرس ایمیل من jhanihashemi@gmail.com است.</string>
@@ -21,7 +24,25 @@
     <string name="upgrade_feature_3">ضبط صدا به تعداد نامحدود</string>
     <string name="upgrade_payment_description">تنها با پرداخت مبلغ اندک و به صورت دائمی</string>
     <string name="upgrade_button_title">دریافت نسخه ویژه</string>
+    <string name="main_track_hasani">حسنی</string>
+    <string name="main_track_gonjeshk_lala">گنجشک لالا</string>
+    <string name="main_track_chera">چرا ؟!</string>
+    <string name="main_track_music_box">Music Box</string>
+    <string name="main_track_danny_boy">Danny Boy</string>
+    <string name="main_track_lullabay">Lullabay</string>
+    <string name="main_track_go_to_sleep">Go to Sleep</string>
+    <string name="main_track_pretty_horses">Pretty Horses</string>
+    <string name="main_track_nature">طبیعت</string>
+    <string name="main_track_mom">مادر</string>
+    <string name="main_track_transport">حمل و نقل</string>
+    <string name="main_track_appliance">لوازم خانگی</string>
+    <string name="main_track_english_lullabay">ملودی و لالایی انگلیسی</string>
+    <string name="main_track_persian_lullabay">لالایی فارسی</string>
+    <string name="main_track_your_sounds">صدای شما</string>
+    <string name="main_track_record">ضبط کن</string>
+    <string name="main_remove_my_sound_question">می خواهید این صدا را حذف کنید؟</string>
 
+    <!--Main Screen-->
 
 
 </resources>

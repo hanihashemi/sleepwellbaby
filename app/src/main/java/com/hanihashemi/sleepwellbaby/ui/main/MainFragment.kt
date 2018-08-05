@@ -80,26 +80,26 @@ class MainFragment : BaseFragment() {
 
         //persian songs
         val persianMusics = mutableListOf<Music>()
-        persianMusics.add(Music(12, R.raw.hasani, "حسنی", R.color.itemHasani, isLocked = true))
-        persianMusics.add(Music(13, R.raw.gonjeshk, "گنجشک لالا", R.color.itemGonjeshkLala))
-        persianMusics.add(Music(14, R.raw.chera, "چرا ؟!", R.color.itemChera))
+        persianMusics.add(Music(12, R.raw.hasani, getString(R.string.main_track_hasani), R.color.itemHasani, isLocked = true))
+        persianMusics.add(Music(13, R.raw.gonjeshk, getString(R.string.main_track_gonjeshk_lala), R.color.itemGonjeshkLala))
+        persianMusics.add(Music(14, R.raw.chera, getString(R.string.main_track_chera), R.color.itemChera))
 
         //english songs
         val englishMusics = mutableListOf<Music>()
-        englishMusics.add(Music(15, R.raw.music_box, "Music Box", R.color.itemMusicBox))
-        englishMusics.add(Music(16, R.raw.danny_boy, "Danny Boy", R.color.itemDannyBoy))
-        englishMusics.add(Music(17, R.raw.lullaby, "Lullabay", R.color.itemLullaby, isLocked = true))
-        englishMusics.add(Music(18, R.raw.goto_sleep, "Go to Sleep", R.color.itemGotoSleep))
-        englishMusics.add(Music(19, R.raw.all_pretty_horses, "Pretty Horses", R.color.itemAllPrettyHorses, isLocked = true))
+        englishMusics.add(Music(15, R.raw.music_box, getString(R.string.main_track_music_box), R.color.itemMusicBox))
+        englishMusics.add(Music(16, R.raw.danny_boy, getString(R.string.main_track_danny_boy), R.color.itemDannyBoy))
+        englishMusics.add(Music(17, R.raw.lullaby, getString(R.string.main_track_lullabay), R.color.itemLullaby, isLocked = true))
+        englishMusics.add(Music(18, R.raw.goto_sleep, getString(R.string.main_track_go_to_sleep), R.color.itemGotoSleep))
+        englishMusics.add(Music(19, R.raw.all_pretty_horses, getString(R.string.main_track_pretty_horses), R.color.itemAllPrettyHorses, isLocked = true))
 
-        addIconSectionLayout("طبیعت", natureMusics)
-        addIconSectionLayout("مادر", motherMusics)
-        addIconSectionLayout("حمل و نقل", transportMusics)
-        addIconSectionLayout("لوازم خانگی", applianceMusics)
-        addTextSectionLayout("ملودی و لالایی انگلیسی", englishMusics)
+        addIconSectionLayout(getString(R.string.main_track_nature), natureMusics)
+        addIconSectionLayout(getString(R.string.main_track_mom), motherMusics)
+        addIconSectionLayout(getString(R.string.main_track_transport), transportMusics)
+        addIconSectionLayout(getString(R.string.main_track_appliance), applianceMusics)
+        addTextSectionLayout(getString(R.string.main_track_english_lullabay), englishMusics)
         if (!FlavorHelper(BuildConfig.FLAVOR).isMyket())
-            addTextSectionLayout("لالایی فارسی", persianMusics)
-        addVoiceSectionLayout("صدای شما")
+            addTextSectionLayout(getString(R.string.main_track_persian_lullabay), persianMusics)
+        addVoiceSectionLayout(getString(R.string.main_track_your_sounds))
     }
 
     private fun initSeekBar() {
@@ -142,7 +142,7 @@ class MainFragment : BaseFragment() {
         musicManager.removeAfter(countOfDefaultMusics)
 
         val voices = mutableListOf<Music>()
-        voices.add(Music(countOfDefaultMusics, "ضبط کن", R.color.itemAddVoice))
+        voices.add(Music(countOfDefaultMusics, getString(R.string.main_track_record), R.color.itemAddVoice))
 
         val directoryFiles = AudioFileHelper(context!!).list()
         if (directoryFiles != null)
@@ -240,12 +240,12 @@ class MainFragment : BaseFragment() {
             return
 
         val builder = AlertDialog.Builder(activity!!)
-        builder.setMessage("می خواهید این صدا را حذف کنید؟")
-                .setPositiveButton("بله") { _, _ ->
+        builder.setMessage(getString(R.string.main_remove_my_sound_question))
+                .setPositiveButton(getString(R.string.yes)) { _, _ ->
                     music.file?.delete()
                     updateVoiceFiles()
                 }
-                .setNegativeButton("خیر", null)
+                .setNegativeButton(getString(R.string.no), null)
         builder.create().show()
     }
 
