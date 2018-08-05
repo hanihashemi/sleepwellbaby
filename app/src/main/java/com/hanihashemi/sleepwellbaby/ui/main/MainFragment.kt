@@ -88,7 +88,7 @@ class MainFragment : BaseFragment() {
         val englishMusics = mutableListOf<Music>()
         englishMusics.add(Music(15, R.raw.music_box, getString(R.string.main_track_music_box), R.color.itemMusicBox))
         englishMusics.add(Music(16, R.raw.danny_boy, getString(R.string.main_track_danny_boy), R.color.itemDannyBoy))
-        englishMusics.add(Music(17, R.raw.lullaby, getString(R.string.main_track_lullabay), R.color.itemLullaby, isLocked = true))
+        englishMusics.add(Music(17, R.raw.lullaby, getString(R.string.main_track_lullaby), R.color.itemLullaby, isLocked = true))
         englishMusics.add(Music(18, R.raw.goto_sleep, getString(R.string.main_track_go_to_sleep), R.color.itemGotoSleep))
         englishMusics.add(Music(19, R.raw.all_pretty_horses, getString(R.string.main_track_pretty_horses), R.color.itemAllPrettyHorses, isLocked = true))
 
@@ -96,9 +96,9 @@ class MainFragment : BaseFragment() {
         addIconSectionLayout(getString(R.string.main_track_mom), motherMusics)
         addIconSectionLayout(getString(R.string.main_track_transport), transportMusics)
         addIconSectionLayout(getString(R.string.main_track_appliance), applianceMusics)
-        addTextSectionLayout(getString(R.string.main_track_english_lullabay), englishMusics)
+        addTextSectionLayout(getString(R.string.main_track_english_lullaby), englishMusics)
         if (!FlavorHelper(BuildConfig.FLAVOR).isMyket())
-            addTextSectionLayout(getString(R.string.main_track_persian_lullabay), persianMusics)
+            addTextSectionLayout(getString(R.string.main_track_persian_lullaby), persianMusics)
         addVoiceSectionLayout(getString(R.string.main_track_your_sounds))
     }
 

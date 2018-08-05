@@ -50,7 +50,7 @@ class MusicalTextButton : FrameLayout {
                 context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F))
-        text.rotationY = if (isRTL()) 0F else 180F
+        text.rotationY = if (isRTL()) 180F else 0F
         text.setTypeface(null, Typeface.BOLD)
         text.gravity = Gravity.CENTER
 

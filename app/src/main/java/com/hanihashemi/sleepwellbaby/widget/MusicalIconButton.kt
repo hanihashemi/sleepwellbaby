@@ -44,7 +44,7 @@ class MusicalIconButton : FrameLayout {
                 context.dpToPx(15F),
                 context.dpToPx(15F),
                 context.dpToPx(15F))
-        image.rotationY = if (isRTL()) 0F else 180F
+        image.rotationY = if (isRTL()) 180F else 0F
 
         addView(image)
     }

@@ -2,47 +2,46 @@
     <string name="app_name">SleepWellBaby</string>
 
     <!--Actions-->
-    <string name="close">بستن</string>
-    <string name="cancel">انصراف</string>
-    <string name="save">ذخیره</string>
-    <string name="yes">بله</string>
-    <string name="no">خیر</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!--Feedback Screen-->
-    <string name="feedback_description">هانی هاشمی هستم، خوشحالم که از این اپ استفاده می کنید. آدرس ایمیل من jhanihashemi@gmail.com است.</string>
-    <string name="send_feedback_by_email">گزارش مشکل از راه ارسال ایمیل</string>
-    <string name="send_feedback_in_store">ارسال نظر در مایکت</string>
-    <string name="feedback_email_subject">گزارش مشکل</string>
+    <string name="feedback_description">My name is Hani Hashemi, My email address is jhanihashemi@gmail.com</string>
+    <string name="send_feedback_by_email">Report issue with email</string>
+    <string name="send_feedback_in_store">Send feedback on Myket</string>
+    <string name="feedback_email_subject">Feedback</string>
 
     <!--Record Screen-->
-    <string name="record_status">در حال ضبط</string>
+    <string name="record_status">Recording</string>
 
     <!--Upgrade Screen-->
-    <string name="upgrade_description">برای پخش این آهنگ باید از نسخه ویژه استفاده کنید</string>
-    <string name="upgrade_feature_1">حذف تبلیغات</string>
-    <string name="upgrade_feature_2">باز شدن تمامی آهنگ ها</string>
-    <string name="upgrade_feature_3">ضبط صدا به تعداد نامحدود</string>
-    <string name="upgrade_payment_description">تنها با پرداخت مبلغ اندک و به صورت دائمی</string>
-    <string name="upgrade_button_title">دریافت نسخه ویژه</string>
+    <string name="upgrade_description">For play this song you need the premium version</string>
+    <string name="upgrade_feature_1">Remove Ads</string>
+    <string name="upgrade_feature_2">Open all songs</string>
+    <string name="upgrade_feature_3">Record your voice unlimited</string>
+    <string name="upgrade_payment_description">Only by paying a small amount and permanently</string>
+    <string name="upgrade_button_title">Premium version</string>
+
+    <!--Main Screen-->
     <string name="main_track_hasani">حسنی</string>
     <string name="main_track_gonjeshk_lala">گنجشک لالا</string>
     <string name="main_track_chera">چرا ؟!</string>
     <string name="main_track_music_box">Music Box</string>
     <string name="main_track_danny_boy">Danny Boy</string>
-    <string name="main_track_lullabay">Lullabay</string>
+    <string name="main_track_lullaby">Lullaby</string>
     <string name="main_track_go_to_sleep">Go to Sleep</string>
     <string name="main_track_pretty_horses">Pretty Horses</string>
-    <string name="main_track_nature">طبیعت</string>
-    <string name="main_track_mom">مادر</string>
-    <string name="main_track_transport">حمل و نقل</string>
-    <string name="main_track_appliance">لوازم خانگی</string>
-    <string name="main_track_english_lullabay">ملودی و لالایی انگلیسی</string>
-    <string name="main_track_persian_lullabay">لالایی فارسی</string>
-    <string name="main_track_your_sounds">صدای شما</string>
-    <string name="main_track_record">ضبط کن</string>
-    <string name="main_remove_my_sound_question">می خواهید این صدا را حذف کنید؟</string>
-
-    <!--Main Screen-->
-
+    <string name="main_track_nature">Nature</string>
+    <string name="main_track_mom">Mother</string>
+    <string name="main_track_transport">Transportation</string>
+    <string name="main_track_appliance">Appliance</string>
+    <string name="main_track_english_lullaby">English Lullaby</string>
+    <string name="main_track_persian_lullaby">Persian Lullaby</string>
+    <string name="main_track_your_sounds">Your Voice</string>
+    <string name="main_track_record">Record</string>
+    <string name="main_remove_my_sound_question">Do you want to delete this sound?</string>
 
 </resources>
