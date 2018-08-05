@@ -14,4 +14,14 @@
     <!--Record Screen-->
     <string name="record_status">در حال ضبط</string>
 
+    <!--Upgrade Screen-->
+    <string name="upgrade_description">برای پخش این آهنگ باید از نسخه ویژه استفاده کنید</string>
+    <string name="upgrade_feature_1">حذف تبلیغات</string>
+    <string name="upgrade_feature_2">باز شدن تمامی آهنگ ها</string>
+    <string name="upgrade_feature_3">ضبط صدا به تعداد نامحدود</string>
+    <string name="upgrade_payment_description">تنها با پرداخت مبلغ اندک و به صورت دائمی</string>
+    <string name="upgrade_button_title">دریافت نسخه ویژه</string>
+
+
+
 </resources>
