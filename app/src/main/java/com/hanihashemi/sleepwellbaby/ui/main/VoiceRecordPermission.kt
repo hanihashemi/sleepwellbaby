@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Environment
 import android.support.v4.content.ContextCompat
 import android.widget.Toast
+import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.ui.record.RecordActivity
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -23,7 +24,7 @@ import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener
 class VoiceRecordPermission(private val context: Activity) {
     fun check(activity: Activity) {
         if (!isExternalStorageWritable()) {
-            Toast.makeText(context, "حافظه خارجی قابل نوشتن نیست!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(R.string.permission_external_storage_is_not_accessible), Toast.LENGTH_LONG).show()
             return
         }
 
@@ -36,8 +37,8 @@ class VoiceRecordPermission(private val context: Activity) {
     private fun requestOnlyAudioPermission(activity: Activity) {
         val dialogPermissionListener = DialogOnDeniedPermissionListener.Builder
                 .withContext(context)
-                .withTitle("دسترسی ضبط صدا")
-                .withMessage("برای ضبط صدای شما ما احتیاج به داشتن درسترسی ضبط صدا داریم.")
+                .withTitle(context.getString(R.string.permission_record_title))
+                .withMessage(context.getString(R.string.permission_record_message))
                 .withButtonText(android.R.string.ok)
                 .build()
 
@@ -58,8 +59,8 @@ class VoiceRecordPermission(private val context: Activity) {
         val dialogMultiplePermissionsListener =
                 DialogOnAnyDeniedMultiplePermissionsListener.Builder
                         .withContext(context)
-                        .withTitle("دسترسی ضبط صدا و حافظه")
-                        .withMessage("برای ضبط صدای شما ما احتیاج به داشتن دسترسی به ضبط صدا و حافظه داریم.")
+                        .withTitle(context.getString(R.string.permission_record_and_storage_title))
+                        .withMessage(context.getString(R.string.permission_record_and_storage_message))
                         .withButtonText(android.R.string.ok)
                         .build()
 
