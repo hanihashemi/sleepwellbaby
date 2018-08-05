@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">بخواب کوچولو</string>
+    <string name="app_name">SleepWellBaby</string>
+
     <string name="record_status">در حال ضبط</string>
+    <string name="close">بستن</string>
+
+    <!--Feedback Screen-->
+    <string name="feedback_description">هانی هاشمی هستم، خوشحالم که از این اپ استفاده می کنید. آدرس ایمیل من jhanihashemi@gmail.com است.</string>
+    <string name="send_feedback_by_email">گزارش مشکل از راه ارسال ایمیل</string>
+    <string name="send_feedback_in_store">ارسال نظر در مایکت</string>
+    <string name="feedback_email_subject">گزارش مشکل</string>
 </resources>

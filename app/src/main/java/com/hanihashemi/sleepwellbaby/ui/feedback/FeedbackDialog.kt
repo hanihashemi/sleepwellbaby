@@ -31,7 +31,11 @@ class FeedbackDialog : DialogFragment() {
     }
 
     fun sendEmail() {
-        IntentHelper().sendMail(activity!!, "incoming+HaniGroup/BabySleep@incoming.gitlab.com", "گزارش مشکل", "")
+        IntentHelper().sendMail(
+                activity!!,
+                "incoming+HaniGroup/BabySleep@incoming.gitlab.com",
+                context!!.getString(R.string.feedback_email_subject)
+                , "")
     }
 
     fun sendReview() {
