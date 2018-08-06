@@ -33,7 +33,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -41,6 +41,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/upgrade_description"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -53,7 +54,7 @@
         android:text="@string/upgrade_feature_1"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_chainStyle="packed" />
 
@@ -65,7 +66,7 @@
         android:text="@string/upgrade_feature_2"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
@@ -78,7 +79,7 @@
         android:layout_marginStart="8dp"
         android:text="@string/upgrade_feature_3"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/upgrade"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +101,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/upgrade"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginBottom="8dp"
@@ -120,10 +121,10 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2"
         app:srcCompat="@drawable/ic_done_green_24dp"
         tools:ignore="ContentDescription" />
@@ -132,10 +133,10 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
         app:layout_constraintTop_toTopOf="@+id/textView3"
         app:srcCompat="@drawable/ic_done_green_24dp"
         tools:ignore="ContentDescription" />
@@ -144,10 +145,10 @@
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView4"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="@+id/textView4"
         app:srcCompat="@drawable/ic_done_green_24dp"
         tools:ignore="ContentDescription" />

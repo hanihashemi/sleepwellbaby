@@ -18,7 +18,7 @@
     <string name="record_status">Recording</string>
 
     <!--Upgrade Screen-->
-    <string name="upgrade_description">For play this song you need the premium version</string>
+    <string name="upgrade_description">For playing this song you need the premium version.</string>
     <string name="upgrade_feature_1">Remove Ads</string>
     <string name="upgrade_feature_2">Open all songs</string>
     <string name="upgrade_feature_3">Record your voice unlimited</string>

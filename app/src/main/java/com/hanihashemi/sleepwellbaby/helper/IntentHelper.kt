@@ -44,6 +44,12 @@ class IntentHelper {
         start(context, intent)
     }
 
+    fun openMarket(context: Activity, id: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=$id")
+        start(context, intent)
+    }
+
     fun openLink(activity: Activity, url: String) {
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
