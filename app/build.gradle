@@ -4,25 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android'
 apply plugin: 'io.fabric'
 
-def keystorePropertiesFile = rootProject.file("local.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
-    signingConfigs {
-        PremiumSign {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-        FreemiumSign {
-            keyAlias keystoreProperties['fkeyAlias']
-            keyPassword keystoreProperties['fkeyPassword']
-            storeFile file(keystoreProperties['fstoreFile'])
-            storePassword keystoreProperties['fstorePassword']
-        }
-    }
     androidExtensions {
         experimental = true
     }
@@ -51,17 +33,13 @@ android {
     productFlavors {
         freemiumMyket {
             applicationIdSuffix ".freemium"
-            signingConfig signingConfigs.FreemiumSign
         }
         premiumMyket {
-            signingConfig signingConfigs.PremiumSign
         }
         freeiumGooglePlay{
             applicationIdSuffix ".freemium"
-            signingConfig signingConfigs.FreemiumSign
         }
         premiumGooglePlay{
-            signingConfig signingConfigs.PremiumSign
         }
     }
     testOptions {
