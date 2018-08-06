@@ -51,4 +51,12 @@
     <string name="permission_record_and_storage_title">دسترسی ضبط صدا و حافظه</string>
     <string name="permission_record_and_storage_message">برای ضبط صدای شما ما احتیاج به داشتن دسترسی به ضبط صدا و حافظه داریم.</string>
 
+    <!--Sleep Timer Schedule-->
+    <string name="timer_schedule_never">هرگز</string>
+    <string name="timer_schedule_after_5_min">بعد از ۵ دقیقه</string>
+    <string name="timer_schedule_after_15_min">بعد از ۱۵ دقیقه</string>
+    <string name="timer_schedule_after_30_min">بعد از ۳۰ دقیقه</string>
+    <string name="timer_schedule_after_1_hour">بعد از یک ساعت</string>
+    <string name="sleep_time_schedule">زمانبندی توقف أهنگ</string>
+
 </resources>

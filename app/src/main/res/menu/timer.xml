@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/never"
-        android:title="هرگز" />
+        android:title="@string/timer_schedule_never" />
 
     <item
         android:id="@+id/fiveMinutes"
-        android:title="بعد از ۵ دقیقه" />
+        android:title="@string/timer_schedule_after_5_min" />
 
     <item
         android:id="@+id/fifteenMinutes"
-        android:title="بعد از ۱۵ دقیقه" />
+        android:title="@string/timer_schedule_after_15_min" />
 
     <item
         android:id="@+id/thirtyMinutes"
-        android:title="بعد از ۳۰ دقیقه" />
+        android:title="@string/timer_schedule_after_30_min" />
 
     <item
         android:id="@+id/oneHour"
-        android:title="بعد از یک ساعت" />
+        android:title="@string/timer_schedule_after_1_hour" />
 
 </menu>

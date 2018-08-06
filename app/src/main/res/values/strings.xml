@@ -50,4 +50,12 @@
     <string name="permission_record_and_storage_title">Record audio and storage permission</string>
     <string name="permission_record_and_storage_message">For recording your sound we need these permission</string>
 
+    <!--Sleep Timer Schedule-->
+    <string name="timer_schedule_never">Never</string>
+    <string name="timer_schedule_after_5_min">After 5 minutes</string>
+    <string name="timer_schedule_after_15_min">After 15 minutes</string>
+    <string name="timer_schedule_after_30_min">After 30 minutes</string>
+    <string name="timer_schedule_after_1_hour">After one hour</string>
+    <string name="sleep_time_schedule">Sleep Timer Schedule</string>
+
 </resources>

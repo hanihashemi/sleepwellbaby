@@ -7,7 +7,7 @@
         <item name="android:fontFamily">@font/iransans</item>
     </style>
 
-    <style name="BottomSheet">
-        <item name="android:gravity">right</item>
+    <style name="BottomSheetRight">
+        <item name="android:gravity">start</item>
     </style>
 </resources>
