@@ -43,13 +43,13 @@
     <string name="main_track_your_sounds">صدای شما</string>
     <string name="main_track_record">ضبط کن</string>
     <string name="main_remove_my_sound_question">می خواهید این صدا را حذف کنید؟</string>
-    <string name="permission_external_storage_is_not_accessible">حافظه خارجی قابل نوشتن نیست!</string>
 
     <!--Permission Dialog-->
     <string name="permission_record_title">دسترسی ضبط صدا</string>
     <string name="permission_record_message">برای ضبط صدای شما ما احتیاج به داشتن درسترسی ضبط صدا داریم.</string>
     <string name="permission_record_and_storage_title">دسترسی ضبط صدا و حافظه</string>
     <string name="permission_record_and_storage_message">برای ضبط صدای شما ما احتیاج به داشتن دسترسی به ضبط صدا و حافظه داریم.</string>
+    <string name="permission_external_storage_is_not_accessible">حافظه خارجی قابل نوشتن نیست!</string>
 
     <!--Sleep Timer Schedule-->
     <string name="timer_schedule_never">هرگز</string>

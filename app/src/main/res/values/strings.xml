@@ -49,6 +49,7 @@
     <string name="permission_record_message">For recording your sound we need this permission</string>
     <string name="permission_record_and_storage_title">Record audio and storage permission</string>
     <string name="permission_record_and_storage_message">For recording your sound we need these permission</string>
+    <string name="permission_external_storage_is_not_accessible">External storage isn\'t writable!</string>
 
     <!--Sleep Timer Schedule-->
     <string name="timer_schedule_never">Never</string>
