@@ -8,9 +8,9 @@
 <img src="screenshots/500dar500.png" align="left" width="200" hspace="10" vspace="10">
 The best collection of lullabies and white noises for babies (English, Persian), it also is open source under GPLv3 license. It doesn't miss any of main features.<br/>
 
-</br></br>
-</br></br>
-</br></br>
+<br/><br/>
+<br/><br/>
+<br/><br/>
 
 ## Screenshots
 <div style="display:flex;" align="center" >
@@ -21,7 +21,7 @@ The best collection of lullabies and white noises for babies (English, Persian),
 <img style="margin-left:10px;" src="screenshots/5.jpg" width="19%" >
 </div>
 
-</br></br>
+<br/><br/>
 
 <div align="center">
 
