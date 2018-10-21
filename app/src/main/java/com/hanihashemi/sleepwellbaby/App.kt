@@ -5,6 +5,7 @@ import android.content.Context
 import android.support.v7.app.AppCompatDelegate
 import android.util.Log
 import com.crashlytics.android.Crashlytics
+import com.google.android.gms.ads.MobileAds
 import com.hanihashemi.sleepwellbaby.notification.NotificationManager
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -21,6 +22,7 @@ class App : Application() {
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         NotificationManager(this as Context).createMainNotificationChannel()
+        MobileAds.initialize(this, "ca-app-pub-5661759399571829~3402103591");
 
         if (BuildConfig.DEBUG) {
             Timber.plant(DebugTree())

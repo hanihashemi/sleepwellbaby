@@ -54,6 +54,9 @@
             android:parentActivityName=".ui.main.MainActivity" />
 
         <service android:name=".service.MediaPlayerService" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5661759399571829~3402103591"/>
     </application>
 
 </manifest>

@@ -15,6 +15,7 @@ import android.view.View.inflate
 import android.widget.BaseAdapter
 import android.widget.SeekBar
 import android.widget.TextView
+import com.google.android.gms.ads.AdRequest
 import com.hanihashemi.sleepwellbaby.BuildConfig
 import com.hanihashemi.sleepwellbaby.R
 import com.hanihashemi.sleepwellbaby.base.BaseFragment
@@ -51,6 +52,9 @@ class MainFragment : BaseFragment() {
         syncRequest()
         addDefaultMusics()
         Handler().postDelayed({ scrollView.scrollTo(0, 0) }, 100)
+
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun addDefaultMusics() {
